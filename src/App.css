@@ -106,7 +106,7 @@ header {
 .block-line {
   margin-top: 50px;
   margin-bottom: 20px;
-  background: #dddfe6;
+  background: black;
   height: 11px;
   position: relative;
   text-align: center;
@@ -116,7 +116,6 @@ header {
 }
 
 .block-line-text {
-  background: #fff;
   font-weight: 700;
   font-size: 24px;
   color: #29324e;

@@ -13,7 +13,7 @@ export const Profile = () => {
   }
   return (
     <>
-      <Card className="container mx-auto">
+      <Card className="container mx-auto m-5">
         <div className="mx-auto flex flex-row items-center justify-between w-full p-5">
           <div className="w-1/5"></div>
           <div className="w-1/5 flex flex-col items-center">

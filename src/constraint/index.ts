@@ -1,4 +1,4 @@
-export const BASE_URL = "http://165.22.254.54:6204";
+export const BASE_URL = "https://localhost:6205";
 
 
 export const MESSAGES = {

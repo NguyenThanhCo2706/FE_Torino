@@ -3,7 +3,7 @@ import './App.css';
 import PrimarySearchAppBar from './Components/Header';
 import RecipeReviewCard from './Commons/ProductCart';
 import { Box, CircularProgress, Container, Grid, Pagination } from '@mui/material';
-import { SwiperCustom } from './Components/SwiperCustom';
+import { SwiperCustom } from './Commons/SwiperCustom';
 import { Footer } from './Components/footer';
 import Login from './Components/login';
 import { Route, Routes } from 'react-router-dom';
@@ -17,6 +17,7 @@ import { Profile } from './Components/Profile';
 import { Product } from './Components/Product';
 import { Detail } from './Components/Product/detail';
 import { Category } from './Components/Product/category';
+import { Payment } from './Components/Cart/payment';
 
 const slides = [
   "https://i.ibb.co/ncrXc2V/1.png",
@@ -49,6 +50,7 @@ function App() {
         <Route path="/profile" element={<Home><Profile /></Home>} />
         <Route path="/product/:id" element={<Home><Detail /></Home>} />
         <Route path="/product/category/:id" element={<Home><Category /></Home>} />
+        <Route path="/payment" element={<Payment />} />
 
         <Route path="*" element={<NotFound />} />
 

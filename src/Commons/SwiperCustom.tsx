@@ -19,7 +19,7 @@ export const SwiperCustom = () => {
       onSlideChange={() => console.log('slide change')}
       style={{
         width: "100%",
-        height: "700px",
+        height: "420px",
       }}
     >
       <SwiperSlide>
@@ -29,13 +29,25 @@ export const SwiperCustom = () => {
             height: "700px",
             objectFit: "cover"
           }}
-          src="https://cdn.britannica.com/16/234216-050-C66F8665/beagle-hound-dog.jpg" alt="" />
+          src="https://www.allrecipes.com/thmb/gDJ1S6ETLfWGyyWw_4A_IGhvDYE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/9295_red-velvet-cake_ddmfs_4x3_1129-a8ab17b825e3464a9a53ceeda54ff461.jpg" alt="" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="https://www.thesprucepets.com/thmb/hxWjs7evF2hP1Fb1c1HAvRi_Rw0=/2765x0/filters:no_upscale():strip_icc()/chinese-dog-breeds-4797219-hero-2a1e9c5ed2c54d00aef75b05c5db399c.jpg" alt="" />
+        <img
+          style={{
+            width: "100%",
+            height: "700px",
+            objectFit: "cover"
+          }}
+          src="https://static.onecms.io/wp-content/uploads/sites/43/2022/08/26/60564-StrawberryCakeFromScratch-ddfms-4X3-0291-1.jpg" alt="" />
       </SwiperSlide>
       <SwiperSlide>
-        <img src="https://media.cnn.com/api/v1/images/stellar/prod/201030094143-stock-rhodesian-ridgeback.jpg?q=w_2187,h_1458,x_0,y_0,c_fill" alt="" />
+        <img
+          style={{
+            width: "100%",
+            height: "700px",
+            objectFit: "cover"
+          }}
+          src="https://cf-images.us-east-1.prod.boltdns.net/v1/static/474428695/a4c0c78e-2932-40fb-a787-f8522b53edc8/f7ee72ae-fc20-4ba5-aea6-a66b697599f1/1280x720/match/image.jpg" alt="" />
       </SwiperSlide>
     </Swiper>
   );

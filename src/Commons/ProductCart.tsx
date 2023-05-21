@@ -1,5 +1,4 @@
 import * as React from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
@@ -39,7 +38,7 @@ export default function BasicCard(props: any) {
     localStorage.setItem("order", JSON.stringify(order));
   }
   return (
-    <Card variant="outlined" sx={{ width: 400, margin: '10px' }}>
+    <Card variant="outlined" sx={{ width: "auto", margin: '10px' }}>
       <div className="flex flex-row items-center justify-between mb-2">
         <Typography
           variant="h6"
@@ -75,17 +74,14 @@ export default function BasicCard(props: any) {
         {
           product.images.length === 0 ?
             <>
-              <div style={{
-                width: "150px",
-                height: "300px",
-              }}></div>
+              <div className='h-[300px]' />
             </>
             : product.images.map((imageUrl: string, index: number) => {
               return (
                 <React.Fragment key={index}>
                   <SwiperSlide>
                     <img src={imageUrl} alt="" style={{
-                      width: "150px",
+                      width: "300px",
                       height: "300px",
                       margin: "auto",
                       objectFit: "cover"

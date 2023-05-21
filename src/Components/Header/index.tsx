@@ -18,54 +18,38 @@ export default function PrimarySearchAppBar() {
   const navigate = useNavigate()
 
   return (
-    <div className="w-full bg-green-100 border-b-2">
+    <div className="w-full border-b-2">
       <div className="container h-[80px] flex items-center justify-between mx-auto ">
         <div
-          className='flex items-center hover:cursor-pointer'
+          className='flex items-center hover:cursor-pointer w-1/4'
           onClick={() => navigate("/")}
         >
           <div className='flex flex-row items-center'>
             <img
-              style={
-                {
-                  width: "100px",
-                  height: "80px"
-                }
-              }
+              className='w-[100px] h-[80px]'
               src="https://torinobucket.s3.ap-southeast-1.amazonaws.com/Products/logo.png?fbclid=IwAR0TWqJzmuWcRXlbWJSH7geInKdktMULzDRYKa2xp_tnOALa_1y7fIpTRgc"
               alt=""
             />
-
           </div>
         </div>
-        <div>
-          <TextField
-            // size="small"
-            autoComplete="off"
-            label={""}
-            fullWidth
-            sx={{
-              width: "500px",
-              "& label.Mui-focused": {
-                color: "rgba(0, 0, 0, 0.23)",
-                borderWidth: "1px"
-              },
-              "& .MuiOutlinedInput-root": {
-                "&.Mui-focused fieldset": {
-                  borderColor: "rgba(0, 0, 0, 0.23)",
-                  borderWidth: "1px"
-                }
-              },
-            }}
-            required
-            InputProps={{
-              startAdornment: <SearchIcon />,
-
-            }}
-            placeholder='Search...'
-          />
+        <div className='flex flex-row justify-evenly w-2/4 font-bold items-center'>
+          <div
+            className='hover:cursor-pointer hover:border-b-4'
+          >MENU</div>
+          <div
+            className='hover:cursor-pointer hover:border-b-4'
+          >OUR STORY</div>
+          <div
+            className='hover:cursor-pointer hover:border-b-4'
+          >NEWS & EVENTS</div>
+          <div
+            className='hover:cursor-pointer hover:border-b-4'
+          >FRANCHISE</div>
+          <div
+            className='hover:cursor-pointer hover:border-b-4'
+          >CONTACT US</div>
         </div>
-        <div>
+        <div className='flex justify-end w-1/4'>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
