@@ -1,6 +1,6 @@
 import { Container, Grid, Pagination } from "@mui/material"
 import PrimarySearchAppBar from "../Header"
-import { SwiperCustom } from "../SwiperCustom"
+import { SwiperCustom } from "../../Commons/SwiperCustom"
 import { Category } from "../category"
 import React, { useEffect, useState } from "react"
 import { Footer } from "../footer"
@@ -24,19 +24,18 @@ export const Home = (props: any) => {
     //   .catch((err) => {
     //     // alert(err);
     //   })
-    categoryApi.getMany()
-      .then((data) => {
-        console.log(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        // alert(err);
-      })
+    // categoryApi.getMany()
+    //   .then((data) => {
+    //     console.log(data);
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     // alert(err);
+    //   })
   }, [])
   return (
     <>
       <PrimarySearchAppBar />
-      <Navbar />
       {props.children}
 
       <Footer />

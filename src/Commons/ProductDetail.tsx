@@ -1,30 +1,48 @@
-import PrimarySearchAppBar from "../Components/Header"
-import Navbar from "../Components/Navbar/Navbar"
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import productApi from "../api/productApi";
 import { thousandSeparator } from "../utils";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export const ProductDetail = () => {
   const params: any = useParams();
   const [product, setProduct] = useState<any>({});
-  const [quantity, setQuantity] = useState(0);
+  console.log(product);
+
+  const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     productApi.getOne(+params.id).then((data) => {
       setProduct(data);
     })
   }, []);
+
+  const handleAddCart = () => {
+    const order = JSON.parse(localStorage.getItem("order") || "");
+    const index = order.orderDetails.findIndex((detail: any) => detail.productId === product.id);
+    if (index !== -1) {
+      order.orderDetails[index].quantity += 1;
+    }
+    else {
+      order.orderDetails.push({
+        productId: product.id,
+        productName: product.name,
+        categoryName: product.categoryName,
+        productImage: product.pictures[0].src,
+        quantity: 1,
+        price: product.price,
+      })
+    }
+    localStorage.setItem("order", JSON.stringify(order));
+  }
   return (
     <>
-      <section className="text-gray-700 body-font overflow-hidden bg-white border-b-2">
-        <div className="container mx-auto">
+      <div className="text-gray-700 body-font overflow-hidden bg-white border-b-2">
+        <div className="container mx-auto m-5">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <Swiper
               modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -39,10 +57,10 @@ export const ProductDetail = () => {
                 product.pictures?.map((picture: { id: number, src: string }, index: number) => {
                   return (
                     <SwiperSlide key={index}>
-                      <img src={picture.src} alt="" style={{
-                        height: "700px",
-                        margin: "auto"
-                      }} />
+                      <img src={picture.src}
+                        alt=""
+                        className="w-full h-[700px] m-auto" />
+
                     </SwiperSlide>
                   )
                 })
@@ -129,7 +147,10 @@ export const ProductDetail = () => {
                   <div className="text-black text-[40px] hover:cursor-pointer" onClick={() => setQuantity((prev) => prev + 1)}>
                     +
                   </div>
-                  <div className="flex flex-row min-w-[180px] px-4 py-3 bg-blue-100 rounded-[10px] cursor-pointer hover:bg-blue-400" >
+                  <div
+                    className="flex flex-row min-w-[180px] px-4 py-3 bg-blue-100 rounded-[10px] cursor-pointer hover:bg-blue-400"
+                    onClick={handleAddCart}
+                  >
                     <AddShoppingCartIcon />
                     <p className="text-[16px] m-auto text-center">
                       ADD TO CART
@@ -146,7 +167,7 @@ export const ProductDetail = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </>
   )
 }
