@@ -15,7 +15,7 @@ export const Category = () => {
   console.log(params);
   useEffect(() => {
     setLoading(true);
-    productApi.getMany(+params.id).then((data: any) => {
+    productApi.getMany(+params.id, 1, 12).then((data: any) => {
       data && setProducts(data.list);
       setLoading(false);
     })

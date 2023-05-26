@@ -1,23 +1,31 @@
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { Navigation, FreeMode, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import productApi from "../api/productApi";
 import { thousandSeparator } from "../utils";
+import { ToastContainer, toast } from 'react-toastify';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'react-toastify/dist/ReactToastify.css';
+import { CircularProgressCustom } from './CircularProgressCustom';
 
 export const ProductDetail = () => {
   const params: any = useParams();
   const [product, setProduct] = useState<any>({});
-  console.log(product);
+  const [loading, setLoading] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
+    window.scrollTo(0, 0);
+    setLoading(true);
     productApi.getOne(+params.id).then((data) => {
       setProduct(data);
+      setLoading(false);
     })
   }, []);
 
@@ -38,38 +46,69 @@ export const ProductDetail = () => {
       })
     }
     localStorage.setItem("order", JSON.stringify(order));
+    toast.success("Add to cart success!");
+
   }
+
+  const handleChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuantity(+e.target.value)
+  }
+
   return (
     <>
       <div className="text-gray-700 body-font overflow-hidden bg-white border-b-2">
         <div className="container mx-auto m-5">
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <Swiper
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={50}
-              slidesPerView={1}
-              navigation
-              pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
-              className="lg:w-1/2 object-cover object-center rounded border border-gray-200"
-            >
-              {
-                product.pictures?.map((picture: { id: number, src: string }, index: number) => {
-                  return (
-                    <SwiperSlide key={index}>
-                      <img src={picture.src}
-                        alt=""
-                        className="w-full h-[700px] m-auto" />
-
-                    </SwiperSlide>
-                  )
-                })
-              }
-            </Swiper>
+            <div className="lg:w-1/2">
+              <Swiper
+                loop={true}
+                spaceBetween={10}
+                navigation={true}
+                thumbs={{ swiper: thumbsSwiper }}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className='rounded border'
+              >
+                {
+                  product.pictures?.map((picture: { id: number, src: string }, index: number) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <img src={picture.src}
+                          alt=""
+                          className="w-full h-[600px] m-auto object-cover"
+                        />
+                      </SwiperSlide>
+                    )
+                  })
+                }
+              </Swiper>
+              <Swiper
+                onSwiper={setThumbsSwiper}
+                loop={true}
+                spaceBetween={10}
+                slidesPerView={5}
+                freeMode={true}
+                watchSlidesProgress={true}
+                modules={[FreeMode, Navigation, Thumbs]}
+                className="mt-[20px]"
+              >
+                {
+                  product.pictures?.map((picture: { id: number, src: string }, index: number) => {
+                    return (
+                      <SwiperSlide key={index}>
+                        <img src={picture.src}
+                          alt=""
+                          className="w-[100px] h-[100px] object-cover m-auto hover:cursor-pointer"
+                        />
+                      </SwiperSlide>
+                    )
+                  })
+                }
+              </Swiper>
+            </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <div className="flex float-row items-center">
                 <h1 className="text-gray-900 text-3xl title-font font-medium me-3">{product.name}</h1>
-                <div className="bg-slate-400 p-1 rounded-[20px]">{product.categoryName}</div>
+                <div className="bg-slate-400 px-3 py-1 rounded-[20px]">{product.categoryName}</div>
               </div>
               <div className="flex mb-2">
                 <span className="flex items-center">
@@ -113,13 +152,13 @@ export const ProductDetail = () => {
                   product.tags?.map((tag: string, index: number) => {
                     return (
                       <>
-                        <div key={index} className="bg-slate-400 p-1 rounded-[20px] me-3">{tag}</div>
+                        <div key={index} className="bg-slate-400 px-3 rounded-[20px] me-3">{tag}</div>
                       </>
                     )
                   })
                 }
-                <div className="bg-slate-400 p-1 rounded-[20px] me-3">hot trend</div>
-                <div className="bg-slate-400 p-1 rounded-[20px]">discount</div>
+                <div className="bg-slate-400 px-3 py-1 rounded-[20px] me-3">hot trend</div>
+                <div className="bg-slate-400 px-3 py-1 rounded-[20px]">discount</div>
               </div>
               <p className="leading-relaxed font-bold">
                 Nguyên liệu:
@@ -139,16 +178,16 @@ export const ProductDetail = () => {
                     -
                   </div>
                   <input
-                    className="bg-slate-600 px-8 py-2 text-white text-[20px] w-[80px] text-center rounded-[3px] "
+                    className="bg-slate-600 py-1 text-white text-[20px] w-[80px] text-center rounded-[3px] "
                     type="number"
                     value={quantity}
-                    disabled
+                    onChange={(e) => handleChangeQuantity(e)}
                   />
                   <div className="text-black text-[40px] hover:cursor-pointer" onClick={() => setQuantity((prev) => prev + 1)}>
                     +
                   </div>
                   <div
-                    className="flex flex-row min-w-[180px] px-4 py-3 bg-blue-100 rounded-[10px] cursor-pointer hover:bg-blue-400"
+                    className="flex flex-row min-w-[180px] px-4 py-2 bg-blue-100 rounded-[10px] cursor-pointer hover:bg-blue-400"
                     onClick={handleAddCart}
                   >
                     <AddShoppingCartIcon />
@@ -168,6 +207,10 @@ export const ProductDetail = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
+      {
+        loading && <CircularProgressCustom />
+      }
     </>
   )
 }

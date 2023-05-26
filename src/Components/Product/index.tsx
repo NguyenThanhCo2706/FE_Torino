@@ -5,65 +5,53 @@ import { useEffect, useState } from "react";
 import productApi from "../../api/productApi";
 import React from "react";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 
 
 export const Product = () => {
   const [products, setProducts] = useState([]);
+  const [totalPage, setTotalPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    window.scrollTo(0, 0);
     setLoading(true);
-    productApi.getMany(1).then((data: any) => {
+    productApi.getMany(48, currentPage, 12).then((data: any) => {
       data && setProducts(data.list);
+      setTotalPage(data.paging.totalPages);
       setLoading(false);
     })
-  }, [])
+  }, [currentPage])
+  console.log(currentPage);
+
+  const handleChangePage = (event: any, value: number) => {
+    console.log(currentPage, value);
+
+    setCurrentPage(+value);
+  }
   return (
     <>
       <SwiperCustom />
       <Navbar />
-
-      {/* <div className="container mx-auto">
-        
-        <div className="bg-lime-50 mt-2">
-          <Grid
-            container
-            // spacing={3}
-            sx={{
-              padding: "20px",
-            }}
-          >
-            {
-              products.map((product, index: number) => {
-                return (
-                  <React.Fragment key={index}>
-                    <Grid item xs className="text-center">
-                      <ProductCart product={product} />
-                    </Grid>
-                  </React.Fragment>
-                )
-              })
-            }
-          </Grid>
-        </div>
-      </div> */}
       <div className="bg-gray-50 pt-1">
         <div className="container mx-auto">
           <div className="text-[20px]">
-            <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "20px", paddingTop: "20px" }}>
-              <HomeIcon />
-              <Link color="inherit" to="/">
+            <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "18px", paddingTop: "20px" }}>
+              <div className=""> <HomeIcon /></div>
+              <Link to="/" className="hover:underline">
                 Home
               </Link>
               <Link
-                color="inherit"
+                // color="inherit"
                 to="/material-ui/getting-started/installation/"
+                className="hover:underline"
               >
                 Product
               </Link>
-              <Typography color="text.primary" sx={{ fontSize: "20px" }}>Breadcrumbs</Typography>
+              <Typography color="text.primary" sx={{ fontSize: "18px" }}>Breadcrumbs</Typography>
             </Breadcrumbs>
           </div>
           <div className="block-line">
@@ -83,7 +71,9 @@ export const Product = () => {
             }
           </div>
           <div className="flex justify-center p-5">
-            <Pagination count={10} variant="outlined" shape="rounded" />
+            <Pagination
+              onChange={handleChangePage}
+              count={totalPage} variant="outlined" shape="rounded" />
           </div>
         </div>
       </div>

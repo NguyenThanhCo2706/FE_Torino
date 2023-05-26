@@ -3,8 +3,8 @@ import axiosClient from "./axiosClient"
 const alias = "products";
 
 const productApi = {
-  async getMany(categoryId: number) {
-    const url = `/public/products/products?CategoryId=${categoryId}`;
+  async getMany(categoryId: number, CurrentPage: number, PageSize: number) {
+    const url = `/public/products/products?CategoryId=${categoryId}&CurrentPage=${CurrentPage}&PageSize=${PageSize}`;
     const result = await axiosClient.get(url);
     return result;
   },
