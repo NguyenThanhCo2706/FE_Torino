@@ -1,13 +1,9 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { TextField } from "@mui/material"
 import { useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
@@ -35,7 +31,15 @@ export default function PrimarySearchAppBar() {
         <div className='flex flex-row justify-evenly w-2/4 font-bold items-center'>
           <div
             className='hover:cursor-pointer hover:border-b-4'
-          >MENU</div>
+            onClick={() => navigate("/product")}
+          >
+            <button className="peer">PRODUCT</button>
+            <div className="absolute hidden peer-hover:flex hover:flex w-[200px] flex-col bg-white drop-shadow-lg z-10">
+              <a className="px-5 py-3 hover:bg-gray-200" href="#">About Us</a>
+              <a className="px-5 py-3 hover:bg-gray-200" href="#">Contact Us</a>
+              <a className="px-5 py-3 hover:bg-gray-200" href="#">Privacy Policy</a>
+            </div>
+          </div>
           <div
             className='hover:cursor-pointer hover:border-b-4'
           >OUR STORY</div>
@@ -47,6 +51,7 @@ export default function PrimarySearchAppBar() {
           >FRANCHISE</div>
           <div
             className='hover:cursor-pointer hover:border-b-4'
+            onClick={() => navigate("/contact")}
           >CONTACT US</div>
         </div>
         <div className='flex justify-end w-1/4'>

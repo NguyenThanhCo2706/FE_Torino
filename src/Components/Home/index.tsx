@@ -1,12 +1,11 @@
 import { Container, Grid, Pagination } from "@mui/material"
 import PrimarySearchAppBar from "../Header"
 import { SwiperCustom } from "../../Commons/SwiperCustom"
-import { Category } from "../category"
 import React, { useEffect, useState } from "react"
 import { Footer } from "../footer"
 import productApi from "../../api/productApi"
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom"
-import Navbar from "../Navbar/Navbar"
+import Navbar from "../Navbar"
 import categoryApi from "../../api/categoryApi"
 import ProductCart from "../../Commons/ProductCart"
 

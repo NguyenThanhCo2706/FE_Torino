@@ -1,21 +1,13 @@
-import * as React from 'react';
-import Box from '@mui/joy/Box';
-import Button from '@mui/joy/Button';
-import Card from '@mui/joy/Card';
-import IconButton from '@mui/joy/IconButton';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import { Typography } from '@mui/material';
+import AdsClickIcon from '@mui/icons-material/AdsClick';
+import { Button, Card } from '@mui/material';
 import { thousandSeparator } from '../utils';
 import { useNavigate } from 'react-router-dom';
-export default function BasicCard(props: any) {
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
+export default function ProductCard(props: any) {
   const { product } = props;
   const navigate = useNavigate();
 
@@ -36,80 +28,48 @@ export default function BasicCard(props: any) {
       })
     }
     localStorage.setItem("order", JSON.stringify(order));
+    toast.success("Add to cart success!");
   }
   return (
-    <Card variant="outlined" sx={{ width: "auto", margin: '10px' }}>
-      <div className="flex flex-row items-center justify-between mb-2">
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          sx={{ fontWeight: 'bold' }}
-        >
-          {product.name}
-        </Typography>
-        <IconButton
-          aria-label="bookmark Bahamas Islands"
-          variant="plain"
-          color="neutral"
-          size="sm"
-          onClick={() => { navigate(`product/${product.id}`); }}
-        >
-          <MoreVertIcon />
-        </IconButton>
-      </div>
-      <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={50}
-        slidesPerView={1}
-        navigation
-        pagination={{ clickable: true }}
-        scrollbar={{ draggable: true }}
-        style={{
-          minHeight: "150px",
-          maxHeight: "300px",
-          margin: 2
-        }}
-      >
-        {
-          product.images.length === 0 ?
-            <>
-              <div className='h-[300px]' />
-            </>
-            : product.images.map((imageUrl: string, index: number) => {
-              return (
-                <React.Fragment key={index}>
-                  <SwiperSlide>
-                    <img src={imageUrl} alt="" style={{
-                      width: "300px",
-                      height: "300px",
-                      margin: "auto",
-                      objectFit: "cover"
-                    }} />
-                  </SwiperSlide>
-                </React.Fragment>
-              )
-            })
-        }
-      </Swiper>
-      <Box sx={{ display: 'flex', padding: "15px", }}>
-        <div>
-          <Typography>Total price:</Typography>
-          <Typography fontSize="lg" fontWeight="lg">
-            {thousandSeparator(product.price)} VND
-          </Typography>
+    <>
+      <Card variant="outlined" sx={{ width: "auto", margin: '10px' }}>
+        <div className="p-[30px]">
+          <div className="relative w-full h-[270px] group hover:cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
+            <img className='rounded-[100%] mx-auto w-[250px] h-[250px] object-cover absolute top-0 left-0 bottom-0 right-0 group-hover:opacity-0 group-hover:invisible transition-all duration-1000' src={product?.images[0]} alt="cac" />
+            <img className='rounded-[100%] mx-auto w-[250px] h-[250px] object-cover absolute top-0 left-0 bottom-0 right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-1000' src={product?.images[1]} alt="cac1" />
+          </div>
+          <div>
+            <h1 className='text-center font-bold text-[20px]'>{product.categoryName}</h1>
+            <div className='flex flex-row items-center justify-evenly my-2'>
+              <h1
+                onClick={() => navigate(`/product/${product.id}`)}
+                className='text-[#fdcc45] font-bold hover:cursor-pointer truncate hover:underline'>{product.name}</h1>
+              <Button
+                color="primary"
+                aria-label="Explore Bahamas Islands"
+                sx={{ ml: 'auto', fontWeight: 600 }}
+                onClick={handleAddCart}
+              >
+                <AddShoppingCartIcon /> Add
+              </Button>
+            </div>
+            <div className='h-[100px] text-center'>
+              {product.description || <>Chưa có mô tả</>}
+            </div>
+          </div>
         </div>
-        <Button
-          variant="solid"
-          size="sm"
-          color="primary"
-          aria-label="Explore Bahamas Islands"
-          sx={{ ml: 'auto', fontWeight: 600 }}
-          onClick={handleAddCart}
-        >
-          <AddShoppingCartIcon /> Add
-        </Button>
-      </Box>
-    </Card>
+        <div className='flex flex-row items-center justify-evenly bg-slate-700 p-[20px]'>
+          <p className='text-[20px] text-[#ebe83b] font-bold underline'>
+            {thousandSeparator(product.price)} VND
+          </p>
+          <button
+            onClick={() => navigate(`/product/${product.id}`)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full flex items-center justify-center">
+            <span className='mr-[10px]'>View Detail</span> <AdsClickIcon />
+          </button>
+        </div>
+      </Card >
+      <ToastContainer />
+    </>
   );
 }

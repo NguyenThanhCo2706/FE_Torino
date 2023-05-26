@@ -3,34 +3,45 @@ import { Link } from "react-router-dom"
 import { thousandSeparator } from "../../utils"
 import { useEffect, useState } from "react"
 import commonApi from "../../api/commonApi"
+import { Order } from "../../types"
+import { initOrder } from "../../utils/common"
 
 
 export const Cart = () => {
-  const [data, setData] = useState<any>(localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order") || "") : null);
-
+  const [data, setData] = useState<Order | null>(null);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    setTotalPrice(data.orderDetails.reduce((prev: number, cur: any) => prev + cur.quantity * cur.price, 0));
+    try {
+      setData(localStorage.getItem("order") ? JSON.parse(localStorage.getItem("order") || "") : null);
+    }
+    catch (err) {
+      alert(err);
+      initOrder();
+      localStorage.removeItem("order");
+    };
+
+  }, []);
+
+  useEffect(() => {
+    data && setTotalPrice(data.orderDetails.reduce((prev: number, cur: any) => prev + cur.quantity * cur.price, 0));
   }, [data]);
   const handleChangeQuantity = (productId: number, value: number) => {
-    const newData = {
+    const newData = data && {
       ...data,
-      orderDetails: [
-        ...data.orderDetails.map((detail: any) => {
-          if (detail.productId === productId) {
-            return { ...detail, quantity: detail.quantity !== 0 ? detail.quantity + value : 0 };
-          }
-          return detail;
-        })
-      ]
+      orderDetails: data.orderDetails.map((detail: any) => {
+        if (detail.productId === productId) {
+          return { ...detail, quantity: detail.quantity !== 0 ? detail.quantity + value : 0 };
+        }
+        return detail;
+      })
     }
     setData(newData)
     localStorage.setItem("order", JSON.stringify(newData));
   }
 
   const handleRemoveItem = (productId: number) => {
-    const newData = {
+    const newData = data && {
       ...data,
       orderDetails: data.orderDetails.filter((item: any) => item.productId !== productId)
     }
@@ -52,6 +63,7 @@ export const Cart = () => {
     console.log(url);
 
   }
+  console.log(data);
 
   return (
     <>
