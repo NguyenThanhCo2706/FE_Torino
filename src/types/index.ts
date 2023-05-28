@@ -1,3 +1,8 @@
+export interface OrderDetail {
+  productId: number,
+  price: number,
+  quantity: number
+}
 export interface Order {
   dateOfReceive: Date,
   customerId?: number,
@@ -5,11 +10,7 @@ export interface Order {
   totalPrice: number,
   note: string,
   isPaid: number,
-  orderDetails: Array<{
-    productId: number,
-    price: number,
-    quantity: number
-  }>
+  orderDetails: OrderDetail[]
 }
 
 export interface InfoUser {
@@ -35,4 +36,16 @@ export interface ChangePassword {
   oldPassword: string,
   password: string,
   confirmPassword: string,
+}
+
+export interface AddressOption {
+  id: string,
+  name: string,
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  imageUrl: string;
+  childCategories: Category[]
 }

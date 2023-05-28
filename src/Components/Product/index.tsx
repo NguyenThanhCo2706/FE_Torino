@@ -19,7 +19,7 @@ export const Product = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
-    productApi.getMany(48, currentPage, 12).then((data: any) => {
+    productApi.getMany(0, currentPage, 12).then((data: any) => {
       data && setProducts(data.list);
       setTotalPage(data.paging.totalPages);
       setLoading(false);
@@ -45,13 +45,11 @@ export const Product = () => {
                 Home
               </Link>
               <Link
-                // color="inherit"
-                to="/material-ui/getting-started/installation/"
+                to="/product"
                 className="hover:underline"
               >
                 Product
               </Link>
-              <Typography color="text.primary" sx={{ fontSize: "18px" }}>Breadcrumbs</Typography>
             </Breadcrumbs>
           </div>
           <div className="block-line">

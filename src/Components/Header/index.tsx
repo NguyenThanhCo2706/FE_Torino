@@ -4,12 +4,12 @@ import Badge from '@mui/material/Badge';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import { Category } from '../../types';
 
-export default function PrimarySearchAppBar() {
-  const menuId = 'primary-search-account-menu';
-  const mobileMenuId = 'primary-search-account-menu-mobile';
+const Header = (props: any) => {
+  const { categories } = props;
 
   const navigate = useNavigate()
 
@@ -30,14 +30,24 @@ export default function PrimarySearchAppBar() {
         </div>
         <div className='flex flex-row justify-evenly w-2/4 font-bold items-center'>
           <div
-            className='hover:cursor-pointer hover:border-b-4'
-            onClick={() => navigate("/product")}
+            className='relative first-letter:hover:cursor-pointer hover:border-b-4'
           >
-            <button className="peer">PRODUCT</button>
+            <button
+              onClick={() => navigate("/product")}
+              className="peer">PRODUCT</button>
             <div className="absolute hidden peer-hover:flex hover:flex w-[200px] flex-col bg-white drop-shadow-lg z-10">
-              <a className="px-5 py-3 hover:bg-gray-200" href="#">About Us</a>
+              {
+                categories.map((category: Category, index: number) => (
+                  <Link
+                    key={index}
+                    to={`/product/category/${category.id}`}
+                    className="px-5 py-3 hover:bg-gray-200 hover:cursor-pointer font-semibold"
+                  >{category.name}</Link>
+                ))
+              }
+              {/* <a className="px-5 py-3 hover:bg-gray-200" href="#">About Us</a>
               <a className="px-5 py-3 hover:bg-gray-200" href="#">Contact Us</a>
-              <a className="px-5 py-3 hover:bg-gray-200" href="#">Privacy Policy</a>
+              <a className="px-5 py-3 hover:bg-gray-200" href="#">Privacy Policy</a> */}
             </div>
           </div>
           <div
@@ -79,7 +89,7 @@ export default function PrimarySearchAppBar() {
               size="large"
               edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
+              // aria-controls={menuId}
               aria-haspopup="true"
               color="inherit"
               onClick={() => navigate("/profile")}
@@ -91,7 +101,7 @@ export default function PrimarySearchAppBar() {
             <IconButton
               size="large"
               aria-label="show more"
-              aria-controls={mobileMenuId}
+              // aria-controls={mobileMenuId}
               aria-haspopup="true"
               color="inherit"
             >
@@ -103,3 +113,5 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
+
+export default Header;

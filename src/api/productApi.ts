@@ -4,8 +4,14 @@ const alias = "products";
 
 const productApi = {
   async getMany(categoryId: number, CurrentPage: number, PageSize: number) {
-    const url = `/public/products/products?CategoryId=${categoryId}&CurrentPage=${CurrentPage}&PageSize=${PageSize}`;
-    const result = await axiosClient.get(url);
+    const url = `/public/products/products`;
+    const result = await axiosClient.get(url, {
+      params: {
+        categoryId: categoryId !== 0 ? categoryId : undefined,
+        CurrentPage: CurrentPage,
+        PageSize: PageSize
+      }
+    });
     return result;
   },
 

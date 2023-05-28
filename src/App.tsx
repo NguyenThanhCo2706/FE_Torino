@@ -15,6 +15,7 @@ import { Payment } from './Components/Cart/payment';
 import { HomePage } from './Components/Home/HomePage';
 import { Contact } from './Components/contact';
 import { Order } from './types';
+import { Modal } from './Commons/Modal';
 
 function App() {
   useEffect(() => {
@@ -31,8 +32,8 @@ function App() {
       localStorage.setItem("order", JSON.stringify(dataOrder));
     }
     console.log(order);
-
   }, []);
+
   return (
     <>
       <Routes>
@@ -46,6 +47,8 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/home" element={<Home><HomePage /></Home>} />
         <Route path="/contact" element={<Home><Contact /></Home>} />
+        <Route path="/new" element={<Modal />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
