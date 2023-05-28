@@ -1,8 +1,17 @@
-FROM node:14.16.1-alpine
+ARG NODE_IMAGE=node:16.19.0-alpine
+ARG APP_PORT=3000
 
-WORKDIR /app
-COPY package*.json ./
+# =====================================
+FROM ${NODE_IMAGE}
+
+WORKDIR /home/app
+
+COPY package*.json /
+
 RUN npm install
-COPY . .
+
+COPY . /
+
+EXPOSE ${APP_PORT}
 
 CMD ["npm", "start"]
