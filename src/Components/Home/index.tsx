@@ -1,46 +1,26 @@
-import { Container, Grid, Pagination } from "@mui/material"
-import PrimarySearchAppBar from "../Header"
-import { SwiperCustom } from "../../Commons/SwiperCustom"
+import Header from "../Header"
 import React, { useEffect, useState } from "react"
 import { Footer } from "../footer"
-import productApi from "../../api/productApi"
-import { CircularProgressCustom } from "../../Commons/CircularProgressCustom"
-import Navbar from "../Navbar"
-import categoryApi from "../../api/categoryApi"
-import ProductCart from "../../Commons/ProductCart"
+import categoryApi from "../../api/categoryApi";
+import { Category } from "../../types";
+import { toast } from "react-toastify";
+import { ERROR_MESSAGES } from "../../constraint";
 
 export const Home = (props: any) => {
-
   const [loading, setLoading] = useState<boolean>(false);
-
+  const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
-    // setLoading(true);
-    // productApi.getMany()
-    //   .then((data) => {
-    //     console.log(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     // alert(err);
-    //   })
-    // categoryApi.getMany()
-    //   .then((data) => {
-    //     console.log(data);
-    //     setLoading(false);
-    //   })
-    //   .catch((err) => {
-    //     // alert(err);
-    //   })
+    categoryApi.getMany().then((data: any) => {
+      setCategories(data.list.sort((a: Category, b: Category) => b.childCategories.length - a.childCategories.length));
+    }).catch((err) => {
+      toast.error(ERROR_MESSAGES.NETWORK_ERROR);
+    })
   }, [])
   return (
     <>
-      <PrimarySearchAppBar />
+      <Header categories={categories} />
       {props.children}
-
       <Footer />
-      {
-        loading && <CircularProgressCustom />
-      }
     </>
   )
 }

@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import authApi from "../../api/authApi";
 import { InfoUser } from "../../types";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
+import commonApi from "../../api/commonApi";
 
 export const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,8 @@ export const Profile = () => {
   const [phone, setPhone] = useState<string>("");
   const [birthday, setBirthday] = useState<Date>(new Date());
   const [gender, setGender] = useState<number>(0);
+  const [image, setImage] = useState<any>();
+  const [avatar, setAvatar] = useState<string>("");
 
   const [oldPassword, setOldPassword] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -24,20 +27,30 @@ export const Profile = () => {
     input && input.click();
   }
   useEffect(() => {
+    setLoading(true);
     authApi.profile().then((data: InfoUser) => {
       setFirstName(data.firstName);
       setLastName(data.lastName);
       setPhone(data.phone);
       setBirthday(new Date(data.birthday));
       setGender(data.gender);
+      setLoading(false);
     }).catch((error) => {
-      alert(error.message);
+      setLoading(false);
     })
   }, [])
 
   const handleSaveInfo = async () => {
     setLoading(true);
     try {
+      if (image) {
+        const formData = new FormData();
+        formData.append('file', image);
+        formData.append('folder', 'Products');
+        const url = await commonApi.uploadS3(formData);
+        setAvatar(url);
+      }
+
       await authApi.updateProfile({
         "firstName": firstName,
         "lastName": lastName,
@@ -74,17 +87,33 @@ export const Profile = () => {
       toast.success("Save password failed!");
     }
   }
+
+  const handleChooseImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImage = e.target.files && e.target.files[0];
+    setImage(selectedImage);
+  }
+
   return (
     <>
       <Card className="container mx-auto m-5">
         <div className="mx-auto flex flex-row items-center justify-between w-full p-5">
           <div className="w-1/5"></div>
           <div className="w-1/5 flex flex-col items-center">
-            <img
-              className="w-[200px] h-[200px] rounded-full object-cover"
-              src="https://cdn.britannica.com/16/234216-050-C66F8665/beagle-hound-dog.jpg" alt="" />
+            {
+              image ?
+                <img
+                  src={URL.createObjectURL(image)}
+                  alt=""
+                  className="w-[200px] h-[200px] rounded-full object-cover"
+                />
+                :
+                <img
+                  className="w-[200px] h-[200px] rounded-full object-cover"
+                  src="https://cdn.britannica.com/16/234216-050-C66F8665/beagle-hound-dog.jpg" alt=""
+                />
+            }
             <div className="mt-5">
-              <input type="file" id="myFileInput" hidden onChange={(e) => console.log(e.target.files && e.target.files[0])} />
+              <input type="file" id="myFileInput" hidden onChange={(e) => handleChooseImage(e)} />
               <Button
                 variant="contained"
                 onClick={openFile}

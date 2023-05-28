@@ -1,6 +1,3 @@
-export const BASE_URL = "https://localhost:6205";
-
-
 export const MESSAGES = {
   NOTIFICATION: "Thông báo",
   SUCCESS: "Thành công",
@@ -26,5 +23,9 @@ export const STATUS = [
   { id: 3, value: "Đang giao hàng" },
   { id: 4, value: "Không thành công" },
   { id: 5, value: "Hoàn thành" }
-
 ]
+
+export const ERROR_MESSAGES = {
+  SERVER_INTERNAL_ERROR: "Server internal error",
+  NETWORK_ERROR: "Network error",
+}
