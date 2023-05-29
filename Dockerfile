@@ -4,14 +4,17 @@ ARG APP_PORT=3000
 # =====================================
 FROM ${NODE_IMAGE}
 
-WORKDIR /home/app
+WORKDIR /app
 
 COPY package*.json /
 
+COPY . .
+
 RUN npm install
 
-COPY . /
+
+WORKDIR /app/build
 
 EXPOSE ${APP_PORT}
 
-CMD ["npm", "start"]
+CMD ["npx", "serve"]
