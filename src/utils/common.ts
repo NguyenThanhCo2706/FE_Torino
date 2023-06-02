@@ -5,9 +5,8 @@ export const initOrder = () => {
     dateOfReceive: new Date(),
     customerId: 0,
     discount: 0,
-    totalPrice: 0,
     note: "",
-    isPaid: 0,
+    isPaid: false,
     orderDetails: []
   }
 

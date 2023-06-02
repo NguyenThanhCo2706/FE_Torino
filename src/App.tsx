@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import PrimarySearchAppBar from './Components/Header';
-import RecipeReviewCard from './Commons/ProductCart';
 import Login from './Components/login';
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from './Commons/NotFound';
@@ -10,12 +8,14 @@ import { Cart } from './Components/Cart';
 import { Profile } from './Components/Profile';
 import { Product } from './Components/Product';
 import { Detail } from './Components/Product/detail';
-import { Category } from './Components/Product/category';
+import { ProductCategory } from './Components/Product/category';
 import { Payment } from './Components/Cart/payment';
 import { HomePage } from './Components/Home/HomePage';
 import { Contact } from './Components/contact';
-import { Order } from './types';
-import { Modal } from './Commons/Modal';
+import { Category, Order } from './types';
+import { HubConnectionBuilder } from '@microsoft/signalr';
+import { ToastContainer } from 'react-toastify';
+import categoryApi from './api/categoryApi';
 
 function App() {
   useEffect(() => {
@@ -26,7 +26,7 @@ function App() {
         dateOfReceive: new Date(),
         discount: 0,
         totalPrice: 0,
-        isPaid: 0,
+        isPaid: false,
         orderDetails: [],
       }
       localStorage.setItem("order", JSON.stringify(dataOrder));
@@ -34,6 +34,36 @@ function App() {
     console.log(order);
   }, []);
 
+  useEffect(() => {
+    const connection = new HubConnectionBuilder()
+      .withUrl('https://localhost:6205/hub/notification')
+      .withAutomaticReconnect()
+      .build();
+
+    connection.start()
+      .then(result => {
+        console.log('Connected!');
+
+        connection.on('ReceiveMessage', message => {
+          // const updatedChat = [...latestChat.current];
+          // updatedChat.push(message);
+
+          // setChat(updatedChat);
+          console.log(message);
+
+        });
+      })
+      .catch(e => console.log('Connection failed: ', e));
+  }, [])
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  useEffect(() => {
+    categoryApi.getMany()
+      .then((data: any) => {
+        setCategories(data.list);
+      })
+      .catch(e => console.log('Connection failed: ', e));
+  }, [])
   return (
     <>
       <Routes>
@@ -43,14 +73,24 @@ function App() {
         <Route path="/profile" element={<Home><Profile /></Home>} />
         <Route path="/product" element={<Home><Product /></Home>} />
         <Route path="/product/:id" element={<Home><Detail /></Home>} />
-        <Route path="/product/category/:id" element={<Home><Category /></Home>} />
+        <Route path="/product/category/:id" element={<Home><ProductCategory /></Home>} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/home" element={<Home><HomePage /></Home>} />
         <Route path="/contact" element={<Home><Contact /></Home>} />
-        <Route path="/new" element={<Modal />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }

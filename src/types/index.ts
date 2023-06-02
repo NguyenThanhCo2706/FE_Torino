@@ -7,9 +7,9 @@ export interface Order {
   dateOfReceive: Date,
   customerId?: number,
   discount: number,
-  totalPrice: number,
+  totalPrice?: number,
   note: string,
-  isPaid: number,
+  isPaid: boolean,
   orderDetails: OrderDetail[]
 }
 

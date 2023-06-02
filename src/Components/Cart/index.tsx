@@ -7,6 +7,8 @@ import { initOrder } from "../../utils/common"
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom"
 import moment from "moment"
 import { Modal } from "../../Commons/Modal"
+import orderApi from "../../api/orderApi"
+import { toast } from "react-toastify"
 
 
 export const Cart = () => {
@@ -21,15 +23,15 @@ export const Cart = () => {
   const [discount, setDiscount] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [note, setNote] = useState<string>("");
-  const [isPaid, setIsPaid] = useState<number>(0);
+  const [isPaid, setIsPaid] = useState<boolean>(false);
   const [orderDetails, setOrderDetails] = useState<OrderDetail[]>([]);
 
   useEffect(() => {
     try {
       const order: Order = JSON.parse(localStorage.getItem("order") || "");
       order && setOrder(order);
-      setDateOfReceive(moment(new Date()).format("YYYY-MM-DD"));
-      setDiscount(order.discount);
+      setDateOfReceive(moment(order.dateOfReceive).format("YYYY-MM-DD"));
+      setDiscount(order.discount || 0);
       setNote(order.note);
       setIsPaid(order.isPaid);
       setOrderDetails(order.orderDetails);
@@ -37,9 +39,10 @@ export const Cart = () => {
     catch (err) {
       alert(err);
       initOrder();
-      localStorage.removeItem("order");
     };
-
+    return () => {
+      console.log(order);
+    }
   }, []);
 
   useEffect(() => {
@@ -50,7 +53,6 @@ export const Cart = () => {
     }).catch(err => {
       alert(err);
       initOrder();
-      localStorage.removeItem("order");
       setLoading(false);
     });
   }, []);
@@ -59,27 +61,38 @@ export const Cart = () => {
     setTotalPrice(orderDetails.reduce((prev: number, cur: any) => prev + cur.quantity * cur.price, 0));
   }, [orderDetails]);
 
+  useEffect(() => {
+    return () => {
+      console.log(order);
+
+      // localStorage.setItem("order", JSON.stringify(order));
+    };
+  }, []);
+
   const handleChangeQuantity = (productId: number, value: number) => {
-    const newData = order && {
+    const details = orderDetails.map((detail) => {
+      if (detail.productId === productId) {
+        return { ...detail, quantity: detail.quantity !== 0 ? detail.quantity + value : 0 };
+      }
+      return detail;
+    })
+    setOrderDetails(details);
+    const newOrder = {
       ...order,
-      orderDetails: order.orderDetails.map((detail: any) => {
-        if (detail.productId === productId) {
-          return { ...detail, quantity: detail.quantity !== 0 ? detail.quantity + value : 0 };
-        }
-        return detail;
-      })
+      orderDetails: details
     }
-    setOrder(newData)
-    localStorage.setItem("order", JSON.stringify(newData));
+    localStorage.setItem("order", JSON.stringify(newOrder));
   }
+  console.log(order);
 
   const handleRemoveItem = (productId: number) => {
-    const newData = order && {
+    const details = orderDetails.filter((item: any) => item.productId !== productId);
+    setOrderDetails(details);
+    const newOrder = {
       ...order,
-      orderDetails: order.orderDetails.filter((item: any) => item.productId !== productId)
+      orderDetails: details
     }
-    setOrder(newData);
-    localStorage.setItem("order", JSON.stringify(newData));
+    localStorage.setItem("order", JSON.stringify(newOrder));
   }
 
   const handleChangeProvinces = async (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -100,15 +113,13 @@ export const Cart = () => {
   const handleOrder = () => {
     if (isPaid) {
       setConfirm(true);
-      return
+      return;
     }
     const order: Order = {
       dateOfReceive: new Date(dateOfReceive),
-      customerId: 1,
       discount: 0,
-      totalPrice: totalPrice,
       note: note,
-      isPaid: isPaid,
+      isPaid: Boolean(isPaid),
       orderDetails: orderDetails.map((detail: OrderDetail) => {
         return {
           productId: detail.productId,
@@ -117,7 +128,20 @@ export const Cart = () => {
         }
       })
     }
-    console.log(order);
+    setLoading(true);
+    orderApi.create(order).then(() => {
+      initOrder();
+      setDateOfReceive(moment(new Date()).format("YYYY-MM-DD"));
+      setDiscount(0);
+      setNote("");
+      setIsPaid(false);
+      setOrderDetails([]);
+      setLoading(false);
+      toast.success("Đặt đơn thành công!")
+    }).catch(() => {
+      setLoading(false);
+      toast.error("Đặt đơn thất bại!")
+    });
   }
 
   return (
@@ -156,14 +180,13 @@ export const Cart = () => {
                         </div>
                         <div className="flex justify-center w-1/5">
                           <svg
-                            className="fill-current text-gray-600 w-3"
+                            className="fill-current text-gray-600 w-3 hover:cursor-pointer"
                             viewBox="0 0 448 512"
                             onClick={() => handleChangeQuantity(detail.productId, -1)}
-
                           >
                             <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                           </svg>
-                          <input className="mx-2 border text-center w-8" type="text" value={detail.quantity} />
+                          <input className="mx-2 border text-center w-8" type="text" value={detail.quantity} readOnly />
                           <svg
                             className="fill-current text-gray-600 w-3 hover:cursor-pointer"
                             viewBox="0 0 448 512"
@@ -212,7 +235,9 @@ export const Cart = () => {
                     </div>
                     <div className="w-1/3">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Xã:</label>
-                      <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      <select
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      >
                         {
                           communes.map((option, index) => <option key={index} value={option.id}>{option.name}</option>)
                         }
@@ -228,10 +253,11 @@ export const Cart = () => {
                   <div className="w-1/2 mr-2">
                     <label className="font-semibold inline-block mb-3 text-sm uppercase">Hình thức thanh toán</label>
                     <select
-                      onChange={(e) => setIsPaid(+e.target.value)}
+                      onChange={(e) => setIsPaid(Boolean(e.target.value))}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      defaultValue={0}
                     >
-                      <option value={0} selected>Tiền mặt</option>
+                      <option value={0}>Tiền mặt</option>
                       <option value={1}>Chuyển khoản</option>
                     </select>
                   </div>
@@ -281,7 +307,7 @@ export const Cart = () => {
         loading && <CircularProgressCustom />
       }
       {
-        confirm && <Modal />
+        confirm && <Modal setConfirm={setConfirm} />
       }
     </>
   )
