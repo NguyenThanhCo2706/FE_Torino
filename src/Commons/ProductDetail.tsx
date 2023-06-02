@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import productApi from "../api/productApi";
 import { thousandSeparator } from "../utils";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -207,7 +207,6 @@ export const ProductDetail = () => {
           </div>
         </div>
       </div>
-      <ToastContainer />
       {
         loading && <CircularProgressCustom />
       }

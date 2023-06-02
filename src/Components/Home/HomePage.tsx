@@ -4,7 +4,7 @@ export const HomePage = () => {
   return (
     <>
       <img
-        className="w-full img-home"
+        className="w-full img-home text-center"
 
         src="https://static01.nyt.com/images/2022/04/08/dining/ld-church-cake/ld-church-cake-superJumbo.jpg" alt="" />
       <div className="p-[20px]">

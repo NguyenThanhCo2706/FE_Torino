@@ -1,7 +1,7 @@
 import { Button, Card, FormControlLabel, Grid, Radio, RadioGroup, TextField, Typography } from "@mui/material"
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import authApi from "../../api/authApi";
 import { InfoUser } from "../../types";
@@ -254,7 +254,6 @@ export const Profile = () => {
           </div>
         </div>
       </Card>
-      <ToastContainer />
       {
         loading && <CircularProgressCustom />
       }

@@ -11,7 +11,7 @@ import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import Navbar from "../Navbar";
 
 
-export const Category = () => {
+export const ProductCategory = () => {
   const params: any = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);

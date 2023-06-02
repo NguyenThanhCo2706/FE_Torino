@@ -3,7 +3,7 @@ import AdsClickIcon from '@mui/icons-material/AdsClick';
 import { Button, Card } from '@mui/material';
 import { thousandSeparator } from '../utils';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -69,7 +69,6 @@ export default function ProductCard(props: any) {
           </button>
         </div>
       </Card >
-      <ToastContainer />
     </>
   );
 }

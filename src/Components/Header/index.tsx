@@ -7,12 +7,15 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link, useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Category } from '../../types';
+import { useEffect } from 'react';
 
 const Header = (props: any) => {
   const { categories } = props;
 
   const navigate = useNavigate()
-
+  useEffect(() => {
+    
+  }, [])
   return (
     <div className="w-full border-b-2">
       <div className="container h-[80px] flex items-center justify-between mx-auto ">
@@ -45,9 +48,6 @@ const Header = (props: any) => {
                   >{category.name}</Link>
                 ))
               }
-              {/* <a className="px-5 py-3 hover:bg-gray-200" href="#">About Us</a>
-              <a className="px-5 py-3 hover:bg-gray-200" href="#">Contact Us</a>
-              <a className="px-5 py-3 hover:bg-gray-200" href="#">Privacy Policy</a> */}
             </div>
           </div>
           <div
