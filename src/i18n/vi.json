@@ -1,0 +1,58 @@
+{
+  "welcome": "Chào mừng đến với ứng dụng của tôi!",
+  "auth": {
+    "username": "Tài khoản",
+    "password": "Mật khẩu",
+    "signIn": "Đăng nhập",
+    "forgotPassword": "Quên mật khẩu",
+    "signUp": "Đăng kí",
+    "dontHaveAccount": "Bạn chưa có tài khoản"
+  },
+  "err_message": {
+    "serverInternalError": "Máy chủ hiện đang gặp lỗi",
+    "auth": {
+      "wrong_user_pass": "Tài khoản hoặc mật khẩu không đúng"
+    }
+  },
+  "cart": {
+    "cart": "Giỏ hàng",
+    "product": "Sản phẩm",
+    "detailOrder": "Chi tiết đơn hàng",
+    "quantity": "Số lượng",
+    "price": "Giá",
+    "totalPrice": "Tổng tiền",
+    "back": "Tiếp tục mua sắm",
+    "summaryOrder": "Tóm tắt Đơn hàng",
+    "address": "Dịa chỉ",
+    "province": "Tỉnh thành",
+    "district": "Quận huyện",
+    "commune": "Xã",
+    "addressDetail": "Địa chỉ cụ thể",
+    "paymentType": "Hình thức thanh toán",
+    "dateOfReceive": "Ngày nhận hàng",
+    "note": "Ghi chú",
+    "discount": "Giảm giá",
+    "totalAmount": "Tổng cộng",
+    "submit": "Đặt đơn",
+    "money": "Tiền mặt",
+    "bank": "Chuyển khoản",
+    "remove": "Xóa"
+  },
+  "profile": {
+    "profile": "Thông tin cá nhân",
+    "firstName": "Họ",
+    "lastName": "Tên",
+    "phone": "Số điện thoại",
+    "birthday": "Ngày sinh",
+    "gender": "Giới tính",
+    "save": "Lưu thay đổi",
+    "changePassword": "Thay đổi mật khẩu",
+    "oldPassword": "Mật khẫu cũ",
+    "newPassword": "Mật khẩu mới",
+    "rePassword": "Nhập lại mật khẩu",
+    "male": "Nam",
+    "female": "Nữ",
+    "other": "Khác",
+    "chooseImage": "Chọn ảnh"
+  }
+}

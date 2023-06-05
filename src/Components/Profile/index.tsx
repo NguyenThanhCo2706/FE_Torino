@@ -7,9 +7,12 @@ import authApi from "../../api/authApi";
 import { InfoUser } from "../../types";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import commonApi from "../../api/commonApi";
+import { useTranslation } from "react-i18next";
 
 export const Profile = () => {
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation()
+
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -117,7 +120,7 @@ export const Profile = () => {
               <Button
                 variant="contained"
                 onClick={openFile}
-              >Chọn Ảnh</Button>
+              >{t('profile.chooseImage')}</Button>
             </div>
           </div>
           <div className="w-1/5"></div>
@@ -126,7 +129,7 @@ export const Profile = () => {
             <div>
               <div className="flex flex-row items-center">
                 <LabelImportantIcon />
-                <Typography variant="h6" fontWeight="bold">Thông tin cá nhân:</Typography>
+                <Typography variant="h6" fontWeight="bold">{t('profile.profile')}</Typography>
               </div>
               <Grid container spacing={3}>
                 <Grid item xs={6}>
@@ -136,7 +139,7 @@ export const Profile = () => {
                     required
                     fullWidth
                     id="outlined-controlled"
-                    label="FirstName"
+                    label={t('profile.firstName')}
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                     autoFocus
@@ -148,8 +151,7 @@ export const Profile = () => {
                     size="small"
                     required
                     fullWidth
-                    label="LastName"
-                    name="lastName"
+                    label={t('profile.lastName')}
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                   />
@@ -161,9 +163,7 @@ export const Profile = () => {
                     margin="normal"
                     size="small"
                     id="phone"
-                    label="Phone"
-                    name="phone"
-                    autoComplete="phone"
+                    label={t('profile.phone')}
                     fullWidth
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
@@ -174,8 +174,7 @@ export const Profile = () => {
                     type="date"
                     margin="normal"
                     size="small"
-                    label="Birthday"
-                    name="birthday"
+                    label={t('profile.birthday')}
                     fullWidth
                     value={birthday}
                     onChange={(e) => setBirthday(new Date(e.target.value))}
@@ -183,20 +182,20 @@ export const Profile = () => {
                 </Grid>
               </Grid>
               <div className="p-3">
-                <p className="font-bold mb-2">Giới Tính:</p>
+                <p className="font-bold mb-2">{t('profile.gender')}</p>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
                   name="radio-buttons-group"
                   value={gender}
                   onChange={(e) => setGender(+e.target.value)}
                 >
-                  <FormControlLabel value={1} control={<Radio />} label="Female" />
-                  <FormControlLabel value={2} control={<Radio />} label="Male" />
-                  <FormControlLabel value={0} control={<Radio />} label="Other" />
+                  <FormControlLabel value={2} control={<Radio />} label={t('profile.male')} />
+                  <FormControlLabel value={1} control={<Radio />} label={t('profile.female')} />
+                  <FormControlLabel value={0} control={<Radio />} label={t('profile.other')} />
                 </RadioGroup>
               </div>
               <div className="text-right mt-2">
-                <Button variant="contained" onClick={handleSaveInfo} >Lưu thay đổi</Button>
+                <Button variant="contained" onClick={handleSaveInfo} >{t('profile.save')}</Button>
               </div>
             </div>
             <div className="flex mt-6 items-center border-b-2 border-gray-200 mb-5">
@@ -204,7 +203,7 @@ export const Profile = () => {
             <div>
               <div className="flex flex-row items-center">
                 <LabelImportantIcon />
-                <Typography variant="h6" fontWeight="bold">Change password:</Typography>
+                <Typography variant="h6" fontWeight="bold">{t('profile.changePassword')}</Typography>
               </div>
               <Grid container spacing={3}>
                 <Grid item xs={4}>
@@ -214,8 +213,7 @@ export const Profile = () => {
                     size="small"
                     required
                     fullWidth
-                    label="old-password"
-                    name="old-password"
+                    label={t('profile.oldPassword')}
                     value={oldPassword}
                     onChange={(e) => setOldPassword(e.target.value)}
                   />
@@ -227,8 +225,7 @@ export const Profile = () => {
                     size="small"
                     required
                     fullWidth
-                    label="new-password"
-                    name="new-password"
+                    label={t('profile.newPassword')}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -240,15 +237,14 @@ export const Profile = () => {
                     size="small"
                     required
                     fullWidth
-                    label="re-password"
-                    name="re-password"
+                    label={t('profile.rePassword')}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </Grid>
               </Grid>
               <div className="text-right mt-2">
-                <Button variant="contained" onClick={handleChangePassword} >Lưu thay đổi</Button>
+                <Button variant="contained" onClick={handleChangePassword} >{t('profile.save')}</Button>
               </div>
             </div>
           </div>
