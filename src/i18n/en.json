@@ -1,0 +1,58 @@
+{
+  "welcome": "welcome",
+  "auth": {
+    "username": "UserName",
+    "password": "Password",
+    "signIn": "Sign In",
+    "forgotPassword": "Forgot Password",
+    "signUp": "Sign Up",
+    "dontHaveAccount": "Don't have an account"
+  },
+  "err_message": {
+    "serverInternalError": "Server internal error",
+    "auth": {
+      "wrong_user_pass": "Username or Password not exactly correct"
+    }
+  },
+  "cart": {
+    "cart": "Cart",
+    "product": "Product",
+    "detailOrder": "Detail Orders",
+    "quantity": "Quantity",
+    "price": "Price",
+    "totalPrice": "Total Price",
+    "back": "Continue Shopping",
+    "summaryOrder": "Summary Order",
+    "address": "Address",
+    "province": "Province",
+    "district": "District",
+    "commune": "Commune",
+    "addressDetail": "Address Detail",
+    "paymentType": "Payment Type",
+    "dateOfReceive": "Date Of Receive",
+    "note": "Note",
+    "discount": "Discount",
+    "totalAmount": "Total Amount",
+    "submit": "Order",
+    "money": "Money",
+    "bank": "Transfer Bank",
+    "remove": "remove"
+  },
+  "profile": {
+    "profile": "Information",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "birthday": "Birthday",
+    "gender": "Gender",
+    "save": "Save",
+    "changePassword": "Change Password",
+    "oldPassword": "old password",
+    "newPassword": "new password",
+    "rePassword": "re-password",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "chooseImage": "Choose Image"
+  }
+}

@@ -16,12 +16,14 @@ import authApi from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CircularProgressCustom } from '../Commons/CircularProgressCustom';
+import { useTranslation } from 'react-i18next';
 
 const theme = createTheme();
 
 export default function Login() {
   const navigate = useNavigate()
   const [loading, setLoading] = React.useState(false);
+  const { t } = useTranslation()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -84,7 +86,7 @@ export default function Login() {
                   required
                   fullWidth
                   id="username"
-                  label="UserName"
+                  label={t('auth.username')}
                   name="username"
                   autoComplete="username"
                   autoFocus
@@ -94,7 +96,7 @@ export default function Login() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label={t('auth.password')}
                   type="password"
                   id="password"
                   autoComplete="current-password"
@@ -109,17 +111,17 @@ export default function Login() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  {t('auth.signIn')}
                 </Button>
                 <Grid container>
                   <Grid item xs>
                     <Link href="#" variant="body2">
-                      Forgot password?
+                      {t('auth.forgotPassword')}
                     </Link>
                   </Grid>
                   <Grid item>
                     <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
+                      {t('auth.dontHaveAccount')}? {t('auth.signUp')}
                     </Link>
                   </Grid>
                 </Grid>

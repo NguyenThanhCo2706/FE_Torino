@@ -8,13 +8,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Category } from '../../types';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
 
 const Header = (props: any) => {
+  const { t } = useTranslation()
   const { categories } = props;
-
   const navigate = useNavigate()
+
   useEffect(() => {
-    
+
   }, [])
   return (
     <div className="w-full border-b-2">
@@ -65,6 +68,10 @@ const Header = (props: any) => {
           >CONTACT US</div>
         </div>
         <div className='flex justify-end w-1/4'>
+          <div>
+            <button onClick={() => i18n.changeLanguage('vi')}>de</button>
+            <button onClick={() => i18n.changeLanguage('en')}>en</button>
+          </div>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"

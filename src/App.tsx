@@ -31,7 +31,6 @@ function App() {
       }
       localStorage.setItem("order", JSON.stringify(dataOrder));
     }
-    console.log(order);
   }, []);
 
   useEffect(() => {
