@@ -1,40 +1,49 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import authApi from '../api/authApi';
+import { IconButton, InputAdornment, Grid, createTheme, ThemeProvider, Avatar, Button, Typography, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Paper, Box } from '@mui/material';
+import authApi from '../../api/authApi';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { CircularProgressCustom } from '../Commons/CircularProgressCustom';
+import { CircularProgressCustom } from '../../Commons/CircularProgressCustom';
 import { useTranslation } from 'react-i18next';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useEffect, useState } from 'react';
 
 const theme = createTheme();
 
 export default function Login() {
-  const navigate = useNavigate()
-  const [loading, setLoading] = React.useState(false);
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    const authString = localStorage.getItem('auth');
+    if (authString) {
+      const auth = JSON.parse(authString);
+      if (auth) {
+        setUsername(auth.username);
+        setPassword(auth.password);
+      }
+    }
+  }, [])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const username = data.get('username') as string;
-    const password = data.get('password') as string;
     setLoading(true);
     authApi.login(username, password).then((data) => {
       setLoading(false);
       if (data.token) {
         localStorage.setItem('token', data.token);
+        if (rememberMe) {
+          localStorage.setItem('auth', JSON.stringify({
+            username: username,
+            password: password
+          }));
+        }
         return navigate("/");
       }
       toast.error("Wrong Username or Password!");
@@ -42,9 +51,17 @@ export default function Login() {
       setLoading(false);
       toast.error("Wrong Username or Password!");
     });
-
   };
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event: any) => {
+    event.preventDefault();
+  };
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -78,32 +95,45 @@ export default function Login() {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign in
+                TORINO
               </Typography>
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  id="username"
                   label={t('auth.username')}
-                  name="username"
-                  autoComplete="username"
                   autoFocus
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
                   label={t('auth.password')}
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                        >
+                          {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
+                  control={<Checkbox
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    color="primary" />}
+                  label={t('auth.rememberMe')}
                 />
                 <Button
                   type="submit"
@@ -120,8 +150,9 @@ export default function Login() {
                     </Link>
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2">
-                      {t('auth.dontHaveAccount')}? {t('auth.signUp')}
+                    {t('auth.dontHaveAccount')}?
+                    <Link href="#" variant="body2" sx={{ marginLeft: "5px" }}>
+                      {t('auth.signUp')}
                     </Link>
                   </Grid>
                 </Grid>

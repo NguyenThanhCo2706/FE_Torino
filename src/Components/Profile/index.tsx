@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 
 export const Profile = () => {
   const [loading, setLoading] = useState(false);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");

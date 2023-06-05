@@ -6,7 +6,8 @@
     "signIn": "Đăng nhập",
     "forgotPassword": "Quên mật khẩu",
     "signUp": "Đăng kí",
-    "dontHaveAccount": "Bạn chưa có tài khoản"
+    "dontHaveAccount": "Bạn chưa có tài khoản",
+    "rememberMe": "Ghi nhớ đăng nhập"
   },
   "err_message": {
     "serverInternalError": "Máy chủ hiện đang gặp lỗi",
@@ -54,5 +55,17 @@
     "female": "Nữ",
     "other": "Khác",
     "chooseImage": "Chọn ảnh"
+  },
+  "header": {
+    "product": "Sản Phẩm",
+    "news": "Tin Tức và Sự Kiện",
+    "story": "Trạng Thái",
+    "contact": "Liên Hệ"
+  },
+  "vnpay": {
+    "title": "Thông báo xác nhận!",
+    "content": "Xác nhận thanh toán trực tuyến.",
+    "cancel": "Hủy bỏ",
+    "confirm": "Xác nhận"
   }
 }
