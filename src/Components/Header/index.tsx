@@ -19,6 +19,12 @@ const Header = (props: any) => {
   useEffect(() => {
 
   }, [])
+
+  const handleChangeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+    localStorage.setItem('language', language);
+  }
+
   return (
     <div className="w-full border-b-2">
       <div className="container h-[80px] flex items-center justify-between mx-auto ">
@@ -40,7 +46,7 @@ const Header = (props: any) => {
           >
             <button
               onClick={() => navigate("/product")}
-              className="peer">PRODUCT</button>
+              className="peer py-1">{t('header.product')}</button>
             <div className="absolute hidden peer-hover:flex hover:flex w-[200px] flex-col bg-white drop-shadow-lg z-10">
               {
                 categories.map((category: Category, index: number) => (
@@ -55,22 +61,24 @@ const Header = (props: any) => {
           </div>
           <div
             className='hover:cursor-pointer hover:border-b-4'
-          >OUR STORY</div>
+          >{t('header.story')}</div>
           <div
             className='hover:cursor-pointer hover:border-b-4'
-          >NEWS & EVENTS</div>
-          <div
-            className='hover:cursor-pointer hover:border-b-4'
-          >FRANCHISE</div>
+          >{t('header.news')}</div>
           <div
             className='hover:cursor-pointer hover:border-b-4'
             onClick={() => navigate("/contact")}
-          >CONTACT US</div>
+          >{t('header.contact')}</div>
         </div>
-        <div className='flex justify-end w-1/4'>
-          <div>
-            <button onClick={() => i18n.changeLanguage('vi')}>de</button>
-            <button onClick={() => i18n.changeLanguage('en')}>en</button>
+        <div className='flex justify-end w-1/4 items-center'>
+          <div className='font-bold bg-slate-300 py-1 px-2 rounded-[20px] mx-2'>
+            <button
+              className='underline hover:text-blue-600'
+              onClick={() => handleChangeLanguage('vi')}>VIE</button>
+            <span className='mx-1'>/</span>
+            <button
+              className="underline hover:text-blue-600"
+              onClick={() => handleChangeLanguage('en')}>ENG</button>
           </div>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton

@@ -6,7 +6,8 @@
     "signIn": "Sign In",
     "forgotPassword": "Forgot Password",
     "signUp": "Sign Up",
-    "dontHaveAccount": "Don't have an account"
+    "dontHaveAccount": "Don't have an account",
+    "rememberMe": "Remember me"
   },
   "err_message": {
     "serverInternalError": "Server internal error",
@@ -54,5 +55,17 @@
     "female": "Female",
     "other": "Other",
     "chooseImage": "Choose Image"
+  },
+  "header": {
+    "product": "Product",
+    "news": "News & Events",
+    "story": "Story",
+    "contact": "Contact Us"
+  },
+  "vnpay": {
+    "title": "Notification Confirm!",
+    "content": "You confirm the payment online.",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }

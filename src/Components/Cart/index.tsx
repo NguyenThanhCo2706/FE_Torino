@@ -249,7 +249,7 @@ export const Cart = () => {
                   </div>
                   <div className="mt-2">
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{t('cart.addressDetail')}</label>
-                    <input type="input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-[40px]" placeholder="typing..." required />
+                    <input type="input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-[40px]" placeholder="Aa..." required />
                   </div>
                 </div>
                 <div className="flex flex-row">
@@ -281,7 +281,7 @@ export const Cart = () => {
                   <textarea
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Aa..."></textarea>
                 </div>
                 <div className="border-t mt-8">
                   <div className="flex justify-between mt-5">

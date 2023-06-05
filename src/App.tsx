@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Login from './Components/login';
+import Login from './Components/Auth/login';
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from './Commons/NotFound';
 import { Home } from './Components/Home';
@@ -30,6 +30,10 @@ function App() {
         orderDetails: [],
       }
       localStorage.setItem("order", JSON.stringify(dataOrder));
+    }
+    const language = localStorage.getItem("language");
+    if (language) {
+      localStorage.setItem("language", "vi");
     }
   }, []);
 
