@@ -10,6 +10,7 @@ export interface Order {
   totalPrice?: number,
   note: string,
   isPaid: boolean,
+  Status?: number,
   orderDetails: OrderDetail[]
 }
 

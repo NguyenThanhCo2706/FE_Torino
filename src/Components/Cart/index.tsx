@@ -7,10 +7,7 @@ import { initOrder } from "../../utils/common"
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom"
 import moment from "moment"
 import { Modal } from "../../Commons/Modal"
-import orderApi from "../../api/orderApi"
-import { toast } from "react-toastify"
 import { useTranslation } from "react-i18next"
-
 
 export const Cart = () => {
   const [order, setOrder] = useState<Order>();
@@ -27,7 +24,7 @@ export const Cart = () => {
   const [isPaid, setIsPaid] = useState<boolean>(false);
   const [orderDetails, setOrderDetails] = useState<OrderDetail[]>([]);
 
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   useEffect(() => {
     try {
@@ -43,9 +40,9 @@ export const Cart = () => {
       alert(err);
       initOrder();
     };
-    return () => {
-      console.log(order);
-    }
+    // return () => {
+    //   console.log(order);
+    // }
   }, []);
 
   useEffect(() => {
@@ -65,12 +62,18 @@ export const Cart = () => {
   }, [orderDetails]);
 
   useEffect(() => {
-    return () => {
-      console.log(order);
-
-      // localStorage.setItem("order", JSON.stringify(order));
-    };
-  }, []);
+    const newOrder: Order = {
+      dateOfReceive: new Date(dateOfReceive),
+      discount,
+      totalPrice,
+      note,
+      isPaid,
+      Status: isPaid ? 4 : 1,
+      orderDetails
+    }
+    setOrder(newOrder);
+    localStorage.setItem("order", JSON.stringify(newOrder));
+  }, [dateOfReceive, discount, totalPrice, note, isPaid, orderDetails]);
 
   const handleChangeQuantity = (productId: number, value: number) => {
     const details = orderDetails.map((detail) => {
@@ -80,22 +83,11 @@ export const Cart = () => {
       return detail;
     })
     setOrderDetails(details);
-    const newOrder = {
-      ...order,
-      orderDetails: details
-    }
-    localStorage.setItem("order", JSON.stringify(newOrder));
   }
-  console.log(order);
 
   const handleRemoveItem = (productId: number) => {
     const details = orderDetails.filter((item: any) => item.productId !== productId);
     setOrderDetails(details);
-    const newOrder = {
-      ...order,
-      orderDetails: details
-    }
-    localStorage.setItem("order", JSON.stringify(newOrder));
   }
 
   const handleChangeProvinces = async (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -111,40 +103,6 @@ export const Cart = () => {
     const communes = await commonApi.getCommunes(e.target.value);
     setLoading(false);
     setCommunes(communes);
-  }
-
-  const handleOrder = () => {
-    if (isPaid) {
-      setConfirm(true);
-      return;
-    }
-    const order: Order = {
-      dateOfReceive: new Date(dateOfReceive),
-      discount: 0,
-      note: note,
-      isPaid: Boolean(isPaid),
-      orderDetails: orderDetails.map((detail: OrderDetail) => {
-        return {
-          productId: detail.productId,
-          price: detail.price,
-          quantity: detail.quantity
-        }
-      })
-    }
-    setLoading(true);
-    orderApi.create(order).then(() => {
-      initOrder();
-      setDateOfReceive(moment(new Date()).format("YYYY-MM-DD"));
-      setDiscount(0);
-      setNote("");
-      setIsPaid(false);
-      setOrderDetails([]);
-      setLoading(false);
-      toast.success("Đặt đơn thành công!")
-    }).catch(() => {
-      setLoading(false);
-      toast.error("Đặt đơn thất bại!")
-    });
   }
 
   return (
@@ -254,25 +212,23 @@ export const Cart = () => {
                 </div>
                 <div className="flex flex-row">
                   <div className="w-1/2 mr-2">
-                    <label className="font-semibold inline-block mb-3 text-sm uppercase">{t('cart.paymentType')}</label>
+                    <label className="font-semibold inline-block mb-3 text-sm uppercase truncate">{t('cart.paymentType')}</label>
                     <select
-                      onChange={(e) => setIsPaid(Boolean(e.target.value))}
+                      onChange={(e) => setIsPaid(+e.target.value === 1 ? true : false)}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      defaultValue={0}
+                      defaultValue={isPaid ? 1 : 0}
                     >
                       <option value={0}>{t('cart.money')}</option>
                       <option value={1}>{t('cart.bank')}</option>
                     </select>
                   </div>
                   <div className="w-1/2 ml-2">
-                    <label className="font-semibold inline-block mb-3 text-sm uppercase">{t('cart.dateOfReceive')}</label>
+                    <label className="font-semibold inline-block mb-3 text-sm uppercase truncate">{t('cart.dateOfReceive')}</label>
                     <input
                       type="date"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 max-h-[40px]" placeholder="John" required
                       value={dateOfReceive}
                       onChange={(e) => setDateOfReceive(e.target.value)}
-                    // onChange={(e) => console.log(e.target.value)}
-
                     />
                   </div>
                 </div>
@@ -298,7 +254,7 @@ export const Cart = () => {
                   </div>
                   <button
                     className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
-                    onClick={handleOrder}
+                    onClick={() => setConfirm(true)}
                   >{t('cart.submit')}</button>
                 </div>
               </div>
@@ -310,7 +266,7 @@ export const Cart = () => {
         loading && <CircularProgressCustom />
       }
       {
-        confirm && <Modal setConfirm={setConfirm} />
+        confirm && <Modal setConfirm={setConfirm} order={order} />
       }
     </>
   )

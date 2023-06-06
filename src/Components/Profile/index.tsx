@@ -2,12 +2,13 @@ import { Button, Card, FormControlLabel, Grid, Radio, RadioGroup, TextField, Typ
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 import { useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 import authApi from "../../api/authApi";
 import { InfoUser } from "../../types";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import commonApi from "../../api/commonApi";
-import { useTranslation } from "react-i18next";
 
 export const Profile = () => {
   const [loading, setLoading] = useState(false);
@@ -176,7 +177,7 @@ export const Profile = () => {
                     size="small"
                     label={t('profile.birthday')}
                     fullWidth
-                    value={birthday}
+                    value={moment(birthday).format('YYYY-MM-DD')}
                     onChange={(e) => setBirthday(new Date(e.target.value))}
                   />
                 </Grid>

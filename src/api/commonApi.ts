@@ -2,9 +2,15 @@ import { AddressOption } from "../types";
 import axiosClient from "./axiosClient"
 
 const commonApi = {
-  async payment(data: any) {
-    const url = `/master/payment`;
-    const result = await axiosClient.post(url, data);
+  async payment(orderId: number, vnpReturn: string) {
+    const url = `/master/payment?orderId=${orderId}&vnpReturn=${vnpReturn}`;
+    const result = await axiosClient.get(url);
+    return result;
+  },
+
+  async checkPayment(orderId: number) {
+    const url = `/master/payment/check?orderId=${orderId}`;
+    const result = await axiosClient.get(url);
     return result;
   },
 
