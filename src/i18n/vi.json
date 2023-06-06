@@ -64,8 +64,18 @@
   },
   "vnpay": {
     "title": "Thông báo xác nhận!",
-    "content": "Xác nhận thanh toán trực tuyến.",
+    "content": "Xác nhận đặt đơn hàng này.",
     "cancel": "Hủy bỏ",
     "confirm": "Xác nhận"
+  },
+  "payment": {
+    "success": "Đơn hàng của bạn đã thanh toán thành công!",
+    "failure": "Thanh toán đơn hàng thất bại!",
+    "orderId": "# Mã đơn hàng: ",
+    "translationId": "# Mã giao dịch: ",
+    "amount": "# Số tiền thanh toán: ",
+    "bankName": "# Ngân hàng thanh toán: ",
+    "translationCode": "# Mã giao dịch tại VNPAY: ",
+    "datePayment": "# Ngày thanh toán: "
   }
 }

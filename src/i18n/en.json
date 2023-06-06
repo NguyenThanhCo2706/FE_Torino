@@ -64,8 +64,18 @@
   },
   "vnpay": {
     "title": "Notification Confirm!",
-    "content": "You confirm the payment online.",
+    "content": "you confirm this order.",
     "cancel": "Cancel",
     "confirm": "Confirm"
+  },
+  "payment": {
+    "success": "Your order has been successfully paid!",
+    "failure": "Your order has failed to be paid!",
+    "orderId": "# Order Id: ",
+    "translationId": "# Transaction Code: ",
+    "amount": "# Amount: ",
+    "bankName": "# Bank Name: ",
+    "translationCode": "# Transaction Code VNPAY: ",
+    "datePayment": "# Payment Date: "
   }
 }
