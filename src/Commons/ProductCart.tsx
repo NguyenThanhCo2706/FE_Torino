@@ -4,12 +4,14 @@ import { Button, Card } from '@mui/material';
 import { thousandSeparator } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function ProductCard(props: any) {
   const { product } = props;
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleAddCart = () => {
     const order = JSON.parse(localStorage.getItem("order") || "");
@@ -28,7 +30,7 @@ export default function ProductCard(props: any) {
       })
     }
     localStorage.setItem("order", JSON.stringify(order));
-    toast.success("Add to cart success!");
+    toast.success(t("message.cart.successAdd"));
   }
   return (
     <>

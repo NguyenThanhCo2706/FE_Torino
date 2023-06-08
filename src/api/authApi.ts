@@ -1,4 +1,4 @@
-import { ChangePassword, InfoUser, UpdateProfile } from "../types";
+import { ChangePassword, Customer, InfoUser, UpdateProfile } from "../types";
 import axiosClient from "./axiosClient"
 
 const alias = "auth";
@@ -29,6 +29,12 @@ const authApi = {
   async changePassword(data: ChangePassword) {
     const url = `/${alias}/profile/change-password`;
     const result = await axiosClient.put(url, data);
+    return result;
+  },
+
+  async register(data: Customer) {
+    const url = `/${alias}/register`;
+    const result = await axiosClient.post(url, data);
     return result;
   }
 }

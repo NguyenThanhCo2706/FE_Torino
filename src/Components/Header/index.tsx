@@ -6,8 +6,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link, useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Category } from '../../types';
-import { useEffect } from 'react';
+import { Category, Order } from '../../types';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 
@@ -15,10 +15,27 @@ const Header = (props: any) => {
   const { t } = useTranslation()
   const { categories } = props;
   const navigate = useNavigate()
+  const [order, setOrder] = useState<Order>();
 
   useEffect(() => {
+    const order = localStorage.getItem('order')
+    if (order) {
+      setOrder(JSON.parse(order))
+    }
+  }, [localStorage.getItem('order')])
 
-  }, [])
+  useEffect(() => {
+    const handleStorageChange = () => {
+      // Handle localStorage change
+      console.log('localStorage changed');
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const handleChangeLanguage = (language: string) => {
     i18n.changeLanguage(language);
@@ -87,7 +104,7 @@ const Header = (props: any) => {
               color="inherit"
               onClick={() => navigate("/cart")}
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={order?.orderDetails.length || 0} color="error">
                 <AddShoppingCartIcon />
               </Badge>
             </IconButton>

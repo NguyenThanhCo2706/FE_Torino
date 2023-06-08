@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Login from './Components/Auth/login';
 import { Route, Routes } from 'react-router-dom';
 import { NotFound } from './Commons/NotFound';
 import { Home } from './Components/Home';
@@ -16,6 +15,9 @@ import { Category, Order } from './types';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { ToastContainer } from 'react-toastify';
 import categoryApi from './api/categoryApi';
+import Auth from './Components/Auth';
+import Login from './Components/Auth/Login';
+import Register from './Components/Auth/Register';
 
 function App() {
   useEffect(() => {
@@ -70,7 +72,9 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Auth><Login /></Auth>} />
+        <Route path="/register" element={<Auth><Register /></Auth>} />
+
         <Route path="/" element={<Home><HomePage /></Home>} />
         <Route path="/cart" element={<Home><Cart /></Home>} />
         <Route path="/profile" element={<Home><Profile /></Home>} />

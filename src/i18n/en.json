@@ -3,16 +3,25 @@
   "auth": {
     "username": "UserName",
     "password": "Password",
+    "confirmPassword": "Re-password",
     "signIn": "Sign In",
     "forgotPassword": "Forgot Password",
     "signUp": "Sign Up",
     "dontHaveAccount": "Don't have an account",
-    "rememberMe": "Remember me"
+    "rememberMe": "Remember me",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "area": "Area:",
+    "inArea": "Inside District",
+    "outArea": "Outside District",
+    "backLogin": "Back to login!"
   },
-  "err_message": {
+  "errMessage": {
     "serverInternalError": "Server internal error",
     "auth": {
-      "wrong_user_pass": "Username or Password not exactly correct"
+      "wrongUserPass": "Username or Password not exactly correct"
     }
   },
   "cart": {
@@ -50,7 +59,7 @@
     "changePassword": "Change Password",
     "oldPassword": "old password",
     "newPassword": "new password",
-    "rePassword": "re-password",
+    "confirmPassword": "re-password",
     "male": "Male",
     "female": "Female",
     "other": "Other",

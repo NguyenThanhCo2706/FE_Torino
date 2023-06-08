@@ -5,15 +5,18 @@ import categoryApi from "../../api/categoryApi";
 import { Category } from "../../types";
 import { toast } from "react-toastify";
 import { ERROR_MESSAGES } from "../../constraint";
+import { useTranslation } from "react-i18next";
 
 export const Home = (props: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const { t } = useTranslation();
+
   useEffect(() => {
     categoryApi.getMany().then((data: any) => {
       setCategories(data.list.sort((a: Category, b: Category) => b.childCategories.length - a.childCategories.length));
     }).catch((err) => {
-      toast.error(ERROR_MESSAGES.NETWORK_ERROR);
+      toast.error(t("message.serverInternalError"));
     })
   }, [])
   return (

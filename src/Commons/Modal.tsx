@@ -23,10 +23,10 @@ export const Modal = (props: ModalProps) => {
         }
       }
       initOrder();
-      toast.success("Đặt đơn thành công!")
+      toast.success(t("message.order.successOrder"))
       setConfirm(false);
     }).catch(() => {
-      toast.error("Đặt đơn thất bại!")
+      toast.error(t("message.order.failOrder"))
       setConfirm(false);
     });
   }
