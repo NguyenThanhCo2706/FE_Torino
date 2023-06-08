@@ -50,3 +50,28 @@ export interface Category {
   imageUrl: string;
   childCategories: Category[]
 }
+
+export interface Customer {
+  type: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  phone: string,
+  username: string,
+  password: string,
+  confirmPassword: string
+}
+
+export interface ErrorLogin {
+  username?: string,
+  password?: string
+}
+
+export interface ErrorRegister {
+  username?: string,
+  password?: string,
+  firstName?: string,
+  lastName?: string,
+  email?: string,
+  phone?: string,
+}

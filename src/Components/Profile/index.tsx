@@ -62,11 +62,11 @@ export const Profile = () => {
         "birthday": birthday
       });
       setLoading(false);
-      toast.success("Save information success!");
+      toast.success(t('message.profile.successSaveInfo'));
     }
     catch (err) {
       setLoading(false);
-      toast.error("Save information failed!");
+      toast.error(t("message.profile.failSave"));
     }
   }
   const handleChangePassword = async () => {
@@ -84,11 +84,11 @@ export const Profile = () => {
       });
 
       setLoading(false);
-      toast.success("Save password success!");
+      toast.success(t('message.profile.successSavePass'));
     }
     catch (err) {
       setLoading(false);
-      toast.success("Save password failed!");
+      toast.success(t('message.profile.failSave'));
     }
   }
 
@@ -100,9 +100,8 @@ export const Profile = () => {
   return (
     <>
       <Card className="container mx-auto m-5">
-        <div className="mx-auto flex flex-row items-center justify-between w-full p-5">
-          <div className="w-1/5"></div>
-          <div className="w-1/5 flex flex-col items-center">
+        <div className="mx-auto flex flex-row items-center justify-between w-full h-full p-5">
+          <div className="w-1/3 flex flex-col items-center h-full">
             {
               image ?
                 <img
@@ -124,7 +123,6 @@ export const Profile = () => {
               >{t('profile.chooseImage')}</Button>
             </div>
           </div>
-          <div className="w-1/5"></div>
 
           <div className="w-2/3">
             <div>
@@ -238,7 +236,7 @@ export const Profile = () => {
                     size="small"
                     required
                     fullWidth
-                    label={t('profile.rePassword')}
+                    label={t('profile.confirmPassword')}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />

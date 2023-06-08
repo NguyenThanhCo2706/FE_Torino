@@ -3,16 +3,41 @@
   "auth": {
     "username": "Tài khoản",
     "password": "Mật khẩu",
+    "confirmPassword": "Nhập lại Mật khẩu",
     "signIn": "Đăng nhập",
     "forgotPassword": "Quên mật khẩu",
     "signUp": "Đăng kí",
     "dontHaveAccount": "Bạn chưa có tài khoản",
-    "rememberMe": "Ghi nhớ đăng nhập"
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "firstName": "Họ",
+    "lastName": "Tên",
+    "email": "email",
+    "phone": "Số điện thoại",
+    "area": "Khu vực:",
+    "inArea": "Trong thành phố",
+    "outArea": "Ngoài thành phố",
+    "backLogin": "Quay lại trang đăng nhập!",
+    "errorUser": "Vui lòng nhập tài khoản!",
+    "errorPass": "Vui lòng nhập mật khẩu!"
   },
-  "err_message": {
-    "serverInternalError": "Máy chủ hiện đang gặp lỗi",
+  "message": {
+    "serverInternalError": "Máy chủ hiện đang gặp lỗi!",
     "auth": {
-      "wrong_user_pass": "Tài khoản hoặc mật khẩu không đúng"
+      "wrongUserPass": "Tài khoản hoặc mật khẩu không đúng!",
+      "failRegister": "Đăng kí tài khoản thất bại!",
+      "successRegister": "Đăng kí tài khoản thành công"
+    },
+    "order": {
+      "failOrder": "Đặt đơn thất bại!",
+      "successOrder": "Đặt đơn thành công!"
+    },
+    "profile": {
+      "failSave": "Lưu thông tin thất bại!",
+      "successSaveInfo": "Lưu thông tin thành công",
+      "successSavePass": "Lưu mật khẩu thành công"
+    },
+    "cart": {
+      "successAdd": "Thêm vào giỏ hàng thành công"
     }
   },
   "cart": {
@@ -50,7 +75,7 @@
     "changePassword": "Thay đổi mật khẩu",
     "oldPassword": "Mật khẫu cũ",
     "newPassword": "Mật khẩu mới",
-    "rePassword": "Nhập lại mật khẩu",
+    "confirmPassword": "Nhập lại mật khẩu",
     "male": "Nam",
     "female": "Nữ",
     "other": "Khác",

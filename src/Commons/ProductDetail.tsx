@@ -12,9 +12,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'react-toastify/dist/ReactToastify.css';
 import { CircularProgressCustom } from './CircularProgressCustom';
+import { useTranslation } from 'react-i18next';
 
 export const ProductDetail = () => {
   const params: any = useParams();
+  const { t } = useTranslation();
+
   const [product, setProduct] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
@@ -46,7 +49,7 @@ export const ProductDetail = () => {
       })
     }
     localStorage.setItem("order", JSON.stringify(order));
-    toast.success("Add to cart success!");
+    toast.success(t("message.cart.successAdd"));
 
   }
 
