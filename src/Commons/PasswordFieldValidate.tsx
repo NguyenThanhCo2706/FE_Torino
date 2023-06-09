@@ -6,7 +6,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const PasswordFieldValidate = (props: any) => {
-  const { control, errors, name, label } = props;
+  const { control, errors, name, label, size = "medium" } = props;
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {
@@ -29,6 +29,7 @@ const PasswordFieldValidate = (props: any) => {
             type={showPassword ? 'text' : 'password'}
             required
             fullWidth
+            size={size}
             error={Boolean(errors[name])}
             helperText={errors[name]?.message}
             InputProps={{

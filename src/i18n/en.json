@@ -16,12 +16,29 @@
     "area": "Area:",
     "inArea": "Inside District",
     "outArea": "Outside District",
-    "backLogin": "Back to login!"
+    "backLogin": "Back to login!",
+    "logout": "Logout",
+    "errorUser": "Username is required!",
+    "errorPass": "Password is required!"
   },
   "errMessage": {
     "serverInternalError": "Server internal error",
     "auth": {
-      "wrongUserPass": "Username or Password not exactly correct"
+      "wrongUserPass": "Username or Password not exactly correct!",
+      "failRegister": "Regiester Account fail!",
+      "successRegister": "Register Account success!"
+    },
+    "order": {
+      "failOrder": "Order failure!",
+      "successOrder": "Order success!"
+    },
+    "profile": {
+      "failSave": "Save information fail!",
+      "successSaveInfo": "Save information success!",
+      "successSavePass": "Change password success!"
+    },
+    "cart": {
+      "successAdd": "Add to cart success!"
     }
   },
   "cart": {

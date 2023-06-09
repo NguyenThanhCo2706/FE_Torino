@@ -17,6 +17,7 @@
     "inArea": "Trong thành phố",
     "outArea": "Ngoài thành phố",
     "backLogin": "Quay lại trang đăng nhập!",
+    "logout": "Đăng xuất",
     "errorUser": "Vui lòng nhập tài khoản!",
     "errorPass": "Vui lòng nhập mật khẩu!"
   },
