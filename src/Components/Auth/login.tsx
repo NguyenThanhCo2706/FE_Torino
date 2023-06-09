@@ -41,7 +41,7 @@ const Login = () => {
       setError(error);
       return;
     }
-    
+
     setLoading(true);
     authApi.login(username, password).then((data) => {
       setLoading(false);

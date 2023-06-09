@@ -1,10 +1,9 @@
-import { Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from "@mui/material";
+import { Button, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import authApi from "../../api/authApi";
 import { toast } from "react-toastify";
-import { Customer, ErrorRegister } from "../../types";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import { registerSchema } from "../../validations";
 import { Controller, useForm } from 'react-hook-form';
@@ -16,16 +15,10 @@ const Register = () => {
   const { t } = useTranslation()
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [customerType, setCustomerType] = useState("1");
 
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(registerSchema),
   });
-
-  const handleSubmit2 = async () => {
-
-
-  };
 
   const onSubmit = (customer: any) => {
     setLoading(true);

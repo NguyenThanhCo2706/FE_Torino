@@ -36,6 +36,11 @@ const authApi = {
     const url = `/${alias}/register`;
     const result = await axiosClient.post(url, data);
     return result;
+  },
+
+  async logout() {
+    const url = `/${alias}/logout`;
+    await axiosClient.get(url);
   }
 }
 
