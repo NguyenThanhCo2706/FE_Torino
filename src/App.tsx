@@ -18,6 +18,11 @@ import categoryApi from './api/categoryApi';
 import Auth from './Components/Auth';
 import Login from './Components/Auth/Login';
 import Register from './Components/Auth/Register';
+import { useDispatch } from 'react-redux';
+import { categoryActions } from './redux/reducers/categorySlice'
+import { userActions } from './redux/reducers/userSlice'
+
+import authApi from './api/authApi';
 
 function App() {
   useEffect(() => {
@@ -61,20 +66,29 @@ function App() {
       .catch(e => console.log('Connection failed: ', e));
   }, [])
 
-  const [categories, setCategories] = useState<Category[]>([]);
+  const dispatch = useDispatch();
   useEffect(() => {
-    categoryApi.getMany()
-      .then((data: any) => {
-        setCategories(data.list);
+    categoryApi.getMany().then((data: any) => {
+      dispatch(categoryActions.setCategories(data.list));
+    }).catch(e => console.log('Connection failed: ', e));
+
+    const token = localStorage.getItem("token");
+    if (token) {
+      authApi.profile().then((data) => {
+        console.log(data);
+        dispatch(userActions.setUserInfo(data));
+      }).catch((e) => {
+        localStorage.removeItem("token");
+        console.log(e);
       })
-      .catch(e => console.log('Connection failed: ', e));
+    }
   }, [])
+
   return (
     <>
       <Routes>
         <Route path="/login" element={<Auth><Login /></Auth>} />
         <Route path="/register" element={<Auth><Register /></Auth>} />
-
         <Route path="/" element={<Home><HomePage /></Home>} />
         <Route path="/cart" element={<Home><Cart /></Home>} />
         <Route path="/profile" element={<Home><Profile /></Home>} />
@@ -84,7 +98,6 @@ function App() {
         <Route path="/payment" element={<Home><Payment /></Home>} />
         <Route path="/home" element={<Home><HomePage /></Home>} />
         <Route path="/contact" element={<Home><Contact /></Home>} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer

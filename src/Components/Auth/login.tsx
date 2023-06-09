@@ -8,6 +8,8 @@ import authApi from "../../api/authApi";
 import { toast } from "react-toastify";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import { ErrorLogin } from "../../types";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../redux/reducers/userSlice";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -26,6 +28,20 @@ const Login = () => {
         setUsername(auth.username);
         setPassword(auth.password);
       }
+    }
+  }, [])
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      authApi.profile().then((data) => {
+        dispatch(userActions.setUserInfo(data));
+        navigate("/");
+      }).catch((e) => {
+        localStorage.removeItem("token");
+        console.log(e);
+      })
     }
   }, [])
 

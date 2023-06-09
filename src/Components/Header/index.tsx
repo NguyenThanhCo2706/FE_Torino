@@ -10,10 +10,12 @@ import { Category, Order } from '../../types';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
-const Header = (props: any) => {
+const Header = () => {
   const { t } = useTranslation()
-  const { categories } = props;
+  const { categories } = useSelector((state: RootState) => state.category);
   const navigate = useNavigate()
   const [order, setOrder] = useState<Order>();
 
