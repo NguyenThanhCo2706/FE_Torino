@@ -11,6 +11,7 @@ import ChangeInformation from "./ChangeInformation";
 
 export const Profile = () => {
   const { t } = useTranslation();
+
   const [loading, setLoading] = useState(false);
 
   const [image, setImage] = useState<any>();
@@ -19,7 +20,6 @@ export const Profile = () => {
     const input = document.getElementById('myFileInput');
     input && input.click();
   }
-
 
   const handleChooseImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files && e.target.files[0];

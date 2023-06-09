@@ -10,11 +10,19 @@ import TextFieldValidate from "../../Commons/TextFieldValidate";
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 import { InfoUser, UpdateProfile } from "../../types";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { counterActions } from '../../redux/reducers/counterSlice'
 
 const ChangeInformation = (props: any) => {
   const { setLoading } = props;
   const { t } = useTranslation();
   const [avatar, setAvatar] = useState<string>("");
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
+  console.log(user);
 
   const { control, handleSubmit, formState: { errors }, setValue } = useForm({
     resolver: yupResolver(updateUserInfo),
@@ -39,18 +47,15 @@ const ChangeInformation = (props: any) => {
   }
 
   useEffect(() => {
-    setLoading(true);
-    authApi.profile().then((data: InfoUser) => {
-      setValue("firstName", data?.firstName);
-      setValue("lastName", data?.lastName);
-      setValue("phone", data?.phone);
-      setValue("birthday", moment(data?.birthday).format("YYYY-MM-DD"));
-      setValue("gender", data?.gender);
-      setLoading(false);
-    }).catch(() => {
-      setLoading(false);
-    })
-  }, [])
+    if (user) {
+      setValue("firstName", user?.firstName);
+      setValue("lastName", user?.lastName);
+      setValue("phone", user?.phone);
+      setValue("birthday", moment(user?.birthday).format("YYYY-MM-DD"));
+      setValue("gender", user?.gender);
+    }
+    console.log("cow");
+  }, [user])
 
   return (
     <>
