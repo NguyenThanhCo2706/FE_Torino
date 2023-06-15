@@ -7,7 +7,11 @@ export const initOrder = () => {
     discount: 0,
     note: "",
     isPaid: false,
-    orderDetails: []
+    orderDetails: [],
+    detailAddress: "",
+    provinceId: "",
+    districtId: "",
+    communeId: ""
   }
 
   localStorage.setItem("order", JSON.stringify(order));

@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Category } from "../../types";
 
 const REDUCER_NAME = "category";
 
 export type CategoryState = {
-  categories: any;
+  categories: Category[];
 };
 
 const initialState: CategoryState = {

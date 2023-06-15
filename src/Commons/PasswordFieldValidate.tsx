@@ -27,7 +27,6 @@ const PasswordFieldValidate = (props: any) => {
             label={label}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
-            required
             fullWidth
             size={size}
             error={Boolean(errors[name])}

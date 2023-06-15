@@ -1,35 +1,32 @@
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import AdsClickIcon from '@mui/icons-material/AdsClick';
-import { Button, Card } from '@mui/material';
-import { thousandSeparator } from '../utils';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import AdsClickIcon from '@mui/icons-material/AdsClick';
+import { Button, Card } from '@mui/material';
 
+import { thousandSeparator } from '../utils';
 import 'react-toastify/dist/ReactToastify.css';
+import { OrderDetail } from '../types';
+import { orderDetailActions } from '../redux/reducers/orderDetailSlice';
 
 export default function ProductCard(props: any) {
   const { product } = props;
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const disPatch = useDispatch();
 
   const handleAddCart = () => {
-    const order = JSON.parse(localStorage.getItem("order") || "");
-    const index = order.orderDetails.findIndex((detail: any) => detail.productId === product.id);
-    if (index !== -1) {
-      order.orderDetails[index].quantity += 1;
+    const orderDetail: OrderDetail = {
+      productId: product.id,
+      productName: product.name,
+      categoryName: product.categoryName,
+      productImage: product.images[0],
+      quantity: 1,
+      price: product.price,
     }
-    else {
-      order.orderDetails.push({
-        productId: product.id,
-        productName: product.name,
-        categoryName: product.categoryName,
-        productImage: product.images[0],
-        quantity: 1,
-        price: product.price,
-      })
-    }
-    localStorage.setItem("order", JSON.stringify(order));
+    disPatch(orderDetailActions.addOrderDetail(orderDetail));
     toast.success(t("message.cart.successAdd"));
   }
   return (
@@ -56,7 +53,7 @@ export default function ProductCard(props: any) {
               </Button>
             </div>
             <div className='h-[100px] text-center'>
-              {product.description || <>Chưa có mô tả</>}
+              {product.description}
             </div>
           </div>
         </div>

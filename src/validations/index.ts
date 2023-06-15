@@ -27,3 +27,16 @@ export const updateUserInfo = yup.object().shape({
   birthday: yup.date(),
   gender: yup.string()
 });
+
+export const createOrder = yup.object().shape({
+  provinceId: yup.string().required(),
+  districtId: yup.string().required(),
+  communeId: yup.string().required(),
+  detailAddress: yup.string().required(),
+  status: yup.number().required(),
+  dateOfReceive: yup.date().required(),
+});
+
+export const emailSchema = yup.object().shape({
+  email: yup.string().email().required(),
+})

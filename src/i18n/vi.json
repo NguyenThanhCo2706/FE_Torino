@@ -26,7 +26,7 @@
     "auth": {
       "wrongUserPass": "Tài khoản hoặc mật khẩu không đúng!",
       "failRegister": "Đăng kí tài khoản thất bại!",
-      "successRegister": "Đăng kí tài khoản thành công"
+      "successRegister": "Đăng kí tài khoản thành công!"
     },
     "order": {
       "failOrder": "Đặt đơn thất bại!",
@@ -34,11 +34,12 @@
     },
     "profile": {
       "failSave": "Lưu thông tin thất bại!",
-      "successSaveInfo": "Lưu thông tin thành công",
-      "successSavePass": "Lưu mật khẩu thành công"
+      "successSaveInfo": "Lưu thông tin thành công!",
+      "successSavePass": "Lưu mật khẩu thành công!"
     },
     "cart": {
-      "successAdd": "Thêm vào giỏ hàng thành công"
+      "successAdd": "Thêm vào giỏ hàng thành công!",
+      "emptyCart": "Giỏ hàng rỗng!"
     }
   },
   "cart": {
@@ -50,7 +51,7 @@
     "totalPrice": "Tổng tiền",
     "back": "Tiếp tục mua sắm",
     "summaryOrder": "Tóm tắt Đơn hàng",
-    "address": "Dịa chỉ",
+    "address": "Địa chỉ",
     "province": "Tỉnh thành",
     "district": "Quận huyện",
     "commune": "Xã",
@@ -86,7 +87,9 @@
     "product": "Sản Phẩm",
     "news": "Tin Tức và Sự Kiện",
     "story": "Trạng Thái",
-    "contact": "Liên Hệ"
+    "contact": "Liên Hệ",
+    "signUp": "Đăng kí",
+    "signIn": "Đăng nhập"
   },
   "vnpay": {
     "title": "Thông báo xác nhận!",
@@ -103,5 +106,10 @@
     "bankName": "# Ngân hàng thanh toán: ",
     "translationCode": "# Mã giao dịch tại VNPAY: ",
     "datePayment": "# Ngày thanh toán: "
+  },
+  "product": {
+    "home": "Trang chủ",
+    "product": "Sản phẩm",
+    "newProduct": "SẢN PHẨM NỔI BẬT"
   }
 }

@@ -13,15 +13,18 @@ import 'swiper/css/pagination';
 import 'react-toastify/dist/ReactToastify.css';
 import { CircularProgressCustom } from './CircularProgressCustom';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { RootState } from '../redux/store';
+import { orderDetailActions } from '../redux/reducers/orderDetailSlice';
+import { OrderDetail } from '../types';
 
 export const ProductDetail = () => {
   const params: any = useParams();
   const { t } = useTranslation();
-
   const [product, setProduct] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-
+  const disPatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,24 +36,15 @@ export const ProductDetail = () => {
   }, []);
 
   const handleAddCart = () => {
-    const order = JSON.parse(localStorage.getItem("order") || "");
-    const index = order.orderDetails.findIndex((detail: any) => detail.productId === product.id);
-    if (index !== -1) {
-      order.orderDetails[index].quantity += 1;
-    }
-    else {
-      order.orderDetails.push({
-        productId: product.id,
-        productName: product.name,
-        categoryName: product.categoryName,
-        productImage: product.pictures[0].src,
-        quantity: 1,
-        price: product.price,
-      })
-    }
-    localStorage.setItem("order", JSON.stringify(order));
-    toast.success(t("message.cart.successAdd"));
-
+    const orderDetail: OrderDetail = {
+      productId: product.id,
+      productName: product.name,
+      categoryName: product.categoryName,
+      productImage: product.pictures[0].src,
+      quantity: 1,
+      price: product.price,
+    };
+    disPatch(orderDetailActions.addOrderDetail(orderDetail));
   }
 
   const handleChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {

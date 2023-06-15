@@ -1,43 +1,24 @@
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link, useNavigate } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Category, Order } from '../../types';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
+import Notification from '../../Commons/Notification';
+import { Category } from '../../types';
 import i18n from '../../i18n';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
 const Header = () => {
   const { t } = useTranslation()
-  const { categories } = useSelector((state: RootState) => state.category);
   const navigate = useNavigate()
-  const [order, setOrder] = useState<Order>();
-
-  useEffect(() => {
-    const order = localStorage.getItem('order')
-    if (order) {
-      setOrder(JSON.parse(order))
-    }
-  }, [localStorage.getItem('order')])
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      // Handle localStorage change
-      console.log('localStorage changed');
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
+  const { categories } = useSelector((state: RootState) => state.category);
+  const { orderDetails } = useSelector((state: RootState) => state.orderDetail);
+  const { user } = useSelector((state: RootState) => state.user);
 
   const handleChangeLanguage = (language: string) => {
     i18n.changeLanguage(language);
@@ -106,36 +87,45 @@ const Header = () => {
               color="inherit"
               onClick={() => navigate("/cart")}
             >
-              <Badge badgeContent={order?.orderDetails.length || 0} color="error">
+              <Badge badgeContent={orderDetails.length} color="error">
                 <AddShoppingCartIcon />
               </Badge>
             </IconButton>
-            <IconButton
+            <Notification />
+            {/* <IconButton
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
             >
               <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+                
               </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              // aria-controls={menuId}
-              aria-haspopup="true"
-              color="inherit"
-              onClick={() => navigate("/profile")}
-            >
-              <AccountCircle />
-            </IconButton>
+            </IconButton> */}
+            {
+              user ?
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  // aria-controls={menuId}
+                  aria-haspopup="true"
+                  color="inherit"
+                  onClick={() => navigate("/profile")}
+                >
+                  <AccountCircle />
+                </IconButton>
+                :
+                <div className='text-center font-semibold ml-3'>
+                  <Link to="/register" className='hover:underline'>{t('header.signUp')}</Link>
+                  <br />
+                  <Link to="/login" className='hover:underline'>{t('header.signIn')}</Link>
+                </div>
+            }
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="show more"
-              // aria-controls={mobileMenuId}
               aria-haspopup="true"
               color="inherit"
             >
