@@ -1,13 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { InfoUser } from "../../types";
 
 const REDUCER_NAME = "user";
 
 export type UserState = {
-  user: any;
+  user: InfoUser | null;
 };
 
 const initialState: UserState = {
-  user: {}
+  user: null
 };
 
 export const userSlice = createSlice({

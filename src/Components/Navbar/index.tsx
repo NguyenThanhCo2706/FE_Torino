@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import categoryApi from "../../api/categoryApi";
-import React from "react";
 import { Link } from "react-router-dom";
 import { Category } from "../../types";
 
@@ -10,7 +9,6 @@ const Navbar = () => {
     categoryApi.getMany().then((data: any) => {
       setCategories(data.list.sort((a: Category, b: Category) => b.childCategories.length - a.childCategories.length));
     }).catch((err) => {
-
     })
   }, [])
   return (

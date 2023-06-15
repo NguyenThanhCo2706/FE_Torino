@@ -8,6 +8,8 @@ import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import { useNavigate } from "react-router-dom";
 import ChangePassword from "./ChangePassword";
 import ChangeInformation from "./ChangeInformation";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../redux/reducers/userSlice";
 
 export const Profile = () => {
   const { t } = useTranslation();
@@ -27,12 +29,15 @@ export const Profile = () => {
   }
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleLogout = async () => {
     setLoading(true);
     await authApi.logout();
     setLoading(false);
     localStorage.removeItem('token');
-    navigate("/login")
+    dispatch(userActions.setUserInfo(null));
+    navigate("/")
   }
 
   return (

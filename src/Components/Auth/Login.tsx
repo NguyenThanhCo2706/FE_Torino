@@ -40,7 +40,7 @@ const Login = () => {
         navigate("/");
       }).catch((e) => {
         localStorage.removeItem("token");
-        console.log(e);
+        toast.error(e.message);
       })
     }
   }, [])

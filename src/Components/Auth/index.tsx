@@ -1,15 +1,6 @@
-import * as React from 'react';
-import { IconButton, InputAdornment, Grid, createTheme, ThemeProvider, Avatar, Button, Typography, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Paper, Box } from '@mui/material';
-import authApi from '../../api/authApi';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { CircularProgressCustom } from '../../Commons/CircularProgressCustom';
-import { useTranslation } from 'react-i18next';
+import { Grid, createTheme, ThemeProvider, Avatar, Typography, CssBaseline, Paper, Box } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useEffect, useState } from 'react';
-import Register from './Register';
+import { Link } from 'react-router-dom';
 
 const theme = createTheme();
 
@@ -44,16 +35,17 @@ export default function Auth(props: any) {
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                TORINO
-              </Typography>
+              <Link to="/" className="flex flex-col items-center ">
+                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  TORINO
+                </Typography>
+              </Link>
               {
                 props.children
               }
-              {/* <Register /> */}
             </Box>
           </Grid>
         </Grid>

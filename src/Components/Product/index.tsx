@@ -1,4 +1,4 @@
-import { Breadcrumbs, Pagination, Typography } from "@mui/material"
+import { Breadcrumbs, Pagination } from "@mui/material"
 import ProductCart from "../../Commons/ProductCart"
 import { SwiperCustom } from "../../Commons/SwiperCustom"
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
-
+import { useTranslation } from "react-i18next";
 
 export const Product = () => {
   const [products, setProducts] = useState([]);
@@ -32,6 +32,9 @@ export const Product = () => {
 
     setCurrentPage(+value);
   }
+
+  const { t } = useTranslation();
+
   return (
     <>
       <SwiperCustom />
@@ -42,18 +45,18 @@ export const Product = () => {
             <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "18px", paddingTop: "20px" }}>
               <div className=""> <HomeIcon /></div>
               <Link to="/" className="hover:underline">
-                Home
+                {t('product.home')}
               </Link>
               <Link
                 to="/product"
                 className="hover:underline"
               >
-                Product
+                {t('product.product')}
               </Link>
             </Breadcrumbs>
           </div>
           <div className="block-line">
-            <h2 className="block-line-text bg-gray-50">SẢN PHẨM MỚI NHẤT</h2>
+            <h2 className="block-line-text bg-gray-50">{t('product.newProduct')}</h2>
           </div>
           <div className="flex flex-wrap">
             {

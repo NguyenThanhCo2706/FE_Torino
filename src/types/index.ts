@@ -1,7 +1,10 @@
 export interface OrderDetail {
   productId: number,
   price: number,
-  quantity: number
+  quantity: number,
+  productImage?: string,
+  productName?: string,
+  categoryName?: string,
 }
 export interface Order {
   dateOfReceive: Date,
@@ -11,6 +14,10 @@ export interface Order {
   note: string,
   isPaid: boolean,
   Status?: number,
+  detailAddress: string,
+  provinceId: string,
+  districtId: string,
+  communeId: string,
   orderDetails: OrderDetail[]
 }
 

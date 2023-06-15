@@ -38,7 +38,8 @@
       "successSavePass": "Change password success!"
     },
     "cart": {
-      "successAdd": "Add to cart success!"
+      "successAdd": "Add to cart success!",
+      "emptyCart": "Cart is empty!"
     }
   },
   "cart": {
@@ -86,7 +87,9 @@
     "product": "Product",
     "news": "News & Events",
     "story": "Story",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "signUp": "Sign Up",
+    "signIn": "Sign In"
   },
   "vnpay": {
     "title": "Notification Confirm!",
@@ -103,5 +106,10 @@
     "bankName": "# Bank Name: ",
     "translationCode": "# Transaction Code VNPAY: ",
     "datePayment": "# Payment Date: "
+  },
+  "product": {
+    "home": "Home",
+    "product": "Product",
+    "newProduct": "NEWEST PRODUCTS"
   }
 }

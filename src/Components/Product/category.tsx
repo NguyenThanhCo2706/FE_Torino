@@ -9,6 +9,10 @@ import { SwiperCustom } from "../../Commons/SwiperCustom"
 import productApi from "../../api/productApi";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import Navbar from "../Navbar";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Category } from "../../types";
+import { useTranslation } from "react-i18next";
 
 
 export const ProductCategory = () => {
@@ -17,6 +21,7 @@ export const ProductCategory = () => {
   const [loading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const { categories } = useSelector((state: RootState) => state.category);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -31,6 +36,9 @@ export const ProductCategory = () => {
   const handleChangePage = (event: any, value: number) => {
     setCurrentPage(+value);
   }
+
+  const { t } = useTranslation();
+
   return (
     <>
       <SwiperCustom />
@@ -41,19 +49,23 @@ export const ProductCategory = () => {
             <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "18px", paddingTop: "20px" }}>
               <div className=""> <HomeIcon /></div>
               <Link to="/" className="hover:underline">
-                Home
+                {t('product.home')}
               </Link>
               <Link
                 to="/product"
                 className="hover:underline"
               >
-                Product
+                {t('product.product')}
               </Link>
-              <Typography color="text.primary" sx={{ fontSize: "18px" }}>Breadcrumbs</Typography>
+              <Typography color="text.primary" sx={{ fontSize: "18px" }}>{
+                categories && categories.find((item: Category) => item.id === +params.id)?.name
+              }</Typography>
             </Breadcrumbs>
           </div>
           <div className="block-line">
-            <h2 className="block-line-text bg-gray-50">SẢN PHẨM MỚI NHẤT</h2>
+            <h2 className="block-line-text bg-gray-50 uppercase">{
+              categories && categories.find((item: Category) => item.id === +params.id)?.name
+            }</h2>
           </div>
           <div className="flex flex-wrap">
             {

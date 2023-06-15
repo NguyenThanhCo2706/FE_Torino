@@ -1,28 +1,24 @@
+import moment from "moment";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import authApi from "../../api/authApi";
 import { toast } from "react-toastify";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { Button, FormControlLabel, Grid, Radio, RadioGroup, Typography } from "@mui/material";
-import { updateUserInfo } from "../../validations";
 import { useTranslation } from "react-i18next";
-import TextFieldValidate from "../../Commons/TextFieldValidate";
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
-import { InfoUser, UpdateProfile } from "../../types";
-import moment from "moment";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+
+import TextFieldValidate from "../../Commons/TextFieldValidate";
+import { updateUserInfo } from "../../validations";
 import { RootState } from "../../redux/store";
-import { counterActions } from '../../redux/reducers/counterSlice'
+import authApi from "../../api/authApi";
 
 const ChangeInformation = (props: any) => {
   const { setLoading } = props;
   const { t } = useTranslation();
   const [avatar, setAvatar] = useState<string>("");
 
-  const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.user);
-  console.log(user);
 
   const { control, handleSubmit, formState: { errors }, setValue } = useForm({
     resolver: yupResolver(updateUserInfo),
@@ -54,7 +50,6 @@ const ChangeInformation = (props: any) => {
       setValue("birthday", moment(user?.birthday).format("YYYY-MM-DD"));
       setValue("gender", user?.gender);
     }
-    console.log("cow");
   }, [user])
 
   return (
