@@ -31,7 +31,7 @@ export const Modal = (props: ModalProps) => {
       console.log(response.data);
 
       if (response.data.CreatedDate) {
-        if (order.Status) {
+        if (order.status) {
           const url = await commonApi.payment(response.data.id, `${window.location.origin}/payment`);
           window.location.href = String(url);
         }

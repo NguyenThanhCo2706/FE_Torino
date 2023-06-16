@@ -31,7 +31,7 @@ export const Cart = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const { t } = useTranslation();
 
-  const { control, handleSubmit, formState: { errors }, watch } = useForm({
+  const { control, handleSubmit, formState: { errors }, watch, setValue } = useForm({
     resolver: yupResolver(createOrder),
   });
 
@@ -64,20 +64,19 @@ export const Cart = () => {
     dispatch(orderDetailActions.setOrderDetails(newDetails));
   }
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = () => {
     setConfirm(true);
   }
 
   const districtId = watch("districtId");
   useEffect(() => {
+    setValue("communeId", "");
     setLoading(true);
     districtId && commonApi.getCommunes(districtId).then((data) => {
       setCommunes(data);
       setLoading(false);
     });
   }, [districtId])
-  console.log(loading);
 
   return (
     <>

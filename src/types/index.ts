@@ -31,6 +31,7 @@ export interface InfoUser {
   gender: number;
   genderName: string;
   birthday: Date;
+  avatar: string;
 }
 
 export interface UpdateProfile {
@@ -38,6 +39,7 @@ export interface UpdateProfile {
   lastName: string;
   gender: number;
   birthday: Date;
+  avatar?: string,
 }
 
 export interface ChangePassword {
