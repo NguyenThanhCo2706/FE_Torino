@@ -92,27 +92,21 @@ const Header = () => {
               </Badge>
             </IconButton>
             <Notification />
-            {/* <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                
-              </Badge>
-            </IconButton> */}
             {
               user ?
                 <IconButton
                   size="large"
                   edge="end"
                   aria-label="account of current user"
-                  // aria-controls={menuId}
                   aria-haspopup="true"
                   color="inherit"
                   onClick={() => navigate("/profile")}
                 >
-                  <AccountCircle />
+                  {
+                    user.avatar ?
+                      <img src={user?.avatar} alt="" className="w-[24px] h-[24px] rounded-full object-cover" />
+                      : <AccountCircle />
+                  }
                 </IconButton>
                 :
                 <div className='text-center font-semibold ml-3'>
