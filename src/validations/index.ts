@@ -10,6 +10,7 @@ export const registerSchema = yup.object().shape({
   confirmPassword: yup.string()
     .oneOf([yup.ref("password")], "Passwords do not match")
     .required(),
+  type: yup.string(),
 });
 
 export const changePasswordSchema = yup.object().shape({
@@ -24,7 +25,7 @@ export const updateUserInfo = yup.object().shape({
   firstName: yup.string(),
   lastName: yup.string(),
   phone: yup.string().matches(/^\d+$/).required(),
-  birthday: yup.date(),
+  birthday: yup.string(),
   gender: yup.string()
 });
 
@@ -35,6 +36,7 @@ export const createOrder = yup.object().shape({
   detailAddress: yup.string().required(),
   status: yup.number().required(),
   dateOfReceive: yup.date().required(),
+  note: yup.string(),
 });
 
 export const emailSchema = yup.object().shape({

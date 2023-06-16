@@ -54,7 +54,7 @@ const ChangeInformation = (props: any) => {
       setValue("lastName", user?.lastName);
       setValue("phone", user?.phone);
       setValue("birthday", moment(user?.birthday).format("YYYY-MM-DD"));
-      setValue("gender", user?.gender);
+      setValue("gender", user?.gender.toString());
     }
   }, [user])
 
