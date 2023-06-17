@@ -67,15 +67,13 @@ export const ProductCategory = () => {
               categories && categories.find((item: Category) => item.id === +params.id)?.name
             }</h2>
           </div>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap mt-16">
             {
               products.map((product, index: number) => {
                 return (
-                  <React.Fragment key={index}>
-                    <div className="w-1/4">
-                      <ProductCart product={product} />
-                    </div>
-                  </React.Fragment>
+                  <div className={`w-1/2 ${index % 2 === 0 ? "pe-4" : "ps-4"}`} key={index}>
+                    <ProductCart product={product} />
+                  </div>
                 )
               })
             }

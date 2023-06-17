@@ -58,15 +58,13 @@ export const Product = () => {
           <div className="block-line">
             <h2 className="block-line-text bg-gray-50">{t('product.newProduct')}</h2>
           </div>
-          <div className="flex flex-wrap">
+          <div className="flex pt-10">
             {
               products.map((product, index: number) => {
                 return (
-                  <React.Fragment key={index}>
-                    <div className="w-1/4">
-                      <ProductCart product={product} />
-                    </div>
-                  </React.Fragment>
+                  <div className="w-full" key={index}>
+                    <ProductCart product={product} />
+                  </div>
                 )
               })
             }

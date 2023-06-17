@@ -34,7 +34,7 @@ const Notification = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const [count, setCount] = useState(5);
   const [connectionRef, setConnection] = useState<HubConnection>();
 
   useEffect(() => {
@@ -57,9 +57,9 @@ const Notification = () => {
         connectionRef
           .start()
           .then(() => {
-            connectionRef?.invoke('JoinGroup', 'Admin');
-            connectionRef.on('OrderCreated', (message: any) => {
-              console.log("tao da nhan duoc tin nhan: ", message);
+            connectionRef.on('OrderConfirmed', (message: any) => {
+              setCount(count + 1);
+              toast.success("Đơn hàng bạn đã được approve");
             });
           })
           .catch((err: any) => {
@@ -86,7 +86,7 @@ const Notification = () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <Badge badgeContent={10} color="error">
+        <Badge badgeContent={count} color="error">
           <NotificationsIcon />
         </Badge>
       </IconButton>
