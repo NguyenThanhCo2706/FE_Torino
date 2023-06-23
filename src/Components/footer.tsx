@@ -6,13 +6,16 @@ import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const Footer = () => {
+  const { categories } = useSelector((state: RootState) => state.category);
+  const { t } = useTranslation();
+
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(emailSchema),
   });
 
-  const { categories } = useSelector((state: RootState) => state.category);
   const onSubmit = () => {
 
   }
@@ -23,20 +26,20 @@ export const Footer = () => {
         <div className="flex flex-wrap w-full">
           <div className="lg:w-1/3 sm:w-full sm:border-b">
             <div>
-              <h1 className="uppercase font-semibold text-[20px]">opening hour</h1>
+              <h1 className="uppercase font-semibold text-[20px]">{t("footer.openingHour")}</h1>
               <div className="my-2">
                 <p>08:00 - 21:00</p>
-                <p>from TUESDAY to SUNDAY</p>
+                <p>{t("footer.openingDetail")}</p>
               </div>
             </div>
             <div>
-              <h1 className="uppercase font-semibold text-[20px]">location</h1>
+              <h1 className="uppercase font-semibold text-[20px]">{t("footer.location")}</h1>
               <div className="my-2">
-                <p>162 Chau Thi Vinh Te street, My An Ward, Ngu Hanh Son district, Da Nang city</p>
+                <p>{t("footer.locationDetail")}</p>
               </div>
             </div>
             <div>
-              <h1 className="uppercase font-semibold text-[20px]">phone number</h1>
+              <h1 className="uppercase font-semibold text-[20px]">{t("footer.phone")}</h1>
               <div className="my-2">
                 <p>+84 1234567890 (Mr.Tran Nhan Quang)</p>
               </div>
@@ -44,14 +47,14 @@ export const Footer = () => {
           </div>
           <div className="lg:w-1/3 sm:w-full flex flex-row sm:border-b">
             <div className="w-1/3">
-              <h1 className="uppercase font-semibold text-[20px]">company</h1>
+              <h1 className="uppercase font-semibold text-[20px]">{t("footer.company")}</h1>
               <div className="my-2">
-                <p>Our Story</p>
-                <p>Careers</p>
+                <p>{t("footer.ourStory")}</p>
+                <p>{t("footer.careers")}</p>
               </div>
             </div>
             <div className="w-1/3">
-              <h1 className="uppercase font-semibold text-[20px]">our menu</h1>
+              <h1 className="uppercase font-semibold text-[20px]">{t("footer.ourMenu")}</h1>
               <div className="my-2">
                 {
                   categories.map((category) => <p><Link to={`/product/category/${category.id}`}>{category.name}</Link></p>)
@@ -59,18 +62,18 @@ export const Footer = () => {
               </div>
             </div>
             <div className="w-1/3">
-              <h1 className="uppercase font-semibold text-[20px]">help</h1>
+              <h1 className="uppercase font-semibold text-[20px]">{t("footer.help")}</h1>
               <div className="my-2">
                 <p>FAQ</p>
-                <p>Contact us</p>
+                <p>{t("footer.contact")}</p>
               </div>
             </div>
           </div>
           <div className="lg:w-1/3 sm:w-full ">
-            <h1 className="uppercase font-semibold text-[20px]">torino's in your inbox</h1>
+            <h1 className="uppercase font-semibold text-[20px]">{t("footer.inbox")}</h1>
             <div className="my-2">
-              <p>For special offers, new goodies, and the latest news</p>
-              <p>Join our mailing list</p>
+              <p>{t("footer.inboxDetail")}</p>
+              <p>{t("footer.mail")}</p>
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row mt-3">
                 <TextFieldValidate
                   control={control}

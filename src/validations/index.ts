@@ -58,6 +58,9 @@ export const emailSchema = yup.object().shape({
 })
 
 export const contactSchema = yup.object().shape({
-  hihi: yup.string(),
-  hehe: yup.boolean(),
+  name: yup.string(),
+  email: yup.string().email(),
+  phone: yup.string(),
+  content: yup.string(),
+  check: yup.string(),
 });

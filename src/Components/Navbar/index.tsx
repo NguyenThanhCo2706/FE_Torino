@@ -13,7 +13,7 @@ const Navbar = () => {
   }, [])
   return (
     <>
-      <div className="container mx-auto flex flex-row justify-between p-[20px]">
+      <div className="lg:container mx-auto flex flex-row justify-between p-[20px] flex-wrap ">
         {
           categories.map((category, index: number) => (
             <div className="relative" key={index}>

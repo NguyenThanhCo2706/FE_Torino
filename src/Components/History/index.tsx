@@ -1,52 +1,17 @@
 import { useState } from "react";
 import { thousandSeparator } from "../../utils";
-import { Box, Card, Pagination, Tab, Tabs } from "@mui/material";
+import { Card, Pagination } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
-import DensitySmallIcon from '@mui/icons-material/DensitySmall';
-import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
-import TabPanel from "../../Commons/TabPanel";
 
 const History = () => {
   const [status, setStatus] = useState(1);
   const { t } = useTranslation();
 
-  const Description = (id: number) => {
-    switch (id) {
-      case 1: {
-        return <>
-
-        </>
-      }
-      case 2: {
-        return <>
-
-        </>
-      }
-      case 3: {
-        return <>
-
-        </>
-      }
-      case 4: {
-        return <>
-        </>
-      }
-      case 5: {
-        return <>
-        </>
-      }
-      default: {
-        return <></>
-      }
-    }
-  }
-  const [value, setValue] = useState(1);
   return (
     <>
       <div className="container mx-auto my-[20px]">
         <div className="flex justify-start w-full text-[40px] mb-3 font-semibold text-green-600">
-          Lịch sử đơn hàng
+          {t("history.history")}
         </div>
         <div className="flex p-1 text-xl w-full ">
           <div
@@ -75,17 +40,16 @@ const History = () => {
 
           <div className="my-5 border-b-2">
             <div className="italic text-gray-600 font-medium">
-              <span>Đơn hàng:</span>
+              <span>{t("history.order")}:</span>
               <span className="text-xl font-semibold">#123</span>
             </div>
             <div className="flex justify-between border-b">
               <span>
-                <span className="italic">Ngày nhận hàng: </span>
-                <span className="text-xl font-semibold text-[#385D36]">2001-01-01</span>
-                <span className="text-[1rem] font-normal">08:00:00</span>
+                <span className="italic">{t("history.dateOfReceive")}: </span>
+                <span className="font-semibold text-[#385D36]">08:00:00 2001-01-01</span>
               </span>
               <span>
-                <span className="italic text-[1rem]">Tình trạng: </span>
+                <span className="italic text-[1rem]">{t("history.status")}: </span>
                 <span className="text-xl font-semibold text-[#385D36]">Hoàn thành</span>
 
               </span>
@@ -125,8 +89,8 @@ const History = () => {
               </div>
             </div>
             <div className="flex justify-between py-2">
-              <span className="italic">Hình thức giao hàng: <span className="font-semibold text-[#385D36]">Giao hàng</span></span>
-              <span>Thành tiền: <span className="text-xl font-semibold text-[#385D36]">{thousandSeparator(100000)} VNĐ</span></span>
+              <span className="italic">{t("history.deliveryType")}: <span className="font-semibold text-[#385D36]">Giao hàng</span></span>
+              <span>{t("history.totalPrice")}: <span className="text-xl font-semibold text-[#385D36]">{thousandSeparator(100000)} VNĐ</span></span>
             </div>
           </div>
         </Card>
@@ -139,24 +103,6 @@ const History = () => {
         </div>
       </div>
     </>
-    // <div className="container mx-auto">
-    //   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-    //     <Tabs value={value} onChange={(e, newVal) => setValue(newVal)} aria-label="basic tabs example">
-    //       <Tab label="Item One" />
-    //       <Tab label="Item Two" />
-    //       <Tab label="Item Three" />
-    //     </Tabs>
-    //   </Box >
-    //   <TabPanel value={value} index={0}>
-    //     Item One
-    //   </TabPanel>
-    //   <TabPanel value={value} index={1}>
-    //     Item Two
-    //   </TabPanel>
-    //   <TabPanel value={value} index={2}>
-    //     Item Three
-    //   </TabPanel>
-    // </div>
   )
 }
 

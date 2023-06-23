@@ -13,6 +13,12 @@ import Notification from '../../Commons/Notification';
 import { Category } from '../../types';
 import i18n from '../../i18n';
 import { RootState } from '../../redux/store';
+import { useEffect, useRef, useState } from 'react';
+
+function getWindowSize() {
+  const { innerWidth, innerHeight } = window;
+  return { innerWidth, innerHeight };
+}
 
 const Header = () => {
   const { t } = useTranslation()
@@ -20,16 +26,60 @@ const Header = () => {
   const { categories } = useSelector((state: RootState) => state.category);
   const { orderDetails } = useSelector((state: RootState) => state.orderDetail);
   const { user } = useSelector((state: RootState) => state.user);
-  console.log(categories);
 
   const handleChangeLanguage = (language: string) => {
     i18n.changeLanguage(language);
     localStorage.setItem('language', language);
   }
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
+  const MiddleElementHeader = (props: any) => {
+    return (
+      <div className={`flex flex-row justify-evenly w-2/4 font-bold items-center gap-x-2 ${props.className}`}>
+        <div
+          className='relative first-letter:hover:cursor-pointer hover:border-b-4'
+        >
+          <button
+            onClick={() => navigate("/product")}
+            className="peer py-1 whitespace-nowrap">{t('header.product')}</button>
+          <div className="absolute hidden peer-hover:flex hover:flex w-[200px] flex-col bg-white drop-shadow-lg z-10">
+            {
+              categories.map((category: Category, index: number) => (
+                <Link
+                  key={index}
+                  to={`/product/category/${category.id}`}
+                  className="px-5 py-3 hover:bg-gray-200 hover:cursor-pointer font-semibold "
+                >{category.name}</Link>
+              ))
+            }
+          </div>
+        </div>
+        <div
+          className='hover:cursor-pointer hover:border-b-4 whitespace-nowrap'
+        >{t('header.story')}</div>
+        <div
+          className='hover:cursor-pointer hover:border-b-4 whitespace-nowrap'
+          onClick={() => navigate("/contact")}
+        >{t('header.support')}</div>
+      </div>
+    )
+  }
 
   return (
-    <div className="w-full border-b-2">
-      <div className="container h-[80px] flex items-center justify-between mx-auto ">
+    <div className="w-full border-b-2 block">
+      <div className="lg:container h-[80px] flex items-center justify-between mx-auto ">
         <div
           className='flex items-center hover:cursor-pointer w-1/4'
           onClick={() => navigate("/")}
@@ -42,33 +92,10 @@ const Header = () => {
             />
           </div>
         </div>
-        <div className='flex flex-row justify-evenly w-2/4 font-bold items-center'>
-          <div
-            className='relative first-letter:hover:cursor-pointer hover:border-b-4'
-          >
-            <button
-              onClick={() => navigate("/product")}
-              className="peer py-1">{t('header.product')}</button>
-            <div className="absolute hidden peer-hover:flex hover:flex w-[200px] flex-col bg-white drop-shadow-lg z-10">
-              {
-                categories.map((category: Category, index: number) => (
-                  <Link
-                    key={index}
-                    to={`/product/category/${category.id}`}
-                    className="px-5 py-3 hover:bg-gray-200 hover:cursor-pointer font-semibold"
-                  >{category.name}</Link>
-                ))
-              }
-            </div>
-          </div>
-          <div
-            className='hover:cursor-pointer hover:border-b-4'
-          >{t('header.story')}</div>
-          <div
-            className='hover:cursor-pointer hover:border-b-4'
-            onClick={() => navigate("/contact")}
-          >{t('header.support')}</div>
-        </div>
+        {
+          windowSize.innerWidth >= 1000 && <MiddleElementHeader className="" />
+        }
+
         <div className='flex justify-end w-1/4 items-center'>
           <div className='font-bold bg-slate-300 py-1 px-2 rounded-[20px] mx-2 whitespace-nowrap'>
             <button
@@ -79,7 +106,7 @@ const Header = () => {
               className="underline hover:text-blue-600"
               onClick={() => handleChangeLanguage('en')}>ENG</button>
           </div>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: 'flex' }}>
             <IconButton
               size="large"
               aria-label="show 4 new mails"
@@ -121,18 +148,11 @@ const Header = () => {
                 </div>
             }
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box>
         </div>
       </div>
+      {
+        windowSize.innerWidth < 1000 && <MiddleElementHeader className="mx-auto" />
+      }
     </div>
   );
 }

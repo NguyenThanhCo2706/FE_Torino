@@ -2,7 +2,7 @@
 const OrderPolicy = () => {
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 my-3">
       <p>
         - Các dòng bánh sinh nhật cần đặt ít nhất trước 1 ngày. Riêng dòng bánh Tiramisu và Alphabet, quý khách cần đặt trước 2 ngày để có sự chuẩn bị tốt nhất.
       </p>

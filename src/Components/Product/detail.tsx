@@ -7,19 +7,20 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import { Button } from '@mui/material';
+import { Box, Button, Tab, Tabs } from '@mui/material';
 
 import productApi from '../../api/productApi';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 import { OrderDetail } from '../../types';
 import { CircularProgressCustom } from '../../Commons/CircularProgressCustom';
 import { orderDetailActions } from '../../redux/reducers/orderDetailSlice';
 import { thousandSeparator } from '../../utils';
 import OrderPolicy from '../../Commons/OrderPolicy';
 import DeliveryPolicy from '../../Commons/DeliveryPolicy';
+import TabPanel from '../../Commons/TabPanel';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const ProductDetail = () => {
   const params: any = useParams();
@@ -54,48 +55,45 @@ const ProductDetail = () => {
     setQuantity(+e.target.value)
   }
 
-  const Description = (id: number) => {
-    switch (id) {
-      case 1: {
-        return <>
-          {product.description}
-        </>
-      }
-      case 2: {
-        return <>
-
-        </>
-      }
-      case 3: {
-        return <>
-
-        </>
-      }
-      case 4: {
-        return <OrderPolicy />
-      }
-      case 5: {
-        return <DeliveryPolicy />
-      }
-      default: {
-        return <></>
-      }
-    }
-  }
-  const [descriptionId, setDescriptionId] = useState(0);
+  const [value, setValue] = useState(1);
   return (
     <>
       <div className="text-gray-700 body-font overflow-hidden bg-white border-b-2">
         <div className="container mx-auto m-5">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <div className="lg:w-1/2">
+          <div className="w-full flex flex-wrap">
+            <div className="lg:w-1/2 flex">
+              <div >
+                <Swiper
+                  onSwiper={setThumbsSwiper}
+                  loop={true}
+                  spaceBetween={10}
+                  slidesPerView={5}
+                  freeMode={true}
+                  watchSlidesProgress={true}
+                  modules={[FreeMode, Navigation, Thumbs]}
+                  wrapperClass="!flex !flex-col !w-[100px] !mr-1 mySwiper !pt-0.5"
+                >
+                  {
+                    product.pictures?.map((picture: { id: number, src: string }, index: number) => {
+                      return (
+                        <SwiperSlide key={index} className='!min-w-[100px] !mb-1'>
+                          <img src={picture.src}
+                            alt=""
+                            className="w-[100px]  h-[100px] max-h-[100px] object-cover m-auto hover:cursor-pointer"
+                          />
+                        </SwiperSlide>
+                      )
+                    })
+                  }
+                </Swiper>
+              </div>
               <Swiper
                 loop={true}
                 spaceBetween={10}
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className='rounded border'
+                className='rounded border '
               >
                 {
                   product.pictures?.map((picture: { id: number, src: string }, index: number) => {
@@ -104,29 +102,6 @@ const ProductDetail = () => {
                         <img src={picture.src}
                           alt=""
                           className="w-full h-[600px] m-auto object-cover"
-                        />
-                      </SwiperSlide>
-                    )
-                  })
-                }
-              </Swiper>
-              <Swiper
-                onSwiper={setThumbsSwiper}
-                loop={true}
-                spaceBetween={10}
-                slidesPerView={5}
-                freeMode={true}
-                watchSlidesProgress={true}
-                modules={[FreeMode, Navigation, Thumbs]}
-                className="mt-[20px]"
-              >
-                {
-                  product.pictures?.map((picture: { id: number, src: string }, index: number) => {
-                    return (
-                      <SwiperSlide key={index}>
-                        <img src={picture.src}
-                          alt=""
-                          className="w-[100px] h-[100px] object-cover m-auto hover:cursor-pointer"
                         />
                       </SwiperSlide>
                     )
@@ -234,34 +209,33 @@ const ProductDetail = () => {
           </div>
         </div>
         <div className="container mx-auto my-[40px]">
-          <div className="flex justify-between p-1 border-b-2 text-xl">
-            <div
-              className={`hover:cursor-pointer ${descriptionId === 1 ? "text-[#385D36]" : ""}`}
-              onClick={() => setDescriptionId(1)}
-            >{t("detail.introduction")}</div>
-            <div
-              className={`hover:cursor-pointer ${descriptionId === 2 ? "text-[#385D36]" : ""}`}
-              onClick={() => setDescriptionId(2)}
-
-            >{t("detail.ingredients")}</div>
-            <div
-              className={`hover:cursor-pointer ${descriptionId === 3 ? "text-[#385D36]" : ""}`}
-              onClick={() => setDescriptionId(3)}
-
-            >{t("detail.descriptionSize")}</div>
-            <div
-              className={`hover:cursor-pointer ${descriptionId === 4 ? "text-[#385D36]" : ""}`}
-              onClick={() => setDescriptionId(4)}
-
-            >{t("detail.policyOrder")}</div>
-            <div
-              className={`hover:cursor-pointer ${descriptionId === 5 ? "text-[#385D36]" : ""}`}
-              onClick={() => setDescriptionId(5)}
-
-            >{t("detail.policyDelivery")}</div>
-          </div>
           <div className='py-3'>
-            {Description(descriptionId)}
+            <div className="container mx-auto">
+              <Box sx={{ borderBottom: 1, borderColor: 'divider', fontSize: "30px" }}>
+                <Tabs value={value} onChange={(e, newVal) => setValue(newVal)} aria-label="basic tabs example">
+                  <Tab label={t("detail.introduction")} />
+                  <Tab label={t("detail.ingredients")} />
+                  <Tab label={t("detail.descriptionSize")} />
+                  <Tab label={t("detail.policyOrder")} />
+                  <Tab label={t("detail.policyDelivery")} />
+                </Tabs>
+              </Box >
+              <TabPanel value={value} index={0}>
+                Item One
+              </TabPanel>
+              <TabPanel value={value} index={1}>
+                Item Two
+              </TabPanel>
+              <TabPanel value={value} index={2}>
+                Item Three
+              </TabPanel>
+              <TabPanel value={value} index={3}>
+                <OrderPolicy />
+              </TabPanel>
+              <TabPanel value={value} index={4}>
+                <DeliveryPolicy />
+              </TabPanel>
+            </div>
           </div>
         </div>
 

@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import notificationApi from '../api/notificationApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { useTranslation } from 'react-i18next';
 
 const ITEM_HEIGHT = 48;
 const Notification = () => {
@@ -16,6 +17,7 @@ const Notification = () => {
   const [count, setCount] = useState(0);
   const [options, setOptions] = useState([]);
   const [notificationType, setNotificationType] = useState("");
+  const { t } = useTranslation();
 
   const open = Boolean(anchorEl);
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
@@ -115,21 +117,21 @@ const Notification = () => {
         >
           <div className="px-3 py-1">
             <h1 className="font-bold text-[32px]">
-              Thông báo
+              {t("notification.notification")}
             </h1>
             <div className="flex items-center">
               <button
                 className={`${notificationType === "" ? "bg-green-700 text-white" : ""} hover:bg-green-700 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-700 hover:border-transparent rounded`}
                 onClick={() => { setNotificationType("") }}
               >
-                Tất cả
+                {t("notification.all")}
               </button>
               <span className='mx-2'></span>
               <button
                 className={`${notificationType === "40" ? "bg-green-700  text-white" : ""} hover:bg-green-700 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-700 hover:border-transparent rounded`}
                 onClick={() => { setNotificationType("40") }}
               >
-                Chưa đọc
+                {t("notification.unread")}
               </button>
             </div>
           </div>
@@ -158,7 +160,7 @@ const Notification = () => {
             </MenuItem>
           ))}
           <div className='text-blue-600 text-center hover:underline hover:cursor-pointer'>
-            xem thêm
+            {t("notification.more")}
           </div>
         </Menu>
       }

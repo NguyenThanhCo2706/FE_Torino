@@ -1,4 +1,4 @@
-import { Breadcrumbs, Pagination } from "@mui/material"
+import { Breadcrumbs, Card, Grid, Pagination } from "@mui/material"
 import ProductCart from "../../Commons/ProductCart"
 import { SwiperCustom } from "../../Commons/SwiperCustom"
 import { useEffect, useState } from "react";
@@ -58,17 +58,20 @@ export const Product = () => {
           <div className="block-line">
             <h2 className="block-line-text bg-gray-50">{t('product.newProduct')}</h2>
           </div>
-          <div className="flex pt-10">
-            {
-              products.map((product, index: number) => {
-                return (
-                  <div className="w-full" key={index}>
+          <Grid container spacing={6}>
+            {products.map((product, index: number) => {
+              return (
+                <Grid item xs={12} lg={6}>
+                  <Card
+                    className={`${index % 2 === 0 ? "!pe-4" : "!ps-4"} !p-4`}
+                    key={index}
+                  >
                     <ProductCart product={product} />
-                  </div>
-                )
-              })
-            }
-          </div>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
           <div className="flex justify-center p-5">
             <Pagination
               onChange={handleChangePage}

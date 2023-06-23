@@ -1,19 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Breadcrumbs, Pagination, Typography } from "@mui/material"
+import { Breadcrumbs, Card, Grid, Pagination, Typography } from "@mui/material";
 
-import HomeIcon from '@mui/icons-material/Home';
-import ProductCart from "../../Commons/ProductCart"
-import { SwiperCustom } from "../../Commons/SwiperCustom"
+import HomeIcon from "@mui/icons-material/Home";
+import ProductCart from "../../Commons/ProductCart";
+import { SwiperCustom } from "../../Commons/SwiperCustom";
 import productApi from "../../api/productApi";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import Navbar from "../Navbar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { Category } from "../../types";
 import { useTranslation } from "react-i18next";
-
 
 export const ProductCategory = () => {
   const params: any = useParams();
@@ -30,12 +28,12 @@ export const ProductCategory = () => {
       data && setProducts(data.list);
       setTotalPage(data.paging.totalPages);
       setLoading(false);
-    })
-  }, [params, currentPage])
+    });
+  }, [params, currentPage]);
 
   const handleChangePage = (event: any, value: number) => {
     setCurrentPage(+value);
-  }
+  };
 
   const { t } = useTranslation();
 
@@ -43,8 +41,7 @@ export const ProductCategory = () => {
     for (let i = 0; i < categories.length; i++) {
       if (categories[i].id === id) {
         return categories[i].name;
-      }
-      else {
+      } else {
         for (let j = 0; j < categories[i].childCategories.length; j++) {
           if (categories[i].childCategories[j].id === id) {
             return categories[i].childCategories[j].name;
@@ -53,57 +50,64 @@ export const ProductCategory = () => {
       }
     }
     return "";
-  }
+  };
 
   return (
     <>
       <SwiperCustom />
       <Navbar />
       <div className="bg-gray-50 pt-1">
-        <div className="container mx-auto">
+        <div className="lg:container mx-auto">
           <div className="text-[20px]">
-            <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "18px", paddingTop: "20px" }}>
-              <div className=""> <HomeIcon /></div>
+            <Breadcrumbs
+              aria-label="breadcrumb"
+              sx={{ fontSize: "18px", paddingTop: "20px" }}
+            >
+              <div className="">
+                {" "}
+                <HomeIcon />
+              </div>
               <Link to="/" className="hover:underline">
-                {t('product.home')}
+                {t("product.home")}
               </Link>
-              <Link
-                to="/product"
-                className="hover:underline"
-              >
-                {t('product.product')}
+              <Link to="/product" className="hover:underline">
+                {t("product.product")}
               </Link>
-              <Typography color="text.primary" sx={{ fontSize: "18px" }}>{
-                categories && getNameCategory(+params.id)
-              }</Typography>
+              <Typography color="text.primary" sx={{ fontSize: "18px" }}>
+                {categories && getNameCategory(+params.id)}
+              </Typography>
             </Breadcrumbs>
           </div>
           <div className="block-line">
-            <h2 className="block-line-text bg-gray-50 uppercase">{
-              categories && getNameCategory(+params.id)
-            }</h2>
+            <h2 className="block-line-text bg-gray-50 uppercase">
+              {categories && getNameCategory(+params.id)}
+            </h2>
           </div>
-          <div className="flex flex-wrap mt-16">
-            {
-              products.map((product, index: number) => {
-                return (
-                  <div className={`w-1/2 ${index % 2 === 0 ? "pe-4" : "ps-4"}`} key={index}>
+          <Grid container spacing={6}>
+            {products.map((product, index: number) => {
+              return (
+                <Grid item xs={12} lg={6}>
+                  <Card
+                    className={`${index % 2 === 0 ? "!pe-4" : "!ps-4"} !p-4`}
+                    key={index}
+                  >
                     <ProductCart product={product} />
-                  </div>
-                )
-              })
-            }
-          </div>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
           <div className="flex justify-center p-5">
             <Pagination
               onChange={handleChangePage}
-              count={totalPage} variant="outlined" shape="rounded" />
+              count={totalPage}
+              variant="outlined"
+              shape="rounded"
+            />
           </div>
         </div>
       </div>
-      {
-        loading && <CircularProgressCustom />
-      }
+      {loading && <CircularProgressCustom />}
     </>
-  )
-}
+  );
+};

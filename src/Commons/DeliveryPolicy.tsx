@@ -2,7 +2,7 @@
 const DeliveryPolicy = () => {
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 my-3">
       <h1 className="font-semibold">
         Torino Bakery áp dụng hai hình thức giao nhận:
       </h1>

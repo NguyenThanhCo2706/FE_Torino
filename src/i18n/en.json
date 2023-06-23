@@ -64,7 +64,10 @@
     "submit": "Order",
     "money": "Money",
     "bank": "Transfer Bank",
-    "remove": "remove"
+    "remove": "remove",
+    "receiveType": "Receive Type",
+    "store": "Go to store",
+    "ship": "Ship to home"
   },
   "profile": {
     "profile": "Information",
@@ -116,7 +119,13 @@
     "email": "Mail",
     "phone": "Phone number",
     "content": "Note",
-    "submit": "Submit"
+    "submit": "Submit",
+    "contact": "Contact Us",
+    "thank": "Thank you for your interest in contacting us! Fill out the form and a member of our team will be in touch shortly.",
+    "location": "Location Store",
+    "locationDetail": "162 Chau Thi Vinh Te street, My An Ward, Ngu Hanh Son district, Da Nang city",
+    "time": "Time Open",
+    "timeDetail": "8:00 - 21:00 (from Tuesday to Sunday)"
   },
   "detail": {
     "add": "Add to Cart",
@@ -128,10 +137,46 @@
     "policyDelivery": "Delivery Policy"
   },
   "history": {
+    "history": "History Of Order",
     "all": "All",
     "pending": "Pending",
     "confirm": "Confirm",
     "complete": "Complete",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "order": "Order",
+    "dateOfReceive": "Date Of Receive",
+    "status": "Status",
+    "deliveryType": "Payment Delivery",
+    "totalPrice": "Total Price"
+  },
+  "productCart": {
+    "from": "From",
+    "shippable": "Shippable Entrements",
+    "ship": "Home Shipping",
+    "store": "Collect in Store",
+    "add": "Add to Cart"
+  },
+  "notification": {
+    "notification": "Notifications",
+    "all": "All",
+    "unread": "Unread",
+    "more": "See more"
+  },
+  "footer": {
+    "openingHour": "Opening Hour",
+    "openingDetail": "from TUESDAY to SUNDAY",
+    "location": "Location",
+    "locationDetail": "162 Chau Thi Vinh Te street, My An Ward, Ngu Hanh Son district, Da Nang city.",
+    "phone": "PHONE NUMBER",
+    "company": "Company",
+    "ourStory": "Our Story",
+    "careers": "Careers",
+    "ourMenu": "Our Menu",
+    "help": "Help",
+    "contact": "Contact Us",
+    "inbox": "TORINO'S IN YOUR INBOX",
+    "inboxDetail": "For special offers, new goodies, and the latest news",
+    "mail": "Join our mailing list",
+    "send": "Send"
   }
 }

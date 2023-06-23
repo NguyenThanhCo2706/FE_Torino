@@ -131,10 +131,46 @@
     "policyDelivery": "Chính sách giao hàng"
   },
   "history": {
+    "history": "Lịch sử đơn hàng",
     "all": "Tất cả",
     "pending": "Chờ xác nhận",
     "confirm": "Đã xác nhận",
     "complete": "Hoàn thành",
-    "cancel": "Đã hủy"
+    "cancel": "Đã hủy",
+    "order": "Đơn hàng",
+    "dateOfReceive": "Ngày nhận hàng",
+    "status": "Tình trạng",
+    "deliveryType": "Hình thức giao hàng",
+    "totalPrice": "Thành tiền"
+  },
+  "productCart": {
+    "from": "Giá",
+    "shippable": "Cho phép vận chuyển",
+    "ship": "Giao tận nhà",
+    "store": "Đến cửa hàng",
+    "add": "Thêm vào giỏ"
+  },
+  "notification": {
+    "notification": "Thông báo",
+    "unread": "Chưa đọc",
+    "all": "Tất cả",
+    "more": "Xem thêm"
+  },
+  "footer": {
+    "openingHour": "Thời gian mở cửa",
+    "openingDetail": "từ Thứ Ba đến Chủ Nhật",
+    "location": "Địa chỉ cửa hàng",
+    "locationDetail": "162 Châu Thị Vĩnh Tế, Mỹ An, Ngũ Hành Sơn, Đà Nẵng.",
+    "phone": "Số điện thoại",
+    "company": "Công ty",
+    "ourStory": "Trạng thái",
+    "careers": "Nghề nghiệp",
+    "ourMenu": "Sản phẩm",
+    "help": "Trợ giúp",
+    "contact": "Liên hệ",
+    "inbox": "Liên lạc với TORINO",
+    "inboxDetail": "Đối với ưu đãi đặc biệt, quà tặng mới và tin tức mới nhất",
+    "mail": "Tham gia danh sách gửi thư của chúng tôi",
+    "send": "Send"
   }
 }
