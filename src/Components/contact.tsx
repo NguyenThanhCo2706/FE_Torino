@@ -1,27 +1,113 @@
+import { Box, Button, Checkbox, FormControl, TextField } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+import TextFieldValidate from "../Commons/TextFieldValidate";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { contactSchema } from "../validations";
+import { useTranslation } from "react-i18next";
 
 export const Contact = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(contactSchema),
+  });
+
+  const { t } = useTranslation();
+
+  const onSubmit = async (values: any) => {
+    console.log(values);
+  };
 
   return (
-    <div className="flex flex-col items-center w-1/2 mx-auto my-[30px]">
-      <h1 className="text-[30px] font-bold">Contact Us</h1>
-      <span className="text-center mb-6">These have a modern and minimal design, and you could edit the visual aesthetic of the form to match your company's branding</span>
-      <div className="mb-6 w-full">
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email address</label>
-        <input type="email" id="email" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="john.doe@company.com" required />
+    <Box
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col items-center container mx-auto my-[30px]"
+    >
+      <div className="flex justify-start w-full text-[40px] mb-3 font-semibold text-green-600">
+        Liên hệ chúng tôi
       </div>
-      <div className="mb-6 w-full">
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject</label>
-        <input type="text" id="first_name" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Subject" required />
+      <div className="grid grid-cols-2 w-full gap-x-6 rounded border border-green-600 px-4">
+        <div className="flex flex-col gap-y-6 border-r border-green-500 px-2 pr-6 py-6">
+          <TextFieldValidate
+            control={control}
+            errors={errors}
+            name="name"
+            label={t("contact.name")}
+          />
+          <TextFieldValidate
+            control={control}
+            errors={errors}
+            name="email"
+            label={t("contact.email")}
+          />
+          <TextFieldValidate
+            control={control}
+            errors={errors}
+            name="phone"
+            label={t("contact.phone")}
+          />
+          <Controller
+            name="content"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <TextField
+                label={t('contact.content')}
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={3}
+                placeholder="Aa"
+                {...field}
+              />
+            )}
+          />
+          <div className="flex items-center">
+            <Controller
+              name="hehe"
+              control={control}
+              render={({ field }) => (
+                <FormControl>
+                  <Checkbox {...field} />
+                </FormControl>
+              )}
+            />
+            Tôi đã đồng ý và đọc kỹ
+            <Button
+              type="submit"
+              variant="contained"
+              className="!bg-green-600 !text-white !ml-auto"
+            >
+              {t("contact.submit")}
+            </Button>
+          </div>
+        </div>
+        <div className="py-6 flex flex-col gap-y-4 text-[20px]">
+          <div>
+            Cảm ơn bạn đã quan tâm đến việc liên hệ với chúng tôi! Điền vào biểu
+            mẫu và một thành viên trong nhóm của chúng tôi sẽ sớm liên lạc.
+          </div>
+          <div>
+            <h1 className="font-bold text-green-600">ĐỊA CHỈ CỬA HÀNG:</h1>
+            <p>162 Châu Thị Vĩnh Tế, Mỹ An, Ngũ Hành Sơn, Đà Nẵng</p>
+          </div>
+          <div>
+            <h1 className="font-bold text-green-600">SỐ ĐIỆN THOẠI</h1>
+            <p>+84 123456789 (Anh Nhật Quang)</p>
+          </div>
+          <div>
+            <h1 className="font-bold text-green-600">THỜI GIAN MỞ CỬA</h1>
+            <p>8:00 - 21:00 (từ Thứ Ba đến Chủ Nhật)</p>
+          </div>
+          <div className="mt-auto">
+            <hr className="border-[1px] border-green-500" />
+            <p className="font-bold text-green-600 pt-2">MẠNG XÃ HỘI</p>
+          </div>
+        </div>
       </div>
-      <div className="mb-6 w-full">
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-        <textarea id="message" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
-      </div>
-      <div className="mb-6">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-          Send Message
-        </button>
-      </div>
-    </div>
-  )
-}
+    </Box>
+  );
+};

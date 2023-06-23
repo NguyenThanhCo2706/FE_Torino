@@ -34,16 +34,14 @@ export const Cart = () => {
   const { control, handleSubmit, formState: { errors }, watch, setValue } = useForm({
     resolver: yupResolver(createOrder),
   });
+  console.log(errors);
 
   useEffect(() => {
-    setLoading(true);
     commonApi.getDistricts("48").then((data) => {
       setDistricts(data);
-      setLoading(false);
     }).catch(err => {
       alert(err);
       initOrder();
-      setLoading(false);
     });
 
   }, []);
@@ -68,14 +66,17 @@ export const Cart = () => {
     setConfirm(true);
   }
 
-  const districtId = watch("districtId");
+  const districtId = watch("address.districtId");
+  const receiveType = watch("receiveType");
+  console.log(receiveType);
+
   useEffect(() => {
-    setValue("communeId", "");
+    setValue("address.communeId", "");
     setLoading(true);
     districtId && commonApi.getCommunes(districtId).then((data) => {
       setCommunes(data);
-      setLoading(false);
     });
+    setLoading(false);
   }, [districtId])
 
   return (
@@ -139,54 +140,70 @@ export const Cart = () => {
                 {t('cart.back')}
               </Link>
             </div>
-
             <div id="summary" className="w-2/5 px-8 py-10 bg-gray-100">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <h1 className="font-semibold text-2xl border-b pb-8">{t('cart.summaryOrder')}</h1>
                 <div className="mb-3">
-                  <label className="font-semibold inline-block text-sm uppercase my-2">{t('cart.address')}</label>
-                  <div className="py-2">
-                    <div className="flex flex-row mb-5">
-                      <div className="w-1/3">
-                        <SelectFieldValidate
-                          control={control}
-                          errors={errors}
-                          name="provinceId"
-                          label={t('cart.province')}
-                          options={[{ id: '48', name: "Đà Nẵng" }]}
-                          defaultValue={'48'}
-                        />
-                      </div>
-                      <div className="w-1/3 mx-3">
-                        <SelectFieldValidate
-                          control={control}
-                          errors={errors}
-                          name="districtId"
-                          label={t('cart.district')}
-                          options={districts}
-                        />
-                      </div>
-                      <div className="w-1/3">
-                        <SelectFieldValidate
-                          control={control}
-                          errors={errors}
-                          name="communeId"
-                          label={t('cart.commune')}
-                          options={communes}
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <TextFieldValidate
-                        control={control}
-                        errors={errors}
-                        name={"detailAddress"}
-                        label={t('cart.addressDetail')}
-                        size="small"
-                      />
-                    </div>
+                  <div className="">
+                    <SelectFieldValidate
+                      control={control}
+                      errors={errors}
+                      name="receiveType"
+                      label={t('cart.receiveType')}
+                      options={[{ id: '0', name: t('cart.store') }, { id: '1', name: t('cart.ship') }]}
+                      defaultValue={'0'}
+                    />
                   </div>
                 </div>
+                {
+                  +receiveType === 1 &&
+                  <div className="mb-3">
+                    <label className="font-semibold inline-block text-sm uppercase my-2">{t('cart.address')}</label>
+                    <div className="py-2">
+                      <div className="flex flex-row mb-5">
+                        <div className="w-1/3">
+                          <SelectFieldValidate
+                            control={control}
+                            errors={errors}
+                            name="address.provinceId"
+                            label={t('cart.province')}
+                            options={[{ id: '48', name: "Đà Nẵng" }]}
+                            defaultValue={'48'}
+                          />
+                        </div>
+                        <div className="w-1/3 mx-3">
+                          <SelectFieldValidate
+                            control={control}
+                            errors={errors}
+                            name="address.districtId"
+                            label={t('cart.district')}
+                            options={districts}
+                          />
+                        </div>
+                        <div className="w-1/3">
+                          <SelectFieldValidate
+                            control={control}
+                            errors={errors}
+                            name="address.communeId"
+                            label={t('cart.commune')}
+                            options={communes}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <TextFieldValidate
+                          control={control}
+                          errors={errors}
+                          name={"address.detailAddress"}
+                          label={t('cart.addressDetail')}
+                          size="small"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                }
+
                 <div className="flex flex-row">
                   <div className="w-1/2 mr-2">
                     <label className="font-semibold inline-block mb-3 text-sm uppercase truncate">{t('cart.paymentType')}</label>

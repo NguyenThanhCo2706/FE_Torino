@@ -6,7 +6,6 @@ import { Home } from './Components/Home';
 import { Cart } from './Components/Cart';
 import { Profile } from './Components/Profile';
 import { Product } from './Components/Product';
-import { Detail } from './Components/Product/detail';
 import { ProductCategory } from './Components/Product/category';
 import { Payment } from './Components/Cart/payment';
 import { HomePage } from './Components/Home/HomePage';
@@ -23,6 +22,9 @@ import { userActions } from './redux/reducers/userSlice'
 
 import authApi from './api/authApi';
 import { orderDetailActions } from './redux/reducers/orderDetailSlice';
+import ConfirmInformation from './Components/Cart/confirm';
+import ProductDetail from './Components/Product/detail';
+import History from './Components/History';
 
 function App() {
   const dispatch = useDispatch();
@@ -62,13 +64,15 @@ function App() {
         <Route path="/register" element={<Auth><Register /></Auth>} />
         <Route path="/" element={<Home><HomePage /></Home>} />
         <Route path="/cart" element={<Home><Cart /></Home>} />
+        <Route path="/cart/success" element={<Home><ConfirmInformation /></Home>} />
         <Route path="/profile" element={<Home><Profile /></Home>} />
         <Route path="/product" element={<Home><Product /></Home>} />
-        <Route path="/product/:id" element={<Home><Detail /></Home>} />
+        <Route path="/product/:id" element={<Home><ProductDetail /></Home>} />
         <Route path="/product/category/:id" element={<Home><ProductCategory /></Home>} />
         <Route path="/payment" element={<Home><Payment /></Home>} />
         <Route path="/home" element={<Home><HomePage /></Home>} />
         <Route path="/contact" element={<Home><Contact /></Home>} />
+        <Route path="/history" element={<Home><History /></Home>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer

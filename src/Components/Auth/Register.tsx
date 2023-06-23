@@ -1,28 +1,51 @@
-import { Button, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from "@mui/material";
 import { useState } from "react";
+import { Box, Button, FormControlLabel, FormLabel, Grid, Modal, Radio, RadioGroup, TextField, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
-import authApi from "../../api/authApi";
 import { toast } from "react-toastify";
-import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
-import { registerSchema } from "../../validations";
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth"
+
+import authApi from "../../api/authApi";
+import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
+import { registerSchema } from "../../validations";
 import TextFieldValidate from "../../Commons/TextFieldValidate";
 import PasswordFieldValidate from "../../Commons/PasswordFieldValidate";
+import { authentication } from "../../config/firebase-config";
 
 const Register = () => {
   const { t } = useTranslation()
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [final, setFinal] = useState<any>();
 
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors }, getValues } = useForm({
     resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = (customer: any) => {
-    setLoading(true);
-    authApi.register(customer).then((data) => {
+  const onSubmit = () => {
+    const appVerifier = new RecaptchaVerifier('recaptcha-container', {
+      'callback': (response: any) => {
+        console.log("sms", response);
+      }
+    }, authentication);
+
+    signInWithPhoneNumber(authentication, "+84941383449", appVerifier)
+      .then((confirmationResult) => {
+        setFinal(confirmationResult);
+        handleOpen();
+        appVerifier.clear()
+      })
+      .catch((error) => {
+        console.log("sms", error)
+      })
+  };
+
+  const register = async (customer: any) => {
+    try {
+      setLoading(true);
+      const data: any = await authApi.register(customer)
       setLoading(false);
       if (data.status !== 200) {
         toast.error(t("message.auth.failRegister"));
@@ -30,12 +53,29 @@ const Register = () => {
       }
       toast.success(t("message.auth.successRegister"));
       return navigate("/login");
-    }).catch(() => {
+    }
+    catch {
       setLoading(false);
       toast.error(t("message.auth.failRegister"));
-    });
-  };
+    }
+  }
 
+  const handleCheckOTP = async () => {
+    final.confirm(otp)
+      .then(async () => {
+        await register(getValues());
+        handleClose();
+        setOTP("");
+      })
+      .catch((error: any) => {
+        alert("Mã xác nhận không đúng");
+      })
+  }
+
+  const [otp, setOTP] = useState("");
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="my-[20px]">
@@ -116,7 +156,6 @@ const Register = () => {
               name={"password"}
               label={t('auth.password')}
             />
-
           </Grid>
           <Grid item xs={4}>
             <PasswordFieldValidate
@@ -127,6 +166,9 @@ const Register = () => {
             />
           </Grid>
         </Grid>
+        <div className="flex justify-center mt-5">
+          <div id="recaptcha-container"></div>
+        </div>
         <Button
           type="submit"
           fullWidth
@@ -147,6 +189,47 @@ const Register = () => {
       {
         loading && <CircularProgressCustom />
       }
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{
+          position: 'absolute' as 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 450,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          padding: "40px",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: '10px'
+        }}>
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ marginBottom: '10px' }}>
+            We sent an OTP to verify your number
+          </Typography>
+          <TextField
+            variant="standard"
+            value={otp}
+            onChange={(e) => setOTP(e.target.value)}
+            inputProps={{
+              style: {
+                textAlign: 'center',
+                fontSize: '20px',
+              }
+            }}
+            sx={{
+              marginBottom: '10px'
+            }}
+          />
+          <Button variant="contained" onClick={handleCheckOTP}>Verify</Button>
+        </Box>
+      </Modal>
     </>
   )
 }

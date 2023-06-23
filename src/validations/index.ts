@@ -30,10 +30,24 @@ export const updateUserInfo = yup.object().shape({
 });
 
 export const createOrder = yup.object().shape({
-  provinceId: yup.string().required(),
-  districtId: yup.string().required(),
-  communeId: yup.string().required(),
-  detailAddress: yup.string().required(),
+  receiveType: yup.number().required(),
+  address: yup.object().when('receiveType', {
+    is: (val: number) => +val === 1 ? true : false,
+    then: (schema) => schema.shape({
+      provinceId: yup.string().required(),
+      districtId: yup.string().required(),
+      communeId: yup.string().required(),
+      detailAddress: yup.string().required(),
+    }),
+    otherwise: (schema) => schema.nullable(),
+  }),
+  // then: yup.object().shape({
+  //   provinceId: yup.string().required(),
+  //   districtId: yup.string().required(),
+  //   communeId: yup.string().required(),
+  //   detailAddress: yup.string().required(),
+  // })
+  // ),
   status: yup.number().required(),
   dateOfReceive: yup.date().required(),
   note: yup.string(),
@@ -42,3 +56,8 @@ export const createOrder = yup.object().shape({
 export const emailSchema = yup.object().shape({
   email: yup.string().email().required(),
 })
+
+export const contactSchema = yup.object().shape({
+  hihi: yup.string(),
+  hehe: yup.boolean(),
+});

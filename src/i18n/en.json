@@ -85,9 +85,8 @@
   },
   "header": {
     "product": "Product",
-    "news": "News & Events",
-    "story": "Story",
-    "contact": "Contact Us",
+    "story": "Our Story",
+    "support": "Support",
     "signUp": "Sign Up",
     "signIn": "Sign In"
   },
@@ -111,5 +110,28 @@
     "home": "Home",
     "product": "Product",
     "newProduct": "NEWEST PRODUCTS"
+  },
+  "contact": {
+    "name": "Name",
+    "email": "Mail",
+    "phone": "Phone number",
+    "content": "Note",
+    "submit": "Submit"
+  },
+  "detail": {
+    "add": "Add to Cart",
+    "quantity": "Quantity",
+    "introduction": "Introduction Cake",
+    "ingredients": "Ingredients Main",
+    "descriptionSize": "Description Size",
+    "policyOrder": "Order Policy",
+    "policyDelivery": "Delivery Policy"
+  },
+  "history": {
+    "all": "All",
+    "pending": "Pending",
+    "confirm": "Confirm",
+    "complete": "Complete",
+    "cancel": "Cancel"
   }
 }

@@ -28,8 +28,6 @@ export const Modal = (props: ModalProps) => {
     setLoading(true);
 
     order && await orderApi.create(order).then(async (response) => {
-      console.log(response.data);
-
       if (response.data.CreatedDate) {
         if (order.status) {
           const url = await commonApi.payment(response.data.id, `${window.location.origin}/payment`);

@@ -64,7 +64,10 @@
     "submit": "Đặt đơn",
     "money": "Tiền mặt",
     "bank": "Chuyển khoản",
-    "remove": "Xóa"
+    "remove": "Xóa",
+    "receiveType": "Hình thức nhận hàng",
+    "store": "Tại quầy",
+    "ship": "Giao hàng"
   },
   "profile": {
     "profile": "Thông tin cá nhân",
@@ -85,9 +88,8 @@
   },
   "header": {
     "product": "Sản Phẩm",
-    "news": "Tin Tức và Sự Kiện",
-    "story": "Trạng Thái",
-    "contact": "Liên Hệ",
+    "story": "Câu chuyện",
+    "support": "Hỗ trợ",
     "signUp": "Đăng kí",
     "signIn": "Đăng nhập"
   },
@@ -111,5 +113,28 @@
     "home": "Trang chủ",
     "product": "Sản phẩm",
     "newProduct": "SẢN PHẨM NỔI BẬT"
+  },
+  "contact": {
+    "name": "Tên của bạn",
+    "email": "Địa chỉ mail",
+    "phone": "Số điện thoại",
+    "content": "Nội dung",
+    "submit": "Đồng ý"
+  },
+  "detail": {
+    "add": "Thêm vào giỏ",
+    "quantity": "Số lượng",
+    "introduction": "Giới thiệu bánh",
+    "ingredients": "Thành phần bánh",
+    "descriptionSize": "Mô tả kích thước",
+    "policyOrder": "Chính sách đặt hàng",
+    "policyDelivery": "Chính sách giao hàng"
+  },
+  "history": {
+    "all": "Tất cả",
+    "pending": "Chờ xác nhận",
+    "confirm": "Đã xác nhận",
+    "complete": "Hoàn thành",
+    "cancel": "Đã hủy"
   }
 }

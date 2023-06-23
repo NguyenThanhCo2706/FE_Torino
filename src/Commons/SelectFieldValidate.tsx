@@ -3,6 +3,8 @@ import { Controller } from "react-hook-form";
 
 const SelectFieldValidate = (props: any) => {
   const { control, errors, name, label, options, defaultValue = "", value } = props;
+  console.log("cow", errors);
+
   return (
     <>
       <Controller

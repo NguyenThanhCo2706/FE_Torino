@@ -19,7 +19,7 @@ export const Product = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
-    productApi.getMany(0, currentPage, 12).then((data: any) => {
+    productApi.getMany(0, currentPage, 10).then((data: any) => {
       data && setProducts(data.list);
       setTotalPage(data.paging.totalPages);
       setLoading(false);

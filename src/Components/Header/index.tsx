@@ -4,9 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import HistoryIcon from '@mui/icons-material/History';
 
 import Notification from '../../Commons/Notification';
 import { Category } from '../../types';
@@ -19,6 +20,7 @@ const Header = () => {
   const { categories } = useSelector((state: RootState) => state.category);
   const { orderDetails } = useSelector((state: RootState) => state.orderDetail);
   const { user } = useSelector((state: RootState) => state.user);
+  console.log(categories);
 
   const handleChangeLanguage = (language: string) => {
     i18n.changeLanguage(language);
@@ -64,14 +66,11 @@ const Header = () => {
           >{t('header.story')}</div>
           <div
             className='hover:cursor-pointer hover:border-b-4'
-          >{t('header.news')}</div>
-          <div
-            className='hover:cursor-pointer hover:border-b-4'
             onClick={() => navigate("/contact")}
-          >{t('header.contact')}</div>
+          >{t('header.support')}</div>
         </div>
         <div className='flex justify-end w-1/4 items-center'>
-          <div className='font-bold bg-slate-300 py-1 px-2 rounded-[20px] mx-2'>
+          <div className='font-bold bg-slate-300 py-1 px-2 rounded-[20px] mx-2 whitespace-nowrap'>
             <button
               className='underline hover:text-blue-600'
               onClick={() => handleChangeLanguage('vi')}>VIE</button>
@@ -81,6 +80,14 @@ const Header = () => {
               onClick={() => handleChangeLanguage('en')}>ENG</button>
           </div>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <IconButton
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+              onClick={() => navigate("/history")}
+            >
+              <HistoryIcon />
+            </IconButton>
             <IconButton
               size="large"
               aria-label="show 4 new mails"
@@ -109,9 +116,7 @@ const Header = () => {
                   }
                 </IconButton>
                 :
-                <div className='text-center font-semibold ml-3'>
-                  <Link to="/register" className='hover:underline'>{t('header.signUp')}</Link>
-                  <br />
+                <div className='text-center font-semibold ml-3 flex items-center whitespace-nowrap'>
                   <Link to="/login" className='hover:underline'>{t('header.signIn')}</Link>
                 </div>
             }

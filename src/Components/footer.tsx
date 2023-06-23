@@ -3,12 +3,16 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { emailSchema } from "../validations";
 import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   const { control, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(emailSchema),
   });
 
+  const { categories } = useSelector((state: RootState) => state.category);
   const onSubmit = () => {
 
   }
@@ -49,11 +53,9 @@ export const Footer = () => {
             <div className="w-1/3">
               <h1 className="uppercase font-semibold text-[20px]">our menu</h1>
               <div className="my-2">
-                <p>Bread & Pastry</p>
-                <p>Dessert</p>
-                <p>Cookies</p>
-                <p>Special Occasions</p>
-                <p>Birthday Cake</p>
+                {
+                  categories.map((category) => <p><Link to={`/product/category/${category.id}`}>{category.name}</Link></p>)
+                }
               </div>
             </div>
             <div className="w-1/3">

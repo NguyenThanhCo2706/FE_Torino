@@ -75,7 +75,7 @@ export default function ProductCard(props: any) {
         <div className="flex text-[18px]">
           <div className="flex justify-center">
             <div className="relative w-[200px] h-full group hover:cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
-              <img className=' mx-auto w-[200px] h-full object-cover absolute top-1/2 -translate-y-1/2 left-0 right-0 group-hover:opacity-0 group-hover:invisible transition-all duration-1000' src={product?.images[0]} alt="" />
+              <img className='rounded-[100%] mx-auto w-[200px] h-[200px] object-cover absolute top-1/2 -translate-y-1/2 left-0 right-0 group-hover:opacity-0 group-hover:invisible transition-all duration-1000' src={product?.images[0]} alt="" />
               <img className='rounded-[100%] mx-auto w-[200px] h-[200px] object-cover absolute top-1/2 -translate-y-1/2 left-0 right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-1000' src={product?.images[1]} alt="" />
             </div>
           </div>
@@ -105,7 +105,7 @@ export default function ProductCard(props: any) {
             <div className='flex text-[20px]'>
               <button
                 onClick={handleAddCart}
-                className='border-2 py-1 px-3 hover:bg-green-600 hover:border-green-700 hover:text-white'
+                className='border-2 py-1 px-3 hover:bg-green-700 hover:border-green-600 hover:text-white'
               >Add to cart</button>
               <button className='border-2 py-1 px-2 ms-3'><FavoriteIcon /></button>
             </div>

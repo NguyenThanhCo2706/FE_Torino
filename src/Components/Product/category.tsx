@@ -26,7 +26,7 @@ export const ProductCategory = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
-    productApi.getMany(params.id, currentPage, 12).then((data: any) => {
+    productApi.getMany(params.id, currentPage, 10).then((data: any) => {
       data && setProducts(data.list);
       setTotalPage(data.paging.totalPages);
       setLoading(false);
@@ -38,6 +38,22 @@ export const ProductCategory = () => {
   }
 
   const { t } = useTranslation();
+
+  const getNameCategory = (id: number) => {
+    for (let i = 0; i < categories.length; i++) {
+      if (categories[i].id === id) {
+        return categories[i].name;
+      }
+      else {
+        for (let j = 0; j < categories[i].childCategories.length; j++) {
+          if (categories[i].childCategories[j].id === id) {
+            return categories[i].childCategories[j].name;
+          }
+        }
+      }
+    }
+    return "";
+  }
 
   return (
     <>
@@ -58,13 +74,13 @@ export const ProductCategory = () => {
                 {t('product.product')}
               </Link>
               <Typography color="text.primary" sx={{ fontSize: "18px" }}>{
-                categories && categories.find((item: Category) => item.id === +params.id)?.name
+                categories && getNameCategory(+params.id)
               }</Typography>
             </Breadcrumbs>
           </div>
           <div className="block-line">
             <h2 className="block-line-text bg-gray-50 uppercase">{
-              categories && categories.find((item: Category) => item.id === +params.id)?.name
+              categories && getNameCategory(+params.id)
             }</h2>
           </div>
           <div className="flex flex-wrap mt-16">

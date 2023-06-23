@@ -36,9 +36,10 @@ const ChangeInformation = (props: any) => {
       const url = await commonApi.uploadS3(formData);
       data = { ...data, avatar: url }
     }
-    console.log(data);
     authApi.updateProfile(data).then(() => {
-      dispatch(userActions.setUserInfo(data));
+      console.log('cow', data);
+      //Cow
+      // dispatch(userActions.setUserInfo(data));
       setLoading(false);
       toast.success(t('message.profile.successSaveInfo'));
       setImage(null);
@@ -47,6 +48,7 @@ const ChangeInformation = (props: any) => {
       toast.error(t("message.profile.failSave"));
     });
   }
+  console.log(user);
 
   useEffect(() => {
     if (user) {
