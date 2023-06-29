@@ -31,15 +31,11 @@ export const updateUserInfo = yup.object().shape({
 
 export const createOrder = yup.object().shape({
   receiveType: yup.number().required(),
-  address: yup.object().when('receiveType', {
-    is: (val: number) => +val === 1 ? true : false,
-    then: (schema) => schema.shape({
-      provinceId: yup.string().required(),
-      districtId: yup.string().required(),
-      communeId: yup.string().required(),
-      detailAddress: yup.string().required(),
-    }),
-    otherwise: (schema) => schema.nullable(),
+  address: yup.object().shape({
+      provinceId: yup.string().nullable(),
+      districtId: yup.string().nullable(),
+      communeId: yup.string().nullable(),
+      detailAddress: yup.string().nullable(),
   }),
   // then: yup.object().shape({
   //   provinceId: yup.string().required(),
