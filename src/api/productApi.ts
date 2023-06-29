@@ -7,7 +7,7 @@ const productApi = {
     const url = `/public/products/products`;
     const result = await axiosClient.get(url, {
       params: {
-        categoryId: categoryId !== 0 ? categoryId : undefined,
+        categoryId: categoryId,
         CurrentPage: CurrentPage,
         PageSize: PageSize
       }
@@ -16,14 +16,26 @@ const productApi = {
   },
 
   async getOne(productId: number) {
-    const url = `/products/products/${productId}`;
+    const url = `/public/products/products/${productId}`;
     const result = await axiosClient.get(url, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
     });
     return result;
-  }
+  },
+
+  async getAll(CurrentPage: number, PageSize: number) {
+    const url = `public/products/products-best-seller`;
+    const result = await axiosClient.get(url, {
+      params: {
+        CurrentPage: CurrentPage,
+        PageSize: PageSize
+      }
+    });
+    return result;
+  },
+
 }
 
 export default productApi;

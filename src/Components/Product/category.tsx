@@ -97,7 +97,7 @@ export const ProductCategory = () => {
               );
             })}
           </Grid>
-          <div className="flex justify-center p-5">
+          <div className="flex justify-center mt-5 p-5">
             <Pagination
               onChange={handleChangePage}
               count={totalPage}

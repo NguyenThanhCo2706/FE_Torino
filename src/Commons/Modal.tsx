@@ -26,7 +26,9 @@ export const Modal = (props: ModalProps) => {
       return navigate("/login");
     }
     setLoading(true);
-
+    if (order.receiveType === "0") {
+      delete order.address;
+    }
     order && await orderApi.create(order).then(async (response) => {
       if (response.data.CreatedDate) {
         if (order.status) {

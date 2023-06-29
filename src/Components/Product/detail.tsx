@@ -28,8 +28,8 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-  const disPatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const disPatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
     setLoading(true);
@@ -45,10 +45,11 @@ const ProductDetail = () => {
       productName: product.name,
       categoryName: product.categoryName,
       productImage: product.pictures[0].src,
-      quantity: 1,
+      quantity: quantity,
       price: product.price,
     };
     disPatch(orderDetailActions.addOrderDetail(orderDetail));
+    toast.success(t("message.cart.successAdd"));
   }
 
   const handleChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +80,7 @@ const ProductDetail = () => {
                         <SwiperSlide key={index} className='!min-w-[100px] !mb-1'>
                           <img src={picture.src}
                             alt=""
-                            className="w-[100px]  h-[100px] max-h-[100px] object-cover m-auto hover:cursor-pointer"
+                            className="w-[100px] h-[100px] max-h-[100px] object-cover m-auto hover:cursor-pointer"
                           />
                         </SwiperSlide>
                       )

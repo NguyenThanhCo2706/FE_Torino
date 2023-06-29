@@ -22,7 +22,7 @@ export const orderDetailSlice = createSlice({
     addOrderDetail(state, action: PayloadAction<OrderDetail>) {
       const index = state.orderDetails.findIndex((detail: any) => detail.productId === action.payload.productId);
       if (index !== -1) {
-        state.orderDetails[index].quantity += 1;
+        state.orderDetails[index].quantity += action.payload.quantity;
       }
       else {
         state.orderDetails.push(action.payload);

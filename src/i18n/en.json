@@ -19,7 +19,10 @@
     "backLogin": "Back to login!",
     "logout": "Logout",
     "errorUser": "Username is required!",
-    "errorPass": "Password is required!"
+    "errorPass": "Password is required!",
+    "otpTitle": "We sent an OTP to verify your number!",
+    "submit": "Verify",
+    "wrongOTP": "Wrong OTP!"
   },
   "errMessage": {
     "serverInternalError": "Server internal error",

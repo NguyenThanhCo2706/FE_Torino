@@ -57,7 +57,7 @@ export const Footer = () => {
               <h1 className="uppercase font-semibold text-[20px]">{t("footer.ourMenu")}</h1>
               <div className="my-2">
                 {
-                  categories.map((category) => <p><Link to={`/product/category/${category.id}`}>{category.name}</Link></p>)
+                  categories.map((category, index: number) => <p key={index}><Link to={`/product/category/${category.id}`}>{category.name}</Link></p>)
                 }
               </div>
             </div>

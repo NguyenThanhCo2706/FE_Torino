@@ -19,7 +19,10 @@
     "backLogin": "Quay lại trang đăng nhập!",
     "logout": "Đăng xuất",
     "errorUser": "Vui lòng nhập tài khoản!",
-    "errorPass": "Vui lòng nhập mật khẩu!"
+    "errorPass": "Vui lòng nhập mật khẩu!",
+    "otpTitle": "Vui lòng nhập mã OTP!",
+    "submit": "Xác nhận",
+    "wrongOTP": "Mã OTP không đúng!"
   },
   "message": {
     "serverInternalError": "Máy chủ hiện đang gặp lỗi!",

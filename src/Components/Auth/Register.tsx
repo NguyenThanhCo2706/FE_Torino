@@ -31,7 +31,7 @@ const Register = () => {
       }
     }, authentication);
 
-    signInWithPhoneNumber(authentication, "+84941383449", appVerifier)
+    signInWithPhoneNumber(authentication, getValues("phone").replace("0", "+84"), appVerifier)
       .then((confirmationResult) => {
         setFinal(confirmationResult);
         handleOpen();
@@ -68,7 +68,7 @@ const Register = () => {
         setOTP("");
       })
       .catch((error: any) => {
-        alert("Mã xác nhận không đúng");
+        alert(t("auth.wrongOTP"));
       })
   }
 
@@ -211,7 +211,7 @@ const Register = () => {
           borderRadius: '10px'
         }}>
           <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ marginBottom: '10px' }}>
-            We sent an OTP to verify your number
+            {t("auth.otpTitle")}
           </Typography>
           <TextField
             variant="standard"
@@ -227,7 +227,7 @@ const Register = () => {
               marginBottom: '10px'
             }}
           />
-          <Button variant="contained" onClick={handleCheckOTP}>Verify</Button>
+          <Button variant="contained" onClick={handleCheckOTP}>{t("auth.submit")}</Button>
         </Box>
       </Modal>
     </>

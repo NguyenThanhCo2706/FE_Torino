@@ -2,9 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import AdsClickIcon from "@mui/icons-material/AdsClick";
-import { Button, Card, Grid } from "@mui/material";
 
 import { thousandSeparator } from "../utils";
 import "react-toastify/dist/ReactToastify.css";
