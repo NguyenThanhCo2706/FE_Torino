@@ -61,6 +61,7 @@
     "addressDetail": "Address Detail",
     "paymentType": "Payment Type",
     "dateOfReceive": "Date Of Receive",
+    "timeOfReceive": "Time Of Receive",
     "note": "Note",
     "discount": "Discount",
     "totalAmount": "Total Amount",
@@ -68,7 +69,7 @@
     "money": "Money",
     "bank": "Transfer Bank",
     "remove": "remove",
-    "receiveType": "Receive Type",
+    "type": "Receive Type",
     "store": "Go to store",
     "ship": "Ship to home"
   },

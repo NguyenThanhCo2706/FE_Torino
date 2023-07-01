@@ -30,20 +30,20 @@ export const updateUserInfo = yup.object().shape({
 });
 
 export const createOrder = yup.object().shape({
-  receiveType: yup.number().required(),
+  type: yup.number().required(),
   address: yup.object().shape({
-      provinceId: yup.string().nullable(),
-      districtId: yup.string().nullable(),
-      communeId: yup.string().nullable(),
-      detailAddress: yup.string().nullable(),
+    provinceId: yup.string().nullable(),
+    districtId: yup.string().nullable(),
+    communeId: yup.string().nullable(),
+    detailAddress: yup.string().nullable(),
   }),
-  // then: yup.object().shape({
-  //   provinceId: yup.string().required(),
-  //   districtId: yup.string().required(),
-  //   communeId: yup.string().required(),
-  //   detailAddress: yup.string().required(),
-  // })
+  // .when('type', {
+  //   is: 2,
+  //   then: (schema)=> schema.,
+  // }),
+
   // ),
+  timeOfReceive: yup.string().required(),
   status: yup.number().required(),
   dateOfReceive: yup.date().required(),
   note: yup.string(),

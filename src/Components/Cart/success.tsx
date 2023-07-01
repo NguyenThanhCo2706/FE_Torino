@@ -28,7 +28,7 @@ const Success = (props: any) => {
             </tr>
             <tr>
               <td>{t('payment.amount')}</td>
-              <td>{thousandSeparator(searchParams.get("vnp_Amount"))} VND</td>
+              <td>{thousandSeparator(searchParams.get("vnp_Amount") / 100)} VND</td>
             </tr>
             <tr>
               <td>{t('payment.bankName')}</td>

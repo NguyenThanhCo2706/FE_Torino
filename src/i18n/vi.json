@@ -61,6 +61,7 @@
     "addressDetail": "Địa chỉ cụ thể",
     "paymentType": "Hình thức thanh toán",
     "dateOfReceive": "Ngày nhận hàng",
+    "timeOfReceive": "Giờ nhận hàng",
     "note": "Ghi chú",
     "discount": "Giảm giá",
     "totalAmount": "Tổng cộng",
@@ -68,7 +69,7 @@
     "money": "Tiền mặt",
     "bank": "Chuyển khoản",
     "remove": "Xóa",
-    "receiveType": "Hình thức nhận hàng",
+    "type": "Hình thức nhận hàng",
     "store": "Tại quầy",
     "ship": "Giao hàng"
   },

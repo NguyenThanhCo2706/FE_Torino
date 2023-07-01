@@ -67,8 +67,7 @@ export const Cart = () => {
   }
 
   const districtId = watch("address.districtId");
-  const receiveType = watch("receiveType");
-  console.log(receiveType);
+  const type = watch("type");
 
   useEffect(() => {
     setValue("address.communeId", "");
@@ -148,15 +147,15 @@ export const Cart = () => {
                     <SelectFieldValidate
                       control={control}
                       errors={errors}
-                      name="receiveType"
-                      label={t('cart.receiveType')}
-                      options={[{ id: '0', name: t('cart.store') }, { id: '1', name: t('cart.ship') }]}
-                      defaultValue={'0'}
+                      name="type"
+                      label={t('cart.type')}
+                      options={[{ id: '1', name: t('cart.store') }, { id: '2', name: t('cart.ship') }]}
+                      defaultValue={'1'}
                     />
                   </div>
                 </div>
                 {
-                  +receiveType === 1 &&
+                  +type === 2 &&
                   <div className="mb-3">
                     <label className="font-semibold inline-block text-sm uppercase my-2">{t('cart.address')}</label>
                     <div className="py-2">
@@ -222,8 +221,10 @@ export const Cart = () => {
                       }
                     />
                   </div>
-                  <div className="w-1/2 ml-2">
-                    <label className="font-semibold inline-block mb-3 text-sm uppercase truncate">{t('cart.dateOfReceive')}</label>
+                </div>
+                <label className="font-semibold inline-block my-3 text-sm uppercase truncate">{t('cart.dateOfReceive')}</label>
+                <div className="flex flex-row">
+                  <div className="w-1/2">
                     <TextFieldValidate
                       control={control}
                       errors={errors}
@@ -234,7 +235,19 @@ export const Cart = () => {
                       defaultValue={moment().format("YYYY-MM-DD")}
                     />
                   </div>
+                  <div className="w-1/2 ml-2">
+                    <TextFieldValidate
+                      control={control}
+                      errors={errors}
+                      name={"timeOfReceive"}
+                      label={t('cart.timeOfReceive')}
+                      size="small"
+                      type="time"
+                      defaultValue="00:00"
+                    />
+                  </div>
                 </div>
+
                 <div className="mt-3 w-full">
                   <Controller
                     name="note"

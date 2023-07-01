@@ -22,11 +22,13 @@ export const Modal = (props: ModalProps) => {
   const dispatch = useDispatch();
 
   const handleOrder = async () => {
+    order.dateOfReceive = new Date(order.dateOfReceive + " " + order.timeOfReceive + ":00")
+    delete order.timeOfReceive;
     if (!user) {
       return navigate("/login");
     }
     setLoading(true);
-    if (order.receiveType === "0") {
+    if (order.type === "1") {
       delete order.address;
     }
     order && await orderApi.create(order).then(async (response) => {
