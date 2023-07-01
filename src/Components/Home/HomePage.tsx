@@ -7,12 +7,12 @@ export const HomePage = () => {
         className="w-full img-home text-center"
         src="https://static01.nyt.com/images/2022/04/08/dining/ld-church-cake/ld-church-cake-superJumbo.jpg" alt="" />
       <div className="my-[80px]">
-        <h1 className="text-center text-[30px] font-bold">Hi, We’re Torino Bakery and Restaurant</h1>
+        <h1 className="text-center text-[30px] font-bold">Xin chào, chúng tôi là Tiệm bánh Torino</h1>
       </div>
       <div>
         <div className="container mx-auto">
           <div className=" pb-5 border-b">
-            <h1 className="text-[30px] font-bold my-5">OUR STORY</h1>
+            <h1 className="text-[30px] font-bold my-5">CÂU CHUYỆN</h1>
             <div className="flex mb-10">
               <div className="w-1/2">
                 <div className="me-5">

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { thousandSeparator } from "../../utils";
-import { Card, Pagination } from "@mui/material";
+import { Card, Pagination, Paper } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import historyApi from "../../api/historyApi";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
@@ -60,48 +60,50 @@ const History = () => {
             orders.map((order: any, index: number) => {
               const totalPrice = order.orderDetails.reduce((prev: number, cur: any) => { return cur.price + prev }, 0)
               return (
-                <div className="my-5 border-b-2" key={index}>
-                  <div className="italic text-gray-600 font-medium">
-                    <span>{t("history.order")}:</span>
-                    <span className="text-xl font-semibold">{order.id}</span>
-                  </div>
-                  <div className="flex justify-between border-b">
-                    <span>
-                      <span className="italic">{t("history.dateOfReceive")}: </span>
-                      <span className="font-semibold text-[#385D36]">{order.dateOfReceive}</span>
-                    </span>
-                    <span>
-                      <span className="italic text-[1rem]">{t("history.status")}: </span>
-                      <span className="text-xl font-semibold text-[#385D36]">Hoàn thành</span>
-                    </span>
-                  </div>
-                  <div>
-                    {
-                      order.orderDetails.map((detail: any, index: number) => (
-                        <div className="flex items-center py-3" key={index}>
-                          <img
-                            src={detail.image}
-                            alt=""
-                            className="w-[80px] h-[80px] object-cover"
-                          />
-                          <div className="w-full flex justify-between items-center">
-                            <div className="ms-5">
-                              <p className="font-semibold text-xl text-[#385D36]">{detail.productName}</p>
-                              <p>x {detail.quantity}</p>
-                            </div>
-                            <div>
-                              {thousandSeparator(detail.price)} VNĐ
+                <Paper sx={{ paddingX: 2, marginY: 2 }} elevation={4}>
+                  <div className="my-5 border-b-2" key={index}>
+                    <div className="italic text-gray-600 font-medium">
+                      <span>{t("history.order")}:</span>
+                      <span className="text-xl font-semibold">{order.id}</span>
+                    </div>
+                    <div className="flex justify-between border-b">
+                      <span>
+                        <span className="italic">{t("history.dateOfReceive")}: </span>
+                        <span className="font-semibold text-[#385D36]">{order.dateOfReceive}</span>
+                      </span>
+                      <span>
+                        <span className="italic text-[1rem]">{t("history.status")}: </span>
+                        <span className="text-xl font-semibold text-[#385D36]">Hoàn thành</span>
+                      </span>
+                    </div>
+                    <div>
+                      {
+                        order.orderDetails.map((detail: any, index: number) => (
+                          <div className="flex items-center py-3" key={index}>
+                            <img
+                              src={detail.image}
+                              alt=""
+                              className="w-[80px] h-[80px] object-cover"
+                            />
+                            <div className="w-full flex justify-between items-center">
+                              <div className="ms-5">
+                                <p className="font-semibold text-xl text-[#385D36]">{detail.productName}</p>
+                                <p>x {detail.quantity}</p>
+                              </div>
+                              <div>
+                                {thousandSeparator(detail.price)} VNĐ
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))
-                    }
+                        ))
+                      }
+                    </div>
+                    <div className="flex justify-between py-2">
+                      <span className="italic">{t("history.deliveryType")}: <span className="font-semibold text-[#385D36]">Giao hàng</span></span>
+                      <span>{t("history.totalPrice")}: <span className="text-xl font-semibold text-[#385D36]">{thousandSeparator(totalPrice)} VNĐ</span></span>
+                    </div>
                   </div>
-                  <div className="flex justify-between py-2">
-                    <span className="italic">{t("history.deliveryType")}: <span className="font-semibold text-[#385D36]">Giao hàng</span></span>
-                    <span>{t("history.totalPrice")}: <span className="text-xl font-semibold text-[#385D36]">{thousandSeparator(totalPrice)} VNĐ</span></span>
-                  </div>
-                </div>
+                </Paper>
               )
             })
           }
