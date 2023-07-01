@@ -53,7 +53,7 @@ const Header = () => {
         >
           <button
             onClick={() => navigate("/product")}
-            className="peer py-1 whitespace-nowrap">{t('header.product')}</button>
+            className="peer py-1 whitespace-nowrap">Menu</button>
           <div className="absolute hidden peer-hover:flex hover:flex w-[200px] flex-col bg-white drop-shadow-lg z-10">
             {
               categories.map((category: Category, index: number) => (

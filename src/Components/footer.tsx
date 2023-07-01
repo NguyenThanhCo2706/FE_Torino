@@ -41,7 +41,7 @@ export const Footer = () => {
             <div>
               <h1 className="uppercase font-semibold text-[20px]">{t("footer.phone")}</h1>
               <div className="my-2">
-                <p>+84 1234567890 (Mr.Tran Nhan Quang)</p>
+                <p>+84932046296 (Mr. Nhat Quang Tran)</p>
               </div>
             </div>
           </div>

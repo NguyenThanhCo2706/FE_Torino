@@ -45,7 +45,7 @@ export const HomePage = () => {
               </div>
             </div>
           </div>
-          {/* {
+          {
             descriptionCategory.map((item, index: number) => (
               <div className="py-3 border-b" key={index}>
                 <h1 className="text-[30px] font-bold my-5">{item.title}</h1>
@@ -57,7 +57,7 @@ export const HomePage = () => {
                 </div>
               </div>
             ))
-          } */}
+          }
           <div className="h-[100px]"></div>
         </div>
 
