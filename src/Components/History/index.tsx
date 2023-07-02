@@ -29,7 +29,7 @@ const History = () => {
   return (
     <>
       <div className="container mx-auto my-[20px]">
-        <div className="flex justify-start w-full text-[40px] mb-3 font-semibold text-green-600">
+        <div className="flex justify-start w-full text-[40px] mb-3 font-semibold text-[#517A4D]">
           {t("history.history")}
         </div>
         <div className="flex p-1 text-xl w-full ">

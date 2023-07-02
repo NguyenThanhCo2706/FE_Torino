@@ -212,8 +212,17 @@ const ProductDetail = () => {
         <div className="container mx-auto my-[40px]">
           <div className='py-3'>
             <div className="container mx-auto">
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', fontSize: "30px" }}>
-                <Tabs value={value} onChange={(e, newVal) => setValue(newVal)} aria-label="basic tabs example">
+              <Box sx={{ borderBottom: 1, borderColor: 'divider', fontSize: "30px" }}
+              >
+                <Tabs
+                  value={value}
+                  onChange={(e, newVal) => setValue(newVal)}
+                  aria-label="basic tabs example"
+                  sx={{ '& button.Mui-selected': { color: '#517A4D' } }}
+                  TabIndicatorProps={{
+                    sx: { backgroundColor: '#517A4D' },
+                  }}
+                >
                   <Tab label={t("detail.introduction")} />
                   <Tab label={t("detail.ingredients")} />
                   <Tab label={t("detail.descriptionSize")} />
