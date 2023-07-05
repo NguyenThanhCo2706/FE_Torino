@@ -10,12 +10,16 @@ import notificationApi from '../api/notificationApi';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useTranslation } from 'react-i18next';
+import { caculateTime } from '../utils';
 
 const ITEM_HEIGHT = 48;
 const Notification = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [count, setCount] = useState(0);
-  const [options, setOptions] = useState([]);
+  const [totalRecord, setTotalRecord] = useState(0);
+  const [pageIndex, setPageIndex] = useState(1);
+
+  const [options, setOptions] = useState<any>([]);
   const [notificationType, setNotificationType] = useState("");
   const { t } = useTranslation();
 
@@ -37,7 +41,11 @@ const Notification = () => {
       return;
     }
     notificationApi.count().then((data: any) => setCount(+data))
-    notificationApi.getMany(notificationType).then((data: any) => setOptions(data.list));
+    notificationApi.getMany(notificationType).then((data: any) => {
+      setOptions(data.list)
+      setTotalRecord(data.paging.totalRecord);
+      setPageIndex(1);
+    });
   }, [user, notificationType])
 
   useEffect(() => {
@@ -61,8 +69,13 @@ const Notification = () => {
           .start()
           .then(() => {
             connectionRef.on('OrderConfirmed', (message: any) => {
-              setCount(count + 1);
-              toast.success("Đơn hàng bạn đã được approve");
+              setCount((prev: number) => prev + 1);
+              toast.success("Đơn hàng bạn đã được chấp nhận");
+            });
+
+            connectionRef.on('OrderCancled', (message: any) => {
+              setCount((prev: number) => prev + 1);
+              toast.error("Đơn hàng bạn bị từ chối");
             });
           })
           .catch((err: any) => {
@@ -79,7 +92,19 @@ const Notification = () => {
 
   const readNotification = async (id: number) => {
     await notificationApi.read(id);
-    await notificationApi.getMany().then((data: any) => setOptions(data.list));
+    const newList = options.map((option: any) => {
+      if (option.id === id) option.status = 50;
+      return option;
+    });
+    setOptions(newList)
+  }
+
+  const handleMore = () => {
+    notificationApi.getMany(notificationType, pageIndex + 1).then((data: any) => {
+      setOptions((prev: any) => [...prev, ...data.list])
+      setTotalRecord(data.paging.totalRecord);
+    });
+    setPageIndex((prev) => prev + 1);
   }
 
   return (
@@ -135,33 +160,40 @@ const Notification = () => {
               </button>
             </div>
           </div>
-          {options.map((option: any, index: number) => (
-            <MenuItem
-              key={index}
-              selected={option === 'Pyxis'}
-              onClick={() => readNotification(option.id)}
-              sx={{
-                marginBottom: '5px',
-              }}
-            >
-              <div className="flex items-center border-b-2">
-                <img
-                  className='w-[50px] h-[50px] object-cover rounded-full'
-                  src="https://torinobucket.s3-ap-southeast-1.amazonaws.com/Products/17c2136c-0cf1-4d3a-9987-20562d796706.JPG" alt="" />
-                <div className='mx-3'>
-                  <p className='font-semibold max-w-[400px] truncate'>{option.title}</p>
-                  <p className='italic max-w-[360px] truncate'>{option.content}</p>
-                  <p>2 giờ trước</p>
+          {options.map((option: any, index: number) => {
+            const time = caculateTime(new Date(option.sentAt));
+            return (
+              <MenuItem
+                key={index}
+                selected={option === 'Pyxis'}
+                onClick={() => readNotification(option.id)}
+                sx={{
+                  marginBottom: '5px',
+                }}
+              >
+                <div className="flex items-center border-b-2">
+                  <img
+                    className='w-[50px] h-[50px] object-cover rounded-full'
+                    src="https://torinobucket.s3-ap-southeast-1.amazonaws.com/Products/17c2136c-0cf1-4d3a-9987-20562d796706.JPG" alt="" />
+                  <div className='mx-3'>
+                    <p className='font-semibold max-w-[400px] truncate'>{option.title}</p>
+                    <p className='italic max-w-[360px] truncate'>{option.content}</p>
+                    <p>{time?.count} {t(`notification.${time?.type}`)}</p>
+                  </div>
+                  {
+                    option.status === 40 && <div className='w-[12px] h-[12px] bg-blue-600 rounded-full'></div>
+                  }
                 </div>
-                {
-                  option.status === 40 && <div className='w-[12px] h-[12px] bg-blue-600 rounded-full'></div>
-                }
-              </div>
-            </MenuItem>
-          ))}
-          <div className='text-blue-600 text-center hover:underline hover:cursor-pointer'>
-            {t("notification.more")}
-          </div>
+              </MenuItem>
+            )
+          })}
+          {
+            (pageIndex * 5 < totalRecord) && <div
+              onClick={handleMore}
+              className='text-blue-600 text-center hover:underline hover:cursor-pointer'>
+              {t("notification.more")}
+            </div>
+          }
         </Menu>
       }
     </div>

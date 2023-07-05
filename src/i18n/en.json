@@ -99,24 +99,29 @@
   },
   "vnpay": {
     "title": "Notification Confirm!",
-    "content": "you confirm this order.",
+    "content": "Confirm this order. In case you choose the delivery method, you will have to pay <b>30,000VNĐ - 50,000VNĐ</b> for the delivery fee.",
     "cancel": "Cancel",
     "confirm": "Confirm"
   },
   "payment": {
-    "success": "Your order has been successfully paid!",
-    "failure": "Your order has failed to be paid!",
-    "orderId": "# Order Id: ",
-    "translationId": "# Transaction Code: ",
-    "amount": "# Amount: ",
-    "bankName": "# Bank Name: ",
-    "translationCode": "# Transaction Code VNPAY: ",
-    "datePayment": "# Payment Date: "
+    "success": "Order successfully!",
+    "failure": "Order failed!",
+    "orderId": "Order Id",
+    "translationId": "Transaction Code",
+    "amount": "Amount",
+    "bankName": "Bank Name",
+    "translationCode": "Transaction Code VNPAY",
+    "datePayment": "Payment Date",
+    "content1": "We will contact you within 2 hours to confirm the order.",
+    "content2": "The order will be confirmed after our staff verify the order successfully.",
+    "content3": "Any questions please contact:",
+    "home": "Back to home page",
+    "continue": "Buy more products"
   },
   "product": {
     "home": "Home",
     "product": "Product",
-    "newProduct": "NEWEST PRODUCTS"
+    "newProduct": "FEATURED PRODUCTS"
   },
   "contact": {
     "name": "Name",
@@ -164,7 +169,8 @@
     "notification": "Notifications",
     "all": "All",
     "unread": "Unread",
-    "more": "See more"
+    "more": "See more",
+    "beforeHour": "before hour"
   },
   "footer": {
     "openingHour": "Opening Hour",

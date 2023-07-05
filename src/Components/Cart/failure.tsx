@@ -1,20 +1,22 @@
 import { useTranslation } from "react-i18next";
 
+import DangerousIcon from '@mui/icons-material/Dangerous';
+
 const Failure = () => {
   const { t } = useTranslation();
 
   return (
     <>
-      <div className=" flex justify-center my-3">
-        <img
-          className="text-center w-[250px]"
-          src="https://www.onlygfx.com/wp-content/uploads/2020/05/fail-stamp-7.png"
-          alt="" />
-      </div>
-      <p className="text-center text-3xl font-semibold my-4">{t('payment.failure')}</p>
-
-      <div className="h-[200px]">
-
+      <div className="w-full max-w-[800px] mx-auto flex flex-col text-green-700 items-center text-center justify-center gap-y-6 my-10">
+        <DangerousIcon
+          sx={{ fontSize: "80px" }}
+          style={{
+            color: "red",
+          }}
+        />
+        <h1 className="font-bold text-[40px] ">{t('payment.failure')}</h1>
+        <div className="h-[200px]">
+        </div>
       </div>
     </>
   )

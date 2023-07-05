@@ -34,7 +34,6 @@ export const Cart = () => {
   const { control, handleSubmit, formState: { errors }, watch, setValue } = useForm({
     resolver: yupResolver(createOrder),
   });
-  console.log(errors);
 
   useEffect(() => {
     commonApi.getDistricts("48").then((data) => {

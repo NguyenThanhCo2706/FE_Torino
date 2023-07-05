@@ -53,6 +53,9 @@ const ProductDetail = () => {
   }
 
   const handleChangeQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (+e.target.value === 0) {
+      return;
+    }
     setQuantity(+e.target.value)
   }
 
@@ -76,14 +79,16 @@ const ProductDetail = () => {
                 >
                   {
                     product.pictures?.map((picture: { id: number, src: string }, index: number) => {
-                      return (
-                        <SwiperSlide key={index} className='!min-w-[100px] !mb-1'>
-                          <img src={picture.src}
-                            alt=""
-                            className="w-[100px] h-[100px] max-h-[100px] object-cover m-auto hover:cursor-pointer"
-                          />
-                        </SwiperSlide>
-                      )
+                      if (index < 5) {
+                        return (
+                          <SwiperSlide key={index} className='!min-w-[100px] !mb-1'>
+                            <img src={picture.src}
+                              alt=""
+                              className="w-[100px] h-[100px] max-h-[100px] object-cover m-auto hover:cursor-pointer"
+                            />
+                          </SwiperSlide>
+                        )
+                      }
                     })
                   }
                 </Swiper>
@@ -178,7 +183,7 @@ const ProductDetail = () => {
               <div>
                 <div className="flex items-center gap-x-8 my-5">
                   <h1 className='text-2xl'>{t("detail.quantity")}:</h1>
-                  <div className="text-black text-[40px] hover:cursor-pointer" onClick={() => setQuantity((prev) => prev === 0 ? 0 : prev - 1)}>
+                  <div className="text-black text-[40px] hover:cursor-pointer" onClick={() => setQuantity((prev) => prev === 1 ? 1 : prev - 1)}>
                     -
                   </div>
                   <input
@@ -231,13 +236,19 @@ const ProductDetail = () => {
                 </Tabs>
               </Box >
               <TabPanel value={value} index={0}>
-                Item One
               </TabPanel>
               <TabPanel value={value} index={1}>
-                Item Two
+                <ul className="list-disc mt-3 ms-5">
+                  {
+                    product.ingredients?.map((ingredient: string, index: number) => {
+                      return (
+                        <li key={index} className="">{ingredient}</li>
+                      )
+                    })
+                  }
+                </ul>
               </TabPanel>
               <TabPanel value={value} index={2}>
-                Item Three
               </TabPanel>
               <TabPanel value={value} index={3}>
                 <OrderPolicy />

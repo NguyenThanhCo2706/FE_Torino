@@ -31,6 +31,9 @@ export const orderDetailSlice = createSlice({
     },
     changeQuantityOrderDetail(state, action: PayloadAction<any>) {
       const index = state.orderDetails.findIndex((detail: any) => detail.productId === action.payload.productId);
+      if (state.orderDetails[index].quantity === 1 && action.payload.value === -1) {
+        return;
+      }
       state.orderDetails[index].quantity += action.payload.value;
       localStorage.setItem('orderDetails', JSON.stringify(state.orderDetails))
     },

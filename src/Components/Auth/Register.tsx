@@ -27,7 +27,6 @@ const Register = () => {
   const onSubmit = () => {
     const appVerifier = new RecaptchaVerifier('recaptcha-container', {
       'callback': (response: any) => {
-        console.log("sms", response);
       }
     }, authentication);
 
@@ -38,7 +37,6 @@ const Register = () => {
         appVerifier.clear()
       })
       .catch((error) => {
-        console.log("sms", error)
       })
   };
 
@@ -115,41 +113,10 @@ const Register = () => {
             />
           </Grid>
         </Grid>
-        <div className="my-[20px]">
-          <FormLabel className="underline"
-            sx={{
-              fontSize: "18px",
-              color: "black",
-            }}
-          >{t('auth.area')}</FormLabel>
-          <Controller
-            name="type"
-            control={control}
-            defaultValue="1"
-            render={({ field }) => (
-              <RadioGroup {...field}    >
-                <Grid container spacing={2}>
-                  <Grid item xs={6}>
-                    <FormControlLabel value="1" control={<Radio />} label={t('auth.inArea')} />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <FormControlLabel value="2" control={<Radio />} label={t('auth.outArea')} />
-                  </Grid>
-                </Grid>
-              </RadioGroup>
-            )}
-          />
-        </div>
+
         <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <TextFieldValidate
-              control={control}
-              errors={errors}
-              name={"username"}
-              label={t('auth.username')}
-            />
-          </Grid>
-          <Grid item xs={4}>
+
+          <Grid item xs={6}>
             <PasswordFieldValidate
               control={control}
               errors={errors}
@@ -157,7 +124,7 @@ const Register = () => {
               label={t('auth.password')}
             />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <PasswordFieldValidate
               control={control}
               errors={errors}

@@ -4,6 +4,7 @@ import { Card, Pagination, Paper } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import historyApi from "../../api/historyApi";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
+import moment from "moment";
 
 const History = () => {
   const { t } = useTranslation();
@@ -55,21 +56,21 @@ const History = () => {
           >{t("history.cancel")}</div>
           <div className="w-full border-b-2 border-[#385D36]"></div>
         </div>
-        <Card className="!px-10 !mt-5">
+        <Card className="!px-5 !mt-5">
           {
             orders.map((order: any, index: number) => {
               const totalPrice = order.orderDetails.reduce((prev: number, cur: any) => { return cur.price + prev }, 0)
               return (
-                <Paper sx={{ paddingX: 2, marginY: 2 }} elevation={4}>
-                  <div className="my-5 border-b-2" key={index}>
-                    <div className="italic text-gray-600 font-medium">
+                <Paper key={index} sx={{ paddingX: 2, marginY: 2 }} elevation={4}>
+                  <div className="my-5" >
+                    <div className="italic text-gray-600 font-medium pt-3">
                       <span>{t("history.order")}:</span>
                       <span className="text-xl font-semibold">{order.id}</span>
                     </div>
                     <div className="flex justify-between border-b">
                       <span>
                         <span className="italic">{t("history.dateOfReceive")}: </span>
-                        <span className="font-semibold text-[#385D36]">{order.dateOfReceive}</span>
+                        <span className="font-semibold text-[#385D36]">{moment(order.dateOfReceive).format("YYYY-MM-DD HH:mm:ss")}</span>
                       </span>
                       <span>
                         <span className="italic text-[1rem]">{t("history.status")}: </span>

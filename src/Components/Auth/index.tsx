@@ -33,6 +33,7 @@ export default function Auth(props: any) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                justifyContent: 'center'
               }}
             >
               <Link to="/" className="flex flex-col items-center ">

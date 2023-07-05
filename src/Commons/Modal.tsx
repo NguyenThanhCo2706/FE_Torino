@@ -35,11 +35,11 @@ export const Modal = (props: ModalProps) => {
       if (response.data.CreatedDate) {
         if (order.status) {
           const url = await commonApi.payment(response.data.id, `${window.location.origin}/payment`);
-          window.location.href = String(url);
+          return window.location.href = String(url);
         }
       }
       dispatch(orderDetailActions.setOrderDetails([]))
-      toast.success(t("message.order.successOrder"))
+      navigate(`/cart/success/${response.data.id}`)
     }).catch(() => {
       toast.error(t("message.order.failOrder"))
     })
@@ -60,9 +60,11 @@ export const Modal = (props: ModalProps) => {
                     <ErrorOutlineIcon sx={{ color: "green" }} />
                   </div>
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">{t('vnpay.title')}</h3>
+                    <h3 className="font-semibold leading-6 text-gray-900" id="modal-title">{t('vnpay.title')}</h3>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">{t('vnpay.content')}</p>
+                      <div dangerouslySetInnerHTML={{ __html: t('vnpay.content') || "" }} />
+
+                      {/* <p className="text-sm text-gray-500">{t('vnpay.content')} </p> */}
                     </div>
                   </div>
                 </div>
@@ -75,7 +77,7 @@ export const Modal = (props: ModalProps) => {
                 >{t('vnpay.confirm')}</button>
                 <button
                   type="button"
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-500 sm:mt-0 sm:w-auto"
+                  className="mt-3 inline-flex w-full justify-center rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-500 hover:ring-red-500 hover:text-white sm:mt-0 sm:w-auto"
                   onClick={() => setConfirm(false)}
                 >{t('vnpay.cancel')}</button>
               </div>

@@ -99,19 +99,24 @@
   },
   "vnpay": {
     "title": "Thông báo xác nhận!",
-    "content": "Xác nhận đặt đơn hàng này.",
+    "content": "Xác nhận đặt đơn hàng này. Trường hợp chọn hình thức nhận hàng là giao hàng thì bạn sẽ phải trả <b>30.000VNĐ - 50.000VNĐ</b> tiền vận chuyển cho người giao hàng",
     "cancel": "Hủy bỏ",
     "confirm": "Xác nhận"
   },
   "payment": {
-    "success": "Đơn hàng của bạn đã thanh toán thành công!",
-    "failure": "Thanh toán đơn hàng thất bại!",
-    "orderId": "# Mã đơn hàng: ",
-    "translationId": "# Mã giao dịch: ",
-    "amount": "# Số tiền thanh toán: ",
-    "bankName": "# Ngân hàng thanh toán: ",
-    "translationCode": "# Mã giao dịch tại VNPAY: ",
-    "datePayment": "# Ngày thanh toán: "
+    "success": "Đặt đơn thành công!",
+    "failure": "Đặt đơn thất bại!",
+    "orderId": "Mã đơn hàng",
+    "translationId": "Mã giao dịch",
+    "amount": "Số tiền thanh toán",
+    "bankName": "Ngân hàng thanh toán",
+    "translationCode": "Mã giao dịch tại VNPAY",
+    "datePayment": "Ngày thanh toán",
+    "content1": "Chúng tôi sẽ liên hệ với bạn trong 2h để xác nhận đơn hàng.",
+    "content2": "Đơn hàng sẽ được xác nhận sau khi nhân viên chúng tôi xác minh đơn hàng thành công.",
+    "content3": "Mọi thắc mắc xin vui lòng liên hệ:",
+    "home": "Trở Về Trang Chủ",
+    "continue": "Mua Thêm Sản Phẩm"
   },
   "product": {
     "home": "Trang chủ",
@@ -158,7 +163,13 @@
     "notification": "Thông báo",
     "unread": "Chưa đọc",
     "all": "Tất cả",
-    "more": "Xem thêm"
+    "more": "Xem thêm",
+    "milliseconds": "giây trước",
+    "minutes": "phút trước",
+    "hours": "giờ trước",
+    "days": "ngày trước",
+    "months": "tháng trước",
+    "years": "năm trước"
   },
   "footer": {
     "openingHour": "Thời gian mở cửa",

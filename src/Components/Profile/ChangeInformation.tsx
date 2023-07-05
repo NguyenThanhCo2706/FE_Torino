@@ -48,7 +48,6 @@ const ChangeInformation = (props: any) => {
       toast.error(t("message.profile.failSave"));
     });
   }
-  console.log(user);
 
   useEffect(() => {
     if (user) {
