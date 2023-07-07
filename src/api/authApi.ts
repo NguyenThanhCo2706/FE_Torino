@@ -5,7 +5,7 @@ const alias = "auth";
 
 const authApi = {
   async login(username: string, password: string) {
-    const url = `/${alias}/login/customer`;
+    const url = `/${alias}/login`;
     const data = JSON.stringify({
       "username": username,
       "password": password
