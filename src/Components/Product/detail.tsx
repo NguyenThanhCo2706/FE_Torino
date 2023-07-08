@@ -236,6 +236,11 @@ const ProductDetail = () => {
                 </Tabs>
               </Box >
               <TabPanel value={value} index={0}>
+                  <div className="space-y-3 my-3">
+                    <p>
+                      {product.description}
+                    </p>
+                  </div>
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <ul className="list-disc mt-3 ms-5">
@@ -249,6 +254,11 @@ const ProductDetail = () => {
                 </ul>
               </TabPanel>
               <TabPanel value={value} index={2}>
+                <div className="space-y-3 my-3">
+                    <p>
+                      {product.sizeDescription}
+                    </p>
+                </div>
               </TabPanel>
               <TabPanel value={value} index={3}>
                 <OrderPolicy />
