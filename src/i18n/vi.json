@@ -149,8 +149,10 @@
     "order": "Đơn hàng",
     "dateOfReceive": "Ngày nhận hàng",
     "status": "Tình trạng",
-    "deliveryType": "Hình thức giao hàng",
-    "totalPrice": "Thành tiền"
+    "deliveryType": "Hình thức nhận hàng",
+    "totalPrice": "Thành tiền",
+    "shop": "Tại quầy",
+    "cancelOrder": "Hủy đơn hàng"
   },
   "productCart": {
     "from": "Giá",

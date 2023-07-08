@@ -11,6 +11,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { useTranslation } from 'react-i18next';
 import { caculateTime } from '../utils';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useNavigate } from 'react-router-dom';
+
 
 const ITEM_HEIGHT = 48;
 const Notification = () => {
@@ -18,13 +21,18 @@ const Notification = () => {
   const [count, setCount] = useState(0);
   const [totalRecord, setTotalRecord] = useState(0);
   const [pageIndex, setPageIndex] = useState(1);
-
   const [options, setOptions] = useState<any>([]);
   const [notificationType, setNotificationType] = useState("");
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
   const handleClick = async (event: React.MouseEvent<HTMLElement>) => {
+    notificationApi.getMany(notificationType).then((data: any) => {
+      setOptions(data.list)
+      setTotalRecord(data.paging.totalRecord);
+      setPageIndex(1);
+    });
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -166,15 +174,21 @@ const Notification = () => {
               <MenuItem
                 key={index}
                 selected={option === 'Pyxis'}
-                onClick={() => readNotification(option.id)}
+                onClick={() => {
+                  option.status === 40 && readNotification(option.id);
+                  navigate("/history");
+                  return;
+                }}
                 sx={{
                   marginBottom: '5px',
                 }}
               >
                 <div className="flex items-center border-b-2">
-                  <img
-                    className='w-[50px] h-[50px] object-cover rounded-full'
-                    src="https://torinobucket.s3-ap-southeast-1.amazonaws.com/Products/17c2136c-0cf1-4d3a-9987-20562d796706.JPG" alt="" />
+                  <ShoppingCartIcon
+                    sx={{ fontSize: "40px" }}
+                    style={{
+                      color: "green",
+                    }} />
                   <div className='mx-3'>
                     <p className='font-semibold max-w-[400px] truncate'>{option.title}</p>
                     <p className='italic max-w-[360px] truncate'>{option.content}</p>

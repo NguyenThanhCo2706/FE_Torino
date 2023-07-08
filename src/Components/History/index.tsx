@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import { thousandSeparator } from "../../utils";
-import { Card, Pagination, Paper } from "@mui/material";
+import { Button, Card, Pagination, Paper } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import historyApi from "../../api/historyApi";
 import { CircularProgressCustom } from "../../Commons/CircularProgressCustom";
 import moment from "moment";
+import orderApi from "../../api/orderApi";
+import { toast } from "react-toastify";
+
+enum StatusOrder {
+  pending = 1,
+  confirm,
+  complete,
+  cancel,
+}
 
 const History = () => {
   const { t } = useTranslation();
@@ -25,6 +34,21 @@ const History = () => {
 
   const handleChangePage = (event: any, value: number) => {
     setCurrentPage(+value);
+  }
+
+  const cancelOrder = async (id: number) => {
+    const result: any = await orderApi.cancelOrder(id);
+    if (result.code !== 200) {
+      toast.error(t("message.order.failOrder"))
+      return;
+    }
+    await historyApi.getMany(status, currentPage, 3).then((data: any) => {
+      setOrders(data.list);
+      setTotalPage(data.paging.totalPages);
+      setLoading(false);
+    })
+    return toast.success('success')
+
   }
 
   return (
@@ -62,10 +86,11 @@ const History = () => {
               const totalPrice = order.orderDetails.reduce((prev: number, cur: any) => { return cur.price + prev }, 0)
               return (
                 <Paper key={index} sx={{ paddingX: 2, marginY: 2 }} elevation={4}>
-                  <div className="my-5" >
+                  <div className="">
                     <div className="italic text-gray-600 font-medium pt-3">
                       <span>{t("history.order")}:</span>
                       <span className="text-xl font-semibold">{order.id}</span>
+                      {order.isPaid && <span> - Đã Thanh toán</span>}
                     </div>
                     <div className="flex justify-between border-b">
                       <span>
@@ -74,7 +99,7 @@ const History = () => {
                       </span>
                       <span>
                         <span className="italic text-[1rem]">{t("history.status")}: </span>
-                        <span className="text-xl font-semibold text-[#385D36]">Hoàn thành</span>
+                        <span className="text-xl font-semibold text-[#385D36]">{t(`history.${StatusOrder[order.status]}`)}</span>
                       </span>
                     </div>
                     <div>
@@ -100,10 +125,30 @@ const History = () => {
                       }
                     </div>
                     <div className="flex justify-between py-2">
-                      <span className="italic">{t("history.deliveryType")}: <span className="font-semibold text-[#385D36]">Giao hàng</span></span>
+                      <span className="italic">{t("history.deliveryType")}: <span className="font-semibold text-[#385D36]">
+                        {
+                          order.address ? `${order.address.detailAddress}, ${order.address.communeName}, ${order.address.districtName}, ${order.address.provinceName}` : t("history.shop")
+                        }
+                      </span></span>
                       <span>{t("history.totalPrice")}: <span className="text-xl font-semibold text-[#385D36]">{thousandSeparator(totalPrice)} VNĐ</span></span>
                     </div>
+                    {
+                      order.status === StatusOrder.pending &&
+                      <div className="text-right">
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                          style={{
+                            backgroundColor: "red",
+                          }}
+                          onClick={() => cancelOrder(order.id)}
+                        >{t('history.cancelOrder')}
+                        </Button>
+                      </div>
+                    }
                   </div>
+
                 </Paper>
               )
             })

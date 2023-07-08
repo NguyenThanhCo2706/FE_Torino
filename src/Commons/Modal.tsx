@@ -22,7 +22,10 @@ export const Modal = (props: ModalProps) => {
   const dispatch = useDispatch();
 
   const handleOrder = async () => {
-    order.dateOfReceive = new Date(order.dateOfReceive + " " + order.timeOfReceive + ":00")
+    order.dateOfReceive = order.dateOfReceive + "T" + order.timeOfReceive;
+    // console.log(order.dateOfReceive);
+    // return;
+
     delete order.timeOfReceive;
     if (!user) {
       return navigate("/login");
@@ -35,6 +38,7 @@ export const Modal = (props: ModalProps) => {
       if (response.data.CreatedDate) {
         if (order.status) {
           const url = await commonApi.payment(response.data.id, `${window.location.origin}/payment`);
+          dispatch(orderDetailActions.setOrderDetails([]))
           return window.location.href = String(url);
         }
       }

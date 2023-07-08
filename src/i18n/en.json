@@ -156,7 +156,9 @@
     "dateOfReceive": "Date Of Receive",
     "status": "Status",
     "deliveryType": "Payment Delivery",
-    "totalPrice": "Total Price"
+    "totalPrice": "Total Price",
+    "shop": "Store",
+    "cancelOrder": "Cancel Order"
   },
   "productCart": {
     "from": "From",
