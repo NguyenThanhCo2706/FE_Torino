@@ -43,6 +43,10 @@
     "cart": {
       "successAdd": "Thêm vào giỏ hàng thành công!",
       "emptyCart": "Giỏ hàng rỗng!"
+    },
+    "history": {
+      "cancelSuccess": "Hủy đơn hàng thành công!",
+      "cancelFailure": "Hủy đơn hàng thất bại!"
     }
   },
   "cart": {
@@ -152,7 +156,8 @@
     "deliveryType": "Hình thức nhận hàng",
     "totalPrice": "Thành tiền",
     "shop": "Tại quầy",
-    "cancelOrder": "Hủy đơn hàng"
+    "cancelOrder": "Hủy đơn hàng",
+    "confirmCancel": "Xác nhận hủy đơn hàng"
   },
   "productCart": {
     "from": "Giá",
@@ -166,7 +171,7 @@
     "unread": "Chưa đọc",
     "all": "Tất cả",
     "more": "Xem thêm",
-    "milliseconds": "giây trước",
+    "seconds": "giây trước",
     "minutes": "phút trước",
     "hours": "giờ trước",
     "days": "ngày trước",

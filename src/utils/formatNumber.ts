@@ -6,11 +6,11 @@ export const thousandSeparator = (x: any) => {
 
 export const caculateTime = (beforeTime: Date) => {
   const now = moment();
-  let diff = now.diff(beforeTime, 'millisecond');
+  let diff = now.diff(beforeTime, 'seconds');
   if (diff < 60) {
     return {
       count: diff,
-      type: "milliseconds"
+      type: "seconds"
     };
   }
   diff = now.diff(beforeTime, 'minutes');

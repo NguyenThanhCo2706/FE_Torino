@@ -104,6 +104,7 @@ const Notification = () => {
       if (option.id === id) option.status = 50;
       return option;
     });
+    setCount((prev: number) => prev - 1);
     setOptions(newList)
   }
 

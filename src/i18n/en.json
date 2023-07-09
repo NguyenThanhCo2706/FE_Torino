@@ -43,6 +43,10 @@
     "cart": {
       "successAdd": "Add to cart success!",
       "emptyCart": "Cart is empty!"
+    },
+    "history": {
+      "cancelSuccess": "Cancel Order Successfully!",
+      "cancelFailure": "Cancel Order Failure!"
     }
   },
   "cart": {
@@ -158,7 +162,8 @@
     "deliveryType": "Payment Delivery",
     "totalPrice": "Total Price",
     "shop": "Store",
-    "cancelOrder": "Cancel Order"
+    "cancelOrder": "Cancel Order",
+    "confirmCancel": "Order cancellation confirmation"
   },
   "productCart": {
     "from": "From",
@@ -172,7 +177,12 @@
     "all": "All",
     "unread": "Unread",
     "more": "See more",
-    "beforeHour": "before hour"
+    "seconds": "before seconds",
+    "minutes": "before minutes",
+    "hours": "before hours",
+    "days": "before days",
+    "months": "before months",
+    "years": "before years"
   },
   "footer": {
     "openingHour": "Opening Hour",
